@@ -1,0 +1,402 @@
+{
+    "slug": "programming-skills",
+    "name": "Programming Skills",
+    "problems": [
+        {
+            "name": "Basic Implementation",
+            "size": 11,
+            "problems": [
+                {
+                    "slug": "merge-strings-alternately",
+                    "name": "Merge Strings Alternately",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/merge-strings-alternately",
+                    "tags": [
+                        "Two Pointers",
+                        "String"
+                    ]
+                },
+                {
+                    "slug": "find-the-difference",
+                    "name": "Find the Difference",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/find-the-difference",
+                    "tags": [
+                        "Hash Table",
+                        "String",
+                        "Bit Manipulation",
+                        "Sorting"
+                    ]
+                },
+                {
+                    "slug": "find-the-index-of-the-first-occurrence-in-a-string",
+                    "name": "Find the Index of the First Occurrence in a String",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string",
+                    "tags": [
+                        "Two Pointers",
+                        "String",
+                        "String Matching"
+                    ]
+                },
+                {
+                    "slug": "valid-anagram",
+                    "name": "Valid Anagram",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/valid-anagram",
+                    "tags": [
+                        "Hash Table",
+                        "String",
+                        "Sorting"
+                    ]
+                },
+                {
+                    "slug": "repeated-substring-pattern",
+                    "name": "Repeated Substring Pattern",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/repeated-substring-pattern",
+                    "tags": [
+                        "String",
+                        "String Matching"
+                    ]
+                },
+                {
+                    "slug": "move-zeroes",
+                    "name": "Move Zeroes",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/move-zeroes",
+                    "tags": [
+                        "Array",
+                        "Two Pointers"
+                    ]
+                },
+                {
+                    "slug": "plus-one",
+                    "name": "Plus One",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/plus-one",
+                    "tags": [
+                        "Array",
+                        "Math"
+                    ]
+                },
+                {
+                    "slug": "sign-of-the-product-of-an-array",
+                    "name": "Sign of the Product of an Array",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/sign-of-the-product-of-an-array",
+                    "tags": [
+                        "Array",
+                        "Math"
+                    ]
+                },
+                {
+                    "slug": "can-make-arithmetic-progression-from-sequence",
+                    "name": "Can Make Arithmetic Progression From Sequence",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/can-make-arithmetic-progression-from-sequence",
+                    "tags": [
+                        "Array",
+                        "Sorting"
+                    ]
+                },
+                {
+                    "slug": "monotonic-array",
+                    "name": "Monotonic Array",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/monotonic-array",
+                    "tags": [
+                        "Array"
+                    ]
+                },
+                {
+                    "slug": "roman-to-integer",
+                    "name": "Roman to Integer",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/roman-to-integer",
+                    "tags": [
+                        "Hash Table",
+                        "Math",
+                        "String"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Built-In Functions",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "length-of-last-word",
+                    "name": "Length of Last Word",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/length-of-last-word",
+                    "tags": [
+                        "String"
+                    ]
+                },
+                {
+                    "slug": "to-lower-case",
+                    "name": "To Lower Case",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/to-lower-case",
+                    "tags": [
+                        "String"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Simulation",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "baseball-game",
+                    "name": "Baseball Game",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/baseball-game",
+                    "tags": [
+                        "Array",
+                        "Stack",
+                        "Simulation"
+                    ]
+                },
+                {
+                    "slug": "robot-return-to-origin",
+                    "name": "Robot Return to Origin",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/robot-return-to-origin",
+                    "tags": [
+                        "String",
+                        "Simulation"
+                    ]
+                },
+                {
+                    "slug": "find-winner-on-a-tic-tac-toe-game",
+                    "name": "Find Winner on a Tic Tac Toe Game",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "Matrix",
+                        "Simulation"
+                    ]
+                },
+                {
+                    "slug": "robot-bounded-in-circle",
+                    "name": "Robot Bounded In Circle",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/robot-bounded-in-circle",
+                    "tags": [
+                        "Math",
+                        "String",
+                        "Simulation"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Matrix",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "richest-customer-wealth",
+                    "name": "Richest Customer Wealth",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/richest-customer-wealth",
+                    "tags": [
+                        "Array",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "matrix-diagonal-sum",
+                    "name": "Matrix Diagonal Sum",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/matrix-diagonal-sum",
+                    "tags": [
+                        "Array",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "spiral-matrix",
+                    "name": "Spiral Matrix",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/spiral-matrix",
+                    "tags": [
+                        "Array",
+                        "Matrix",
+                        "Simulation"
+                    ]
+                },
+                {
+                    "slug": "set-matrix-zeroes",
+                    "name": "Set Matrix Zeroes",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/set-matrix-zeroes",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "Matrix"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Math",
+            "size": 8,
+            "problems": [
+                {
+                    "slug": "count-odd-numbers-in-an-interval-range",
+                    "name": "Count Odd Numbers in an Interval Range",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/count-odd-numbers-in-an-interval-range",
+                    "tags": [
+                        "Math"
+                    ]
+                },
+                {
+                    "slug": "average-salary-excluding-the-minimum-and-maximum-salary",
+                    "name": "Average Salary Excluding the Minimum and Maximum Salary",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/average-salary-excluding-the-minimum-and-maximum-salary",
+                    "tags": [
+                        "Array",
+                        "Sorting"
+                    ]
+                },
+                {
+                    "slug": "lemonade-change",
+                    "name": "Lemonade Change",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/lemonade-change",
+                    "tags": [
+                        "Array",
+                        "Greedy"
+                    ]
+                },
+                {
+                    "slug": "largest-perimeter-triangle",
+                    "name": "Largest Perimeter Triangle",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/largest-perimeter-triangle",
+                    "tags": [
+                        "Array",
+                        "Math",
+                        "Greedy",
+                        "Sorting"
+                    ]
+                },
+                {
+                    "slug": "check-if-it-is-a-straight-line",
+                    "name": "Check If It Is a Straight Line",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/check-if-it-is-a-straight-line",
+                    "tags": [
+                        "Array",
+                        "Math",
+                        "Geometry"
+                    ]
+                },
+                {
+                    "slug": "add-binary",
+                    "name": "Add Binary",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/add-binary",
+                    "tags": [
+                        "Math",
+                        "String",
+                        "Bit Manipulation",
+                        "Simulation"
+                    ]
+                },
+                {
+                    "slug": "multiply-strings",
+                    "name": "Multiply Strings",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/multiply-strings",
+                    "tags": [
+                        "Math",
+                        "String",
+                        "Simulation"
+                    ]
+                },
+                {
+                    "slug": "powx-n",
+                    "name": "Pow(x, n)",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/powx-n",
+                    "tags": [
+                        "Math",
+                        "Recursion"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Linked List",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "merge-two-sorted-lists",
+                    "name": "Merge Two Sorted Lists",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/merge-two-sorted-lists",
+                    "tags": [
+                        "Linked List",
+                        "Recursion"
+                    ]
+                },
+                {
+                    "slug": "reverse-linked-list",
+                    "name": "Reverse Linked List",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/reverse-linked-list",
+                    "tags": [
+                        "Linked List",
+                        "Recursion"
+                    ]
+                },
+                {
+                    "slug": "add-two-numbers",
+                    "name": "Add Two Numbers",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/add-two-numbers",
+                    "tags": [
+                        "Linked List",
+                        "Math",
+                        "Recursion"
+                    ]
+                },
+                {
+                    "slug": "add-two-numbers-ii",
+                    "name": "Add Two Numbers II",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/add-two-numbers-ii",
+                    "tags": [
+                        "Linked List",
+                        "Math",
+                        "Stack"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Binary Tree",
+            "size": 4,
+            "problems": []
+        },
+        {
+            "name": "Design",
+            "size": 6,
+            "problems": []
+        },
+        {
+            "name": "Tricky Implementation",
+            "size": 6,
+            "problems": []
+        }
+    ]
+}

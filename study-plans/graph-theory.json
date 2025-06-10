@@ -1,0 +1,478 @@
+{
+    "slug": "graph-theory",
+    "name": "Graph Theory",
+    "problems": [
+        {
+            "name": "Standard Traversal",
+            "size": 8,
+            "problems": [
+                {
+                    "slug": "number-of-provinces",
+                    "name": "Number of Provinces",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/number-of-provinces",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "find-eventual-safe-states",
+                    "name": "Find Eventual Safe States",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/find-eventual-safe-states",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Graph",
+                        "Topological Sort"
+                    ]
+                },
+                {
+                    "slug": "keys-and-rooms",
+                    "name": "Keys and Rooms",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/keys-and-rooms",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "shortest-path-with-alternating-colors",
+                    "name": "Shortest Path with Alternating Colors",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/shortest-path-with-alternating-colors",
+                    "tags": [
+                        "Breadth-First Search",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "time-needed-to-inform-all-employees",
+                    "name": "Time Needed to Inform All Employees",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/time-needed-to-inform-all-employees",
+                    "tags": [
+                        "Tree",
+                        "Depth-First Search",
+                        "Breadth-First Search"
+                    ]
+                },
+                {
+                    "slug": "reorder-routes-to-make-all-paths-lead-to-the-city-zero",
+                    "name": "Reorder Routes to Make All Paths Lead to the City Zero",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "all-paths-from-source-to-target",
+                    "name": "All Paths From Source to Target",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/all-paths-from-source-to-target",
+                    "tags": [
+                        "Backtracking",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "critical-connections-in-a-network",
+                    "name": "Critical Connections in a Network",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/critical-connections-in-a-network",
+                    "tags": [
+                        "Depth-First Search",
+                        "Graph",
+                        "Biconnected Component"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "BFS",
+            "size": 9,
+            "problems": [
+                {
+                    "slug": "nearest-exit-from-entrance-in-maze",
+                    "name": "Nearest Exit from Entrance in Maze",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/nearest-exit-from-entrance-in-maze",
+                    "tags": [
+                        "Array",
+                        "Breadth-First Search",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "shortest-bridge",
+                    "name": "Shortest Bridge",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/shortest-bridge",
+                    "tags": [
+                        "Array",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "minimum-genetic-mutation",
+                    "name": "Minimum Genetic Mutation",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/minimum-genetic-mutation",
+                    "tags": [
+                        "Hash Table",
+                        "String",
+                        "Breadth-First Search"
+                    ]
+                },
+                {
+                    "slug": "word-ladder",
+                    "name": "Word Ladder",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/word-ladder",
+                    "tags": [
+                        "Hash Table",
+                        "String",
+                        "Breadth-First Search"
+                    ]
+                },
+                {
+                    "slug": "jump-game-iii",
+                    "name": "Jump Game III",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/jump-game-iii",
+                    "tags": [
+                        "Array",
+                        "Depth-First Search",
+                        "Breadth-First Search"
+                    ]
+                },
+                {
+                    "slug": "01-matrix",
+                    "name": "01 Matrix",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/01-matrix",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Breadth-First Search",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "shortest-path-in-binary-matrix",
+                    "name": "Shortest Path in Binary Matrix",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/shortest-path-in-binary-matrix",
+                    "tags": [
+                        "Array",
+                        "Breadth-First Search",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "all-nodes-distance-k-in-binary-tree",
+                    "name": "All Nodes Distance K in Binary Tree",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree",
+                    "tags": [
+                        "Hash Table",
+                        "Tree",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "shortest-path-to-get-all-keys",
+                    "name": "Shortest Path to Get All Keys",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/shortest-path-to-get-all-keys",
+                    "tags": [
+                        "Array",
+                        "Bit Manipulation",
+                        "Breadth-First Search",
+                        "Matrix"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Matrix Graphs",
+            "size": 5,
+            "problems": [
+                {
+                    "slug": "number-of-islands",
+                    "name": "Number of Islands",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/number-of-islands",
+                    "tags": [
+                        "Array",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "number-of-enclaves",
+                    "name": "Number of Enclaves",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/number-of-enclaves",
+                    "tags": [
+                        "Array",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "number-of-closed-islands",
+                    "name": "Number of Closed Islands",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/number-of-closed-islands",
+                    "tags": [
+                        "Array",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "max-area-of-island",
+                    "name": "Max Area of Island",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/max-area-of-island",
+                    "tags": [
+                        "Array",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "pacific-atlantic-water-flow",
+                    "name": "Pacific Atlantic Water Flow",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/pacific-atlantic-water-flow",
+                    "tags": [
+                        "Array",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Matrix"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Graph Theory",
+            "size": 5,
+            "problems": [
+                {
+                    "slug": "find-the-town-judge",
+                    "name": "Find the Town Judge",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/find-the-town-judge",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "minimum-number-of-vertices-to-reach-all-nodes",
+                    "name": "Minimum Number of Vertices to Reach All Nodes",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes",
+                    "tags": [
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "maximal-network-rank",
+                    "name": "Maximal Network Rank",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/maximal-network-rank",
+                    "tags": [
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "is-graph-bipartite",
+                    "name": "Is Graph Bipartite?",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/is-graph-bipartite",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "graph-valid-tree",
+                    "name": "Graph Valid Tree",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/graph-valid-tree",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find",
+                        "Graph"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Union Find / DSU",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "accounts-merge",
+                    "name": "Accounts Merge",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/accounts-merge",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "String",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find",
+                        "Sorting"
+                    ]
+                },
+                {
+                    "slug": "satisfiability-of-equality-equations",
+                    "name": "Satisfiability of Equality Equations",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/satisfiability-of-equality-equations",
+                    "tags": [
+                        "Array",
+                        "String",
+                        "Union Find",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "lexicographically-smallest-equivalent-string",
+                    "name": "Lexicographically Smallest Equivalent String",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/lexicographically-smallest-equivalent-string",
+                    "tags": [
+                        "String",
+                        "Union Find"
+                    ]
+                },
+                {
+                    "slug": "similar-string-groups",
+                    "name": "Similar String Groups",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/similar-string-groups",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "String",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Topological Sort",
+            "size": 5,
+            "problems": [
+                {
+                    "slug": "course-schedule",
+                    "name": "Course Schedule",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/course-schedule",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Graph",
+                        "Topological Sort"
+                    ]
+                },
+                {
+                    "slug": "course-schedule-ii",
+                    "name": "Course Schedule II",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/course-schedule-ii",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Graph",
+                        "Topological Sort"
+                    ]
+                },
+                {
+                    "slug": "alien-dictionary",
+                    "name": "Alien Dictionary",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/alien-dictionary",
+                    "tags": [
+                        "Array",
+                        "String",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Graph",
+                        "Topological Sort"
+                    ]
+                },
+                {
+                    "slug": "sort-items-by-groups-respecting-dependencies",
+                    "name": "Sort Items by Groups Respecting Dependencies",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Graph",
+                        "Topological Sort"
+                    ]
+                },
+                {
+                    "slug": "largest-color-value-in-a-directed-graph",
+                    "name": "Largest Color Value in a Directed Graph",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/largest-color-value-in-a-directed-graph",
+                    "tags": [
+                        "Hash Table",
+                        "Dynamic Programming",
+                        "Graph",
+                        "Topological Sort",
+                        "Memoization",
+                        "Counting"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Dijkstra's",
+            "size": 4,
+            "problems": []
+        },
+        {
+            "name": "Minimum Spanning Tree",
+            "size": 4,
+            "problems": []
+        }
+    ]
+}

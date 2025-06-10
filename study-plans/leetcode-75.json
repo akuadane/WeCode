@@ -1,0 +1,954 @@
+{
+    "slug": "leetcode-75",
+    "name": "LeetCode 75",
+    "problems": [
+        {
+            "name": "Array / String",
+            "size": 9,
+            "problems": [
+                {
+                    "slug": "merge-strings-alternately",
+                    "name": "Merge Strings Alternately",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/merge-strings-alternately",
+                    "tags": [
+                        "Two Pointers",
+                        "String"
+                    ]
+                },
+                {
+                    "slug": "greatest-common-divisor-of-strings",
+                    "name": "Greatest Common Divisor of Strings",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/greatest-common-divisor-of-strings",
+                    "tags": [
+                        "Math",
+                        "String"
+                    ]
+                },
+                {
+                    "slug": "kids-with-the-greatest-number-of-candies",
+                    "name": "Kids With the Greatest Number of Candies",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/kids-with-the-greatest-number-of-candies",
+                    "tags": [
+                        "Array"
+                    ]
+                },
+                {
+                    "slug": "can-place-flowers",
+                    "name": "Can Place Flowers",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/can-place-flowers",
+                    "tags": [
+                        "Array",
+                        "Greedy"
+                    ]
+                },
+                {
+                    "slug": "reverse-vowels-of-a-string",
+                    "name": "Reverse Vowels of a String",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/reverse-vowels-of-a-string",
+                    "tags": [
+                        "Two Pointers",
+                        "String"
+                    ]
+                },
+                {
+                    "slug": "reverse-words-in-a-string",
+                    "name": "Reverse Words in a String",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/reverse-words-in-a-string",
+                    "tags": [
+                        "Two Pointers",
+                        "String"
+                    ]
+                },
+                {
+                    "slug": "product-of-array-except-self",
+                    "name": "Product of Array Except Self",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/product-of-array-except-self",
+                    "tags": [
+                        "Array",
+                        "Prefix Sum"
+                    ]
+                },
+                {
+                    "slug": "increasing-triplet-subsequence",
+                    "name": "Increasing Triplet Subsequence",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/increasing-triplet-subsequence",
+                    "tags": [
+                        "Array",
+                        "Greedy"
+                    ]
+                },
+                {
+                    "slug": "string-compression",
+                    "name": "String Compression",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/string-compression",
+                    "tags": [
+                        "Two Pointers",
+                        "String"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Two Pointers",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "move-zeroes",
+                    "name": "Move Zeroes",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/move-zeroes",
+                    "tags": [
+                        "Array",
+                        "Two Pointers"
+                    ]
+                },
+                {
+                    "slug": "is-subsequence",
+                    "name": "Is Subsequence",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/is-subsequence",
+                    "tags": [
+                        "Two Pointers",
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "container-with-most-water",
+                    "name": "Container With Most Water",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/container-with-most-water",
+                    "tags": [
+                        "Array",
+                        "Two Pointers",
+                        "Greedy"
+                    ]
+                },
+                {
+                    "slug": "max-number-of-k-sum-pairs",
+                    "name": "Max Number of K-Sum Pairs",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/max-number-of-k-sum-pairs",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "Two Pointers",
+                        "Sorting"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Sliding Window",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "maximum-average-subarray-i",
+                    "name": "Maximum Average Subarray I",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/maximum-average-subarray-i",
+                    "tags": [
+                        "Array",
+                        "Sliding Window"
+                    ]
+                },
+                {
+                    "slug": "maximum-number-of-vowels-in-a-substring-of-given-length",
+                    "name": "Maximum Number of Vowels in a Substring of Given Length",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length",
+                    "tags": [
+                        "String",
+                        "Sliding Window"
+                    ]
+                },
+                {
+                    "slug": "max-consecutive-ones-iii",
+                    "name": "Max Consecutive Ones III",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/max-consecutive-ones-iii",
+                    "tags": [
+                        "Array",
+                        "Binary Search",
+                        "Sliding Window",
+                        "Prefix Sum"
+                    ]
+                },
+                {
+                    "slug": "longest-subarray-of-1s-after-deleting-one-element",
+                    "name": "Longest Subarray of 1's After Deleting One Element",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Sliding Window"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Prefix Sum",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "find-the-highest-altitude",
+                    "name": "Find the Highest Altitude",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/find-the-highest-altitude",
+                    "tags": [
+                        "Array",
+                        "Prefix Sum"
+                    ]
+                },
+                {
+                    "slug": "find-pivot-index",
+                    "name": "Find Pivot Index",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/find-pivot-index",
+                    "tags": [
+                        "Array",
+                        "Prefix Sum"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Hash Map / Set",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "find-the-difference-of-two-arrays",
+                    "name": "Find the Difference of Two Arrays",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/find-the-difference-of-two-arrays",
+                    "tags": [
+                        "Array",
+                        "Hash Table"
+                    ]
+                },
+                {
+                    "slug": "unique-number-of-occurrences",
+                    "name": "Unique Number of Occurrences",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/unique-number-of-occurrences",
+                    "tags": [
+                        "Array",
+                        "Hash Table"
+                    ]
+                },
+                {
+                    "slug": "determine-if-two-strings-are-close",
+                    "name": "Determine if Two Strings Are Close",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/determine-if-two-strings-are-close",
+                    "tags": [
+                        "Hash Table",
+                        "String",
+                        "Sorting",
+                        "Counting"
+                    ]
+                },
+                {
+                    "slug": "equal-row-and-column-pairs",
+                    "name": "Equal Row and Column Pairs",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/equal-row-and-column-pairs",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "Matrix",
+                        "Simulation"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Stack",
+            "size": 3,
+            "problems": [
+                {
+                    "slug": "removing-stars-from-a-string",
+                    "name": "Removing Stars From a String",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/removing-stars-from-a-string",
+                    "tags": [
+                        "String",
+                        "Stack",
+                        "Simulation"
+                    ]
+                },
+                {
+                    "slug": "asteroid-collision",
+                    "name": "Asteroid Collision",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/asteroid-collision",
+                    "tags": [
+                        "Array",
+                        "Stack",
+                        "Simulation"
+                    ]
+                },
+                {
+                    "slug": "decode-string",
+                    "name": "Decode String",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/decode-string",
+                    "tags": [
+                        "String",
+                        "Stack",
+                        "Recursion"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Queue",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "number-of-recent-calls",
+                    "name": "Number of Recent Calls",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/number-of-recent-calls",
+                    "tags": [
+                        "Design",
+                        "Queue",
+                        "Data Stream"
+                    ]
+                },
+                {
+                    "slug": "dota2-senate",
+                    "name": "Dota2 Senate",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/dota2-senate",
+                    "tags": [
+                        "String",
+                        "Greedy",
+                        "Queue"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Linked List",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "delete-the-middle-node-of-a-linked-list",
+                    "name": "Delete the Middle Node of a Linked List",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list",
+                    "tags": [
+                        "Linked List",
+                        "Two Pointers"
+                    ]
+                },
+                {
+                    "slug": "odd-even-linked-list",
+                    "name": "Odd Even Linked List",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/odd-even-linked-list",
+                    "tags": [
+                        "Linked List"
+                    ]
+                },
+                {
+                    "slug": "reverse-linked-list",
+                    "name": "Reverse Linked List",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/reverse-linked-list",
+                    "tags": [
+                        "Linked List",
+                        "Recursion"
+                    ]
+                },
+                {
+                    "slug": "maximum-twin-sum-of-a-linked-list",
+                    "name": "Maximum Twin Sum of a Linked List",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list",
+                    "tags": [
+                        "Linked List",
+                        "Two Pointers",
+                        "Stack"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Binary Tree - DFS",
+            "size": 6,
+            "problems": [
+                {
+                    "slug": "maximum-depth-of-binary-tree",
+                    "name": "Maximum Depth of Binary Tree",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/maximum-depth-of-binary-tree",
+                    "tags": [
+                        "Tree",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "leaf-similar-trees",
+                    "name": "Leaf-Similar Trees",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/leaf-similar-trees",
+                    "tags": [
+                        "Tree",
+                        "Depth-First Search",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "count-good-nodes-in-binary-tree",
+                    "name": "Count Good Nodes in Binary Tree",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/count-good-nodes-in-binary-tree",
+                    "tags": [
+                        "Tree",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "path-sum-iii",
+                    "name": "Path Sum III",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/path-sum-iii",
+                    "tags": [
+                        "Tree",
+                        "Depth-First Search",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "longest-zigzag-path-in-a-binary-tree",
+                    "name": "Longest ZigZag Path in a Binary Tree",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree",
+                    "tags": [
+                        "Dynamic Programming",
+                        "Tree",
+                        "Depth-First Search",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "lowest-common-ancestor-of-a-binary-tree",
+                    "name": "Lowest Common Ancestor of a Binary Tree",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree",
+                    "tags": [
+                        "Tree",
+                        "Depth-First Search",
+                        "Binary Tree"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Binary Tree - BFS",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "binary-tree-right-side-view",
+                    "name": "Binary Tree Right Side View",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/binary-tree-right-side-view",
+                    "tags": [
+                        "Tree",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "maximum-level-sum-of-a-binary-tree",
+                    "name": "Maximum Level Sum of a Binary Tree",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree",
+                    "tags": [
+                        "Tree",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Binary Tree"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Binary Search Tree",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "search-in-a-binary-search-tree",
+                    "name": "Search in a Binary Search Tree",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/search-in-a-binary-search-tree",
+                    "tags": [
+                        "Tree",
+                        "Binary Search Tree",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "delete-node-in-a-bst",
+                    "name": "Delete Node in a BST",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/delete-node-in-a-bst",
+                    "tags": [
+                        "Tree",
+                        "Binary Search Tree",
+                        "Binary Tree"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Graphs - DFS",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "keys-and-rooms",
+                    "name": "Keys and Rooms",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/keys-and-rooms",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "number-of-provinces",
+                    "name": "Number of Provinces",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/number-of-provinces",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "reorder-routes-to-make-all-paths-lead-to-the-city-zero",
+                    "name": "Reorder Routes to Make All Paths Lead to the City Zero",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero",
+                    "tags": [
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Graph"
+                    ]
+                },
+                {
+                    "slug": "evaluate-division",
+                    "name": "Evaluate Division",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/evaluate-division",
+                    "tags": [
+                        "Array",
+                        "String",
+                        "Depth-First Search",
+                        "Breadth-First Search",
+                        "Union Find",
+                        "Graph",
+                        "Shortest Path"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Graphs - BFS",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "nearest-exit-from-entrance-in-maze",
+                    "name": "Nearest Exit from Entrance in Maze",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/nearest-exit-from-entrance-in-maze",
+                    "tags": [
+                        "Array",
+                        "Breadth-First Search",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "rotting-oranges",
+                    "name": "Rotting Oranges",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/rotting-oranges",
+                    "tags": [
+                        "Array",
+                        "Breadth-First Search",
+                        "Matrix"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Heap / Priority Queue",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "kth-largest-element-in-an-array",
+                    "name": "Kth Largest Element in an Array",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/kth-largest-element-in-an-array",
+                    "tags": [
+                        "Array",
+                        "Divide and Conquer",
+                        "Sorting",
+                        "Heap (Priority Queue)",
+                        "Quickselect"
+                    ]
+                },
+                {
+                    "slug": "smallest-number-in-infinite-set",
+                    "name": "Smallest Number in Infinite Set",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/smallest-number-in-infinite-set",
+                    "tags": [
+                        "Hash Table",
+                        "Design",
+                        "Heap (Priority Queue)",
+                        "Ordered Set"
+                    ]
+                },
+                {
+                    "slug": "maximum-subsequence-score",
+                    "name": "Maximum Subsequence Score",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/maximum-subsequence-score",
+                    "tags": [
+                        "Array",
+                        "Greedy",
+                        "Sorting",
+                        "Heap (Priority Queue)"
+                    ]
+                },
+                {
+                    "slug": "total-cost-to-hire-k-workers",
+                    "name": "Total Cost to Hire K Workers",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/total-cost-to-hire-k-workers",
+                    "tags": [
+                        "Array",
+                        "Two Pointers",
+                        "Heap (Priority Queue)",
+                        "Simulation"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Binary Search",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "guess-number-higher-or-lower",
+                    "name": "Guess Number Higher or Lower",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/guess-number-higher-or-lower",
+                    "tags": [
+                        "Binary Search",
+                        "Interactive"
+                    ]
+                },
+                {
+                    "slug": "successful-pairs-of-spells-and-potions",
+                    "name": "Successful Pairs of Spells and Potions",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/successful-pairs-of-spells-and-potions",
+                    "tags": [
+                        "Array",
+                        "Two Pointers",
+                        "Binary Search",
+                        "Sorting"
+                    ]
+                },
+                {
+                    "slug": "find-peak-element",
+                    "name": "Find Peak Element",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/find-peak-element",
+                    "tags": [
+                        "Array",
+                        "Binary Search"
+                    ]
+                },
+                {
+                    "slug": "koko-eating-bananas",
+                    "name": "Koko Eating Bananas",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/koko-eating-bananas",
+                    "tags": [
+                        "Array",
+                        "Binary Search"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Backtracking",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "letter-combinations-of-a-phone-number",
+                    "name": "Letter Combinations of a Phone Number",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/letter-combinations-of-a-phone-number",
+                    "tags": [
+                        "Hash Table",
+                        "String",
+                        "Backtracking"
+                    ]
+                },
+                {
+                    "slug": "combination-sum-iii",
+                    "name": "Combination Sum III",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/combination-sum-iii",
+                    "tags": [
+                        "Array",
+                        "Backtracking"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "DP - 1D",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "n-th-tribonacci-number",
+                    "name": "N-th Tribonacci Number",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/n-th-tribonacci-number",
+                    "tags": [
+                        "Math",
+                        "Dynamic Programming",
+                        "Memoization"
+                    ]
+                },
+                {
+                    "slug": "min-cost-climbing-stairs",
+                    "name": "Min Cost Climbing Stairs",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/min-cost-climbing-stairs",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "house-robber",
+                    "name": "House Robber",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/house-robber",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "domino-and-tromino-tiling",
+                    "name": "Domino and Tromino Tiling",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/domino-and-tromino-tiling",
+                    "tags": [
+                        "Dynamic Programming"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "DP - Multidimensional",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "unique-paths",
+                    "name": "Unique Paths",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/unique-paths",
+                    "tags": [
+                        "Math",
+                        "Dynamic Programming",
+                        "Combinatorics"
+                    ]
+                },
+                {
+                    "slug": "longest-common-subsequence",
+                    "name": "Longest Common Subsequence",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/longest-common-subsequence",
+                    "tags": [
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "best-time-to-buy-and-sell-stock-with-transaction-fee",
+                    "name": "Best Time to Buy and Sell Stock with Transaction Fee",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Greedy"
+                    ]
+                },
+                {
+                    "slug": "edit-distance",
+                    "name": "Edit Distance",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/edit-distance",
+                    "tags": [
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Bit Manipulation",
+            "size": 3,
+            "problems": [
+                {
+                    "slug": "counting-bits",
+                    "name": "Counting Bits",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/counting-bits",
+                    "tags": [
+                        "Dynamic Programming",
+                        "Bit Manipulation"
+                    ]
+                },
+                {
+                    "slug": "single-number",
+                    "name": "Single Number",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/single-number",
+                    "tags": [
+                        "Array",
+                        "Bit Manipulation"
+                    ]
+                },
+                {
+                    "slug": "minimum-flips-to-make-a-or-b-equal-to-c",
+                    "name": "Minimum Flips to Make a OR b Equal to c",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/minimum-flips-to-make-a-or-b-equal-to-c",
+                    "tags": [
+                        "Bit Manipulation"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Trie",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "implement-trie-prefix-tree",
+                    "name": "Implement Trie (Prefix Tree)",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/implement-trie-prefix-tree",
+                    "tags": [
+                        "Hash Table",
+                        "String",
+                        "Design",
+                        "Trie"
+                    ]
+                },
+                {
+                    "slug": "search-suggestions-system",
+                    "name": "Search Suggestions System",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/search-suggestions-system",
+                    "tags": [
+                        "Array",
+                        "String",
+                        "Binary Search",
+                        "Trie",
+                        "Sorting",
+                        "Heap (Priority Queue)"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Intervals",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "non-overlapping-intervals",
+                    "name": "Non-overlapping Intervals",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/non-overlapping-intervals",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Greedy",
+                        "Sorting"
+                    ]
+                },
+                {
+                    "slug": "minimum-number-of-arrows-to-burst-balloons",
+                    "name": "Minimum Number of Arrows to Burst Balloons",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons",
+                    "tags": [
+                        "Array",
+                        "Greedy",
+                        "Sorting"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Monotonic Stack",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "daily-temperatures",
+                    "name": "Daily Temperatures",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/daily-temperatures",
+                    "tags": [
+                        "Array",
+                        "Stack",
+                        "Monotonic Stack"
+                    ]
+                },
+                {
+                    "slug": "online-stock-span",
+                    "name": "Online Stock Span",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/online-stock-span",
+                    "tags": [
+                        "Stack",
+                        "Design",
+                        "Monotonic Stack",
+                        "Data Stream"
+                    ]
+                }
+            ]
+        }
+    ]
+}

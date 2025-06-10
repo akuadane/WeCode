@@ -1,0 +1,147 @@
+{
+    "slug": "introduction-to-pandas",
+    "name": "Introduction to Pandas",
+    "problems": [
+        {
+            "name": "Pandas Data Structures",
+            "size": 1,
+            "problems": [
+                {
+                    "slug": "create-a-dataframe-from-list",
+                    "name": "Create a DataFrame from List",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/create-a-dataframe-from-list",
+                    "tags": []
+                }
+            ]
+        },
+        {
+            "name": "Data Inspection",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "get-the-size-of-a-dataframe",
+                    "name": "Get the Size of a DataFrame",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/get-the-size-of-a-dataframe",
+                    "tags": []
+                },
+                {
+                    "slug": "display-the-first-three-rows",
+                    "name": "Display the First Three Rows",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/display-the-first-three-rows",
+                    "tags": []
+                }
+            ]
+        },
+        {
+            "name": "Data Selecting",
+            "size": 2,
+            "problems": [
+                {
+                    "slug": "select-data",
+                    "name": "Select Data",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/select-data",
+                    "tags": []
+                },
+                {
+                    "slug": "create-a-new-column",
+                    "name": "Create a New Column",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/create-a-new-column",
+                    "tags": []
+                }
+            ]
+        },
+        {
+            "name": "Data Cleaning",
+            "size": 6,
+            "problems": [
+                {
+                    "slug": "drop-duplicate-rows",
+                    "name": "Drop Duplicate Rows",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/drop-duplicate-rows",
+                    "tags": []
+                },
+                {
+                    "slug": "drop-missing-data",
+                    "name": "Drop Missing Data",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/drop-missing-data",
+                    "tags": []
+                },
+                {
+                    "slug": "modify-columns",
+                    "name": "Modify Columns",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/modify-columns",
+                    "tags": []
+                },
+                {
+                    "slug": "rename-columns",
+                    "name": "Rename Columns",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/rename-columns",
+                    "tags": []
+                },
+                {
+                    "slug": "change-data-type",
+                    "name": "Change Data Type",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/change-data-type",
+                    "tags": []
+                },
+                {
+                    "slug": "fill-missing-data",
+                    "name": "Fill Missing Data",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/fill-missing-data",
+                    "tags": []
+                }
+            ]
+        },
+        {
+            "name": "Table Reshaping",
+            "size": 3,
+            "problems": [
+                {
+                    "slug": "reshape-data-concatenate",
+                    "name": "Reshape Data: Concatenate",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/reshape-data-concatenate",
+                    "tags": []
+                },
+                {
+                    "slug": "reshape-data-pivot",
+                    "name": "Reshape Data: Pivot",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/reshape-data-pivot",
+                    "tags": []
+                },
+                {
+                    "slug": "reshape-data-melt",
+                    "name": "Reshape Data: Melt",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/reshape-data-melt",
+                    "tags": []
+                }
+            ]
+        },
+        {
+            "name": "Advanced Techniques",
+            "size": 1,
+            "problems": [
+                {
+                    "slug": "method-chaining",
+                    "name": "Method Chaining",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/method-chaining",
+                    "tags": []
+                }
+            ]
+        }
+    ]
+}

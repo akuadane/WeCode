@@ -1,0 +1,563 @@
+{
+    "slug": "dynamic-programming",
+    "name": "Dynamic Programming",
+    "problems": [
+        {
+            "name": "Fibonacci style",
+            "size": 6,
+            "problems": [
+                {
+                    "slug": "climbing-stairs",
+                    "name": "Climbing Stairs",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/climbing-stairs",
+                    "tags": [
+                        "Math",
+                        "Dynamic Programming",
+                        "Memoization"
+                    ]
+                },
+                {
+                    "slug": "fibonacci-number",
+                    "name": "Fibonacci Number",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/fibonacci-number",
+                    "tags": [
+                        "Math",
+                        "Dynamic Programming",
+                        "Recursion",
+                        "Memoization"
+                    ]
+                },
+                {
+                    "slug": "n-th-tribonacci-number",
+                    "name": "N-th Tribonacci Number",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/n-th-tribonacci-number",
+                    "tags": [
+                        "Math",
+                        "Dynamic Programming",
+                        "Memoization"
+                    ]
+                },
+                {
+                    "slug": "min-cost-climbing-stairs",
+                    "name": "Min Cost Climbing Stairs",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/min-cost-climbing-stairs",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "house-robber",
+                    "name": "House Robber",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/house-robber",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "delete-and-earn",
+                    "name": "Delete and Earn",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/delete-and-earn",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "Dynamic Programming"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Matrix",
+            "size": 6,
+            "problems": [
+                {
+                    "slug": "unique-paths",
+                    "name": "Unique Paths",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/unique-paths",
+                    "tags": [
+                        "Math",
+                        "Dynamic Programming",
+                        "Combinatorics"
+                    ]
+                },
+                {
+                    "slug": "minimum-path-sum",
+                    "name": "Minimum Path Sum",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/minimum-path-sum",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "unique-paths-ii",
+                    "name": "Unique Paths II",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/unique-paths-ii",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "triangle",
+                    "name": "Triangle",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/triangle",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "minimum-falling-path-sum",
+                    "name": "Minimum Falling Path Sum",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/minimum-falling-path-sum",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Matrix"
+                    ]
+                },
+                {
+                    "slug": "maximal-square",
+                    "name": "Maximal Square",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/maximal-square",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Matrix"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "On Strings",
+            "size": 6,
+            "problems": [
+                {
+                    "slug": "longest-palindromic-substring",
+                    "name": "Longest Palindromic Substring",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/longest-palindromic-substring",
+                    "tags": [
+                        "Two Pointers",
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "word-break",
+                    "name": "Word Break",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/word-break",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "String",
+                        "Dynamic Programming",
+                        "Trie",
+                        "Memoization"
+                    ]
+                },
+                {
+                    "slug": "longest-palindromic-subsequence",
+                    "name": "Longest Palindromic Subsequence",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/longest-palindromic-subsequence",
+                    "tags": [
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "edit-distance",
+                    "name": "Edit Distance",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/edit-distance",
+                    "tags": [
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "minimum-ascii-delete-sum-for-two-strings",
+                    "name": "Minimum ASCII Delete Sum for Two Strings",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings",
+                    "tags": [
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "distinct-subsequences",
+                    "name": "Distinct Subsequences",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/distinct-subsequences",
+                    "tags": [
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Longest Increasing Subsequence",
+            "size": 7,
+            "problems": [
+                {
+                    "slug": "longest-increasing-subsequence",
+                    "name": "Longest Increasing Subsequence",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/longest-increasing-subsequence",
+                    "tags": [
+                        "Array",
+                        "Binary Search",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "number-of-longest-increasing-subsequence",
+                    "name": "Number of Longest Increasing Subsequence",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/number-of-longest-increasing-subsequence",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Binary Indexed Tree",
+                        "Segment Tree"
+                    ]
+                },
+                {
+                    "slug": "maximum-length-of-pair-chain",
+                    "name": "Maximum Length of Pair Chain",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/maximum-length-of-pair-chain",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Greedy",
+                        "Sorting"
+                    ]
+                },
+                {
+                    "slug": "longest-arithmetic-subsequence-of-given-difference",
+                    "name": "Longest Arithmetic Subsequence of Given Difference",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/longest-arithmetic-subsequence-of-given-difference",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "longest-arithmetic-subsequence",
+                    "name": "Longest Arithmetic Subsequence",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/longest-arithmetic-subsequence",
+                    "tags": [
+                        "Array",
+                        "Hash Table",
+                        "Binary Search",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "russian-doll-envelopes",
+                    "name": "Russian Doll Envelopes",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/russian-doll-envelopes",
+                    "tags": [
+                        "Array",
+                        "Binary Search",
+                        "Dynamic Programming",
+                        "Sorting"
+                    ]
+                },
+                {
+                    "slug": "find-the-longest-valid-obstacle-course-at-each-position",
+                    "name": "Find the Longest Valid Obstacle Course at Each Position",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/find-the-longest-valid-obstacle-course-at-each-position",
+                    "tags": [
+                        "Array",
+                        "Binary Search",
+                        "Binary Indexed Tree"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Longest Common Subsequence",
+            "size": 3,
+            "problems": [
+                {
+                    "slug": "longest-common-subsequence",
+                    "name": "Longest Common Subsequence",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/longest-common-subsequence",
+                    "tags": [
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "uncrossed-lines",
+                    "name": "Uncrossed Lines",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/uncrossed-lines",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "minimum-insertion-steps-to-make-a-string-palindrome",
+                    "name": "Minimum Insertion Steps to Make a String Palindrome",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome",
+                    "tags": [
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Best Time to Buy & Sell Stock / State Machine",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
+                    "name": "Best Time to Buy and Sell Stock with Cooldown",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "best-time-to-buy-and-sell-stock-with-transaction-fee",
+                    "name": "Best Time to Buy and Sell Stock with Transaction Fee",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Greedy"
+                    ]
+                },
+                {
+                    "slug": "best-time-to-buy-and-sell-stock-iii",
+                    "name": "Best Time to Buy and Sell Stock III",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "best-time-to-buy-and-sell-stock-iv",
+                    "name": "Best Time to Buy and Sell Stock IV",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "On Trees",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "unique-binary-search-trees",
+                    "name": "Unique Binary Search Trees",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/unique-binary-search-trees",
+                    "tags": [
+                        "Math",
+                        "Dynamic Programming",
+                        "Tree",
+                        "Binary Search Tree",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "unique-binary-search-trees-ii",
+                    "name": "Unique Binary Search Trees II",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/unique-binary-search-trees-ii",
+                    "tags": [
+                        "Dynamic Programming",
+                        "Backtracking",
+                        "Tree",
+                        "Binary Search Tree",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "house-robber-iii",
+                    "name": "House Robber III",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/house-robber-iii",
+                    "tags": [
+                        "Dynamic Programming",
+                        "Tree",
+                        "Depth-First Search",
+                        "Binary Tree"
+                    ]
+                },
+                {
+                    "slug": "binary-tree-maximum-path-sum",
+                    "name": "Binary Tree Maximum Path Sum",
+                    "difficulty": "HARD",
+                    "url": "https://leetcode.com/problems/binary-tree-maximum-path-sum",
+                    "tags": [
+                        "Dynamic Programming",
+                        "Tree",
+                        "Depth-First Search",
+                        "Binary Tree"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Knapsack",
+            "size": 4,
+            "problems": [
+                {
+                    "slug": "perfect-squares",
+                    "name": "Perfect Squares",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/perfect-squares",
+                    "tags": [
+                        "Math",
+                        "Dynamic Programming",
+                        "Breadth-First Search"
+                    ]
+                },
+                {
+                    "slug": "coin-change-ii",
+                    "name": "Coin Change II",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/coin-change-ii",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "combination-sum-iv",
+                    "name": "Combination Sum IV",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/combination-sum-iv",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "ones-and-zeroes",
+                    "name": "Ones and Zeroes",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/ones-and-zeroes",
+                    "tags": [
+                        "Array",
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "General 1D",
+            "size": 6,
+            "problems": [
+                {
+                    "slug": "solving-questions-with-brainpower",
+                    "name": "Solving Questions With Brainpower",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/solving-questions-with-brainpower",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "coin-change",
+                    "name": "Coin Change",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/coin-change",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming",
+                        "Breadth-First Search"
+                    ]
+                },
+                {
+                    "slug": "count-ways-to-build-good-strings",
+                    "name": "Count Ways To Build Good Strings",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/count-ways-to-build-good-strings",
+                    "tags": [
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "decode-ways",
+                    "name": "Decode Ways",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/decode-ways",
+                    "tags": [
+                        "String",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "minimum-cost-for-tickets",
+                    "name": "Minimum Cost For Tickets",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/minimum-cost-for-tickets",
+                    "tags": [
+                        "Array",
+                        "Dynamic Programming"
+                    ]
+                },
+                {
+                    "slug": "domino-and-tromino-tiling",
+                    "name": "Domino and Tromino Tiling",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/domino-and-tromino-tiling",
+                    "tags": [
+                        "Dynamic Programming"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "General Multidimensional",
+            "size": 4,
+            "problems": []
+        }
+    ]
+}
