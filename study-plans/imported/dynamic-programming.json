@@ -1,6 +1,8 @@
 {
     "slug": "dynamic-programming",
     "name": "Dynamic Programming",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/studyplan/dynamic-programming/",
     "problems": [
         {
             "name": "Fibonacci style",

@@ -1,6 +1,8 @@
 {
     "slug": "leetcode-75",
     "name": "LeetCode 75",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/study-plan/leetcode-75/",
     "problems": [
         {
             "name": "Array / String",

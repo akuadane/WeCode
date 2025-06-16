@@ -1,6 +1,8 @@
 {
     "slug": "programming-skills",
     "name": "Programming Skills",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/studyplan/programming-skills/",
     "problems": [
         {
             "name": "Basic Implementation",
