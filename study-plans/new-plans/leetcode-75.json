@@ -1,0 +1,21 @@
+{
+    "slug": "leetcode-75",
+    "name": "LeetCode 75",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/studyplan/leetcode-75/",
+    "sections": [
+        {
+            "section_name": "Arrays & Hashing",
+            "section_order": 1,
+            "problems": [
+                {
+                    "slug": "contains-duplicate",
+                    "name": "Contains Duplicate",
+                    "difficulty": "EASY",
+                    "url": "https://leetcode.com/problems/contains-duplicate",
+                    "tags": ["Array", "Hash Table", "Sorting"]
+                }
+            ]
+        }
+    ]
+} 
