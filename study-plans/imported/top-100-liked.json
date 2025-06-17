@@ -1,6 +1,8 @@
 {
     "slug": "top-100-liked",
     "name": "Top 100 Liked",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/studyplan/top-100-liked/",
     "problems": [
         {
             "name": "Backtracking",

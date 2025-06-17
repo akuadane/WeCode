@@ -1,6 +1,8 @@
 {
     "slug": "binary-search",
     "name": "Binary Search",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/studyplan/binary-search/",
     "problems": [
         {
             "name": "Search In Array",

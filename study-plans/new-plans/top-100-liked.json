@@ -1,0 +1,21 @@
+{
+    "slug": "top-100-liked",
+    "name": "Top 100 Liked",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/problem-list/top-100-liked-questions/",
+    "sections": [
+        {
+            "section_name": "Backtracking",
+            "section_order": 1,
+            "problems": [
+                {
+                    "slug": "letter-combinations-of-a-phone-number",
+                    "name": "Letter Combinations of a Phone Number",
+                    "difficulty": "MEDIUM",
+                    "url": "https://leetcode.com/problems/letter-combinations-of-a-phone-number",
+                    "tags": ["Hash Table", "String", "Backtracking"]
+                }
+            ]
+        }
+    ]
+} 

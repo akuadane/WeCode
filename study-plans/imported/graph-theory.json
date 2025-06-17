@@ -1,6 +1,8 @@
 {
     "slug": "graph-theory",
     "name": "Graph Theory",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/studyplan/graph-theory/",
     "problems": [
         {
             "name": "Standard Traversal",

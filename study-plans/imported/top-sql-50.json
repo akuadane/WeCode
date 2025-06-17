@@ -1,6 +1,8 @@
 {
     "slug": "top-sql-50",
-    "name": "SQL 50",
+    "name": "Top SQL 50",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/studyplan/top-sql-50/",
     "problems": [
         {
             "name": "Select",

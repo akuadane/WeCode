@@ -1,6 +1,8 @@
 {
     "slug": "top-interview-150",
     "name": "Top Interview 150",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/studyplan/top-interview-150/",
     "problems": [
         {
             "name": "Array / String",

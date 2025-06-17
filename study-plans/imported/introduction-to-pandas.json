@@ -1,6 +1,8 @@
 {
     "slug": "introduction-to-pandas",
     "name": "Introduction to Pandas",
+    "source": "leetcode",
+    "source_link": "https://leetcode.com/studyplan/introduction-to-pandas/",
     "problems": [
         {
             "name": "Pandas Data Structures",
