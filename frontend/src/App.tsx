@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import planService from './services/plan.service'
+import jamService from './services/jam.service'
 import './App.css'
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={() => jamService.markProblemUnsolved({jam_problem_id: 1, user_id: 1}).then(console.log).catch(console.error)}>
           count is {count}
         </button>
         <p>
