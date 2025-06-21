@@ -20,6 +20,7 @@ export interface JamSnippet {
     prob_goal_per_day: number;
     start_date: string;
     status: number;
+    users: string[];
 }
 
 export interface JamUser {

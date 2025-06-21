@@ -3,6 +3,9 @@ import jamService from "../../services/jam.service";
 import type { JamSnippet } from "../../types/jam.types";
 import Jam from "../Jam/Jam";
 
+import {Card, CardBody, CardHeader} from "@heroui/react";
+
+
 
 function Jams() {
     const [jams, setJams] = useState< JamSnippet[]>([]);
@@ -18,12 +21,15 @@ function Jams() {
     console.log("jams", jams);
 
     return (
-        <div>
-            <h1>Jams</h1>
-            {jams.map((jam) => (
+        <Card className="shadow-none">
+            <CardHeader> Ongoing Jams</CardHeader>
+      <CardBody>
+      {jams.map((jam) => (
                 <Jam key={jam.jam_id} {...jam} />
             ))}
-        </div>
+      </CardBody>
+    </Card>
+       
     )
 }
 

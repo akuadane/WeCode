@@ -12,12 +12,16 @@ router.get('/ongoing', async (req: Request, res: Response)=>{
     // status 1 is ongoing
     // status 2 is completed
     // status 0 is pending
-    const client = await pool.connect();
+
     // TODO: get user_id from the request/ session
     const user_id = 1;
     console.log('Getting ongoing jams');
-    client.query(`
-        SELECT jam.*, jam_user.is_admin
+    pool.query(`
+        SELECT jam.*, jam_user.is_admin, (select json_agg(users.name)
+                                                 from jam_user as ju2
+                                                join users on ju2.user_id = users.user_id
+                                                 where ju2.jam_id = jam.jam_id
+                                                ) as users
         FROM jam 
         LEFT JOIN jam_user ON jam.jam_id = jam_user.jam_id
         where jam.status = 1 and jam_user.user_id = $1`
@@ -27,37 +31,33 @@ router.get('/ongoing', async (req: Request, res: Response)=>{
         }else{
             res.status(200).json(result.rows);
         }
-    });
-});
-
+    }); 
+}); 
+ 
 
 router.post('/createFromPlan', async (req: Request, res: Response)=>{
     const {plan_id} = req.body;
     // TODO: get user_id from the request/ session
     const {user_id} = req.body;
-    const client = await pool.connect();
     // transaction to insert jam_user and jam_problem
     try{
-        await client.query('BEGIN');
-        const result = await client.query('INSERT INTO jam (plan_id, name,prob_goal_per_day,start_date,end_date,status,live_call) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING jam_id',[plan_id, req.body.name, req.body.prob_goal_per_day, req.body.start_date, req.body.end_date, req.body.status, req.body.live_call]);
-        await client.query('INSERT INTO jam_user (jam_id, user_id, is_admin) VALUES ($1, $2, $3)',[result.rows[0].jam_id, user_id, true]);
-        await client.query('INSERT INTO jam_problem (jam_id, problem_id) SELECT $1, problem_id FROM problem WHERE plan_id = $2',[result.rows[0].jam_id, plan_id]);
-        await client.query('COMMIT');
+        await pool.query('BEGIN');
+        const result = await pool.query('INSERT INTO jam (plan_id, name,prob_goal_per_day,start_date,end_date,status,live_call) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING jam_id',[plan_id, req.body.name, req.body.prob_goal_per_day, req.body.start_date, req.body.end_date, req.body.status, req.body.live_call]);
+        await pool.query('INSERT INTO jam_user (jam_id, user_id, is_admin) VALUES ($1, $2, $3)',[result.rows[0].jam_id, user_id, true]);
+        await pool.query('INSERT INTO jam_problem (jam_id, problem_id) SELECT $1, problem_id FROM problem WHERE plan_id = $2',[result.rows[0].jam_id, plan_id]);
+        await pool.query('COMMIT');
         res.status(200).json({message: 'Jam created successfully', jam_id: result.rows[0].jam_id});
     }catch(err: any){
-        await client.query('ROLLBACK');
+        await pool.query('ROLLBACK');
         res.status(500).json({error: err.message});
-    }finally{
-        client.release();
     }
 });
 
 
 router.post('/adduser', async (req: Request, res: Response)=>{
     const {jam_id, user_id} = req.body;
-    const client = await pool.connect();
     try{
-        await client.query('INSERT INTO jam_user (jam_id, user_id) VALUES ($1, $2)',[jam_id, user_id]);
+        await pool.query('INSERT INTO jam_user (jam_id, user_id) VALUES ($1, $2)',[jam_id, user_id]);
         res.status(200).json({message: 'User added to jam successfully'});
     }catch(err: any){
         res.status(500).json({error: err.message});
@@ -66,9 +66,8 @@ router.post('/adduser', async (req: Request, res: Response)=>{
 
 router.delete('/removeuser', async (req: Request, res: Response)=>{
     const {jam_id, user_id} = req.body;
-    const client = await pool.connect();
     try{
-        await client.query('DELETE FROM jam_user WHERE jam_id = $1 AND user_id = $2',[jam_id, user_id]);
+        await pool.query('DELETE FROM jam_user WHERE jam_id = $1 AND user_id = $2',[jam_id, user_id]);
         res.status(200).json({message: 'User removed from jam successfully'});
     }catch(err: any){
         res.status(500).json({error: err.message});
@@ -78,9 +77,8 @@ router.delete('/removeuser', async (req: Request, res: Response)=>{
 router.patch('/solved', async (req: Request, res: Response)=>{
     console.log('Solving problem');
     const {jam_problem_id, user_id} = req.body;
-    const client = await pool.connect();
     try{
-        await client.query(
+        await pool.query(
             "UPDATE jam_problem SET solved_by = COALESCE(solved_by, ARRAY[]::integer[]) || ARRAY[$1::integer] WHERE jam_problem_id = $2",
             [user_id, jam_problem_id]
         );    
@@ -93,9 +91,8 @@ router.patch('/solved', async (req: Request, res: Response)=>{
 
 router.patch('/unsolved', async (req: Request, res: Response)=>{
     const {jam_problem_id, user_id} = req.body;
-    const client = await pool.connect();
     try{
-        await client.query("UPDATE jam_problem SET solved_by = array_remove(solved_by, $1) WHERE jam_problem_id = $2",[user_id, jam_problem_id]);
+        await pool.query("UPDATE jam_problem SET solved_by = array_remove(solved_by, $1) WHERE jam_problem_id = $2",[user_id, jam_problem_id]);
         res.status(200).json({message: 'Problem unsolved successfully'});
     }catch(err: any){
         res.status(500).json({error: err.message});
@@ -104,11 +101,10 @@ router.patch('/unsolved', async (req: Request, res: Response)=>{
 
 router.get('/:jam_id', async (req: Request, res: Response)=>{
     const {jam_id} = req.params;
-    const client = await pool.connect();
     // TODO: get user_id from the request/ session
     const user_id = 1;
     try{
-        const result = await client.query(`
+        const result = await pool.query(`
             SELECT * 
             FROM jam_user
             WHERE jam_id = $1 AND user_id = $2
@@ -118,7 +114,7 @@ router.get('/:jam_id', async (req: Request, res: Response)=>{
         }else{
             
             // get problems as json
-            const jam = await client.query(`
+            const jam = await pool.query(`
                 SELECT 
                     jam.*,
                     (
@@ -158,9 +154,6 @@ router.get('/:jam_id', async (req: Request, res: Response)=>{
     }catch(err: any){
         console.log(err);
         res.status(500).json({error: err.message});
-    }finally{
-        client.release();
     }
-
 });
 export {router as jamRouter};

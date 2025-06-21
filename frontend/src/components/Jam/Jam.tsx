@@ -1,10 +1,15 @@
-import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@heroui/react";
+import {Card, CardHeader, CardBody, Divider, Avatar, AvatarGroup} from "@heroui/react";
 import type { JamSnippet } from "../../types/jam.types";
+import "./Jam.css";
 
 export default function Jam(jam: JamSnippet) {
-    console.log("jam", jam.name);
+    console.log("jam", jam.users);
+    jam.users.push("John Doe");
+    jam.users.push("Smith Jogn")
+    const MAX_AVATAR_LEN = 2;
+    
   return (
-    <Card className="max-w-[400px]">
+    <Card className="max-w-[400px] p-2 m-4 w-50">
       <CardHeader className="flex gap-3">
        
         <div className="flex flex-col">
@@ -16,12 +21,15 @@ export default function Jam(jam: JamSnippet) {
       <CardBody>
         <p>Make beautiful websites regardless of your design experience.</p>
       </CardBody>
-      <Divider />
-      <CardFooter>
-        <Link isExternal showAnchorIcon href="https://github.com/heroui-inc/heroui">
-          Visit source code on GitHub.
-        </Link>
-      </CardFooter>
+     <AvatarGroup size="sm" isBordered max={MAX_AVATAR_LEN} total={jam.users.length} className="flex justify-end">
+      {jam.users.map((user) => (
+        <>
+        <Avatar name={user}  size="sm" />
+       
+        </>
+      ))}
+  </AvatarGroup>
+     
     </Card>
   );
 }
