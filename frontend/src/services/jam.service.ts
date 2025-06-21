@@ -1,27 +1,7 @@
 import axios from "axios";
+import type { CreateJamFromPlanData, JamSnippet, JamUser, JamProblemUser } from "../types/jam.types";
 
 const apiUrl = import.meta.env.VITE_API_URL;
-
-interface CreateJamFromPlanData {
-    plan_id: number;
-    user_id: number;
-    name: string;
-    prob_goal_per_day: number;
-    start_date: string;
-    end_date: string;
-    status: number;
-    live_call: boolean;
-}
-
-interface UserData {
-    jam_id: number;
-    user_id: number;
-}
-
-interface ProblemUserData {
-    jam_problem_id: number;
-    user_id: number;
-}
 
 const jamService = {
     getJam: async (id: string) => {
@@ -36,25 +16,25 @@ const jamService = {
 
     getOngoingJams: async () => {
         const response = await axios.get(`${apiUrl}/jam/ongoing`);
-        return response.data;
+        return response.data as JamSnippet[];
     },
 
-    addUser: async (data: UserData) => {
+    addUser: async (data: JamUser) => {
         const response = await axios.post(`${apiUrl}/jam/adduser`, data);
         return response.data;
     },
 
-    removeUser: async (data: UserData) => {
+    removeUser: async (data: JamUser) => {
         const response = await axios.post(`${apiUrl}/jam/removeuser`, data);
         return response.data;
     },
 
-    markProblemSolved: async (data: ProblemUserData) => {
+    markProblemSolved: async (data: JamProblemUser) => {
         const response = await axios.patch(`${apiUrl}/jam/solved`, data);
         return response.data;
     },
 
-    markProblemUnsolved: async (data: ProblemUserData) => {
+    markProblemUnsolved: async (data: JamProblemUser) => {
         const response = await axios.patch(`${apiUrl}/jam/unsolved`, data);
         return response.data;
     }
