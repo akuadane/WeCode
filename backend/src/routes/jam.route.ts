@@ -151,7 +151,7 @@ router.get('/:jam_id', async (req: Request, res: Response)=>{
                                                  from jam_user as ju2
                                                 join users on ju2.user_id = users.user_id
                                                  where ju2.jam_id = jam.jam_id
-                                                ) as users
+                                                ) as members
                 FROM jam
                 WHERE jam.jam_id = $1
             `, [jam_id]);

@@ -48,7 +48,12 @@ export interface Section {
     topic: string;
     problems: Problem[];
 }
+export interface UserSnippet {
+    user_id: number;
+    name: string;
+}
 
 export interface Jam extends JamSnippet {
     sections: Section[];
+    members: UserSnippet[];
 } 

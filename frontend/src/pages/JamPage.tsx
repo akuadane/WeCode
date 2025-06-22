@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import type { Jam } from "../types/jam.types";
 import jamService from "../services/jam.service";
 import { useEffect, useState } from "react";
-import { Button, Card, CardBody, CardHeader, Progress } from "@heroui/react";
+import { Card, CardBody, CardHeader, Progress } from "@heroui/react";
 import Section from "../components/Section/Section";
 
 function JamPage() {
@@ -41,7 +41,7 @@ function JamPage() {
                 </CardHeader>
                 <CardBody>
                     {jam.sections.map((section) => (
-                        <Section key={section.topic} section={section} reload={() => setLoading(true)} />
+                        <Section key={section.topic} section={section} reload={() => setLoading(true)} members={jam.members} />
                     ))}
                   
                 </CardBody>
