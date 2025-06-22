@@ -1,6 +1,6 @@
 
 
-function Plans() {
+function PlansContainer() {
     return (
         <div>
             <h1>Plans</h1>
@@ -8,4 +8,4 @@ function Plans() {
     )
 }
 
-export default Plans;
+export default PlansContainer;

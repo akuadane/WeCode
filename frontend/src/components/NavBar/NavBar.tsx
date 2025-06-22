@@ -5,7 +5,9 @@ function NavBar() {
     return (
         <Navbar maxWidth="full">
         <NavbarBrand>
-          <img src={FullLogo} alt="Full Logo" />
+          <a href="/">
+            <img src={FullLogo} alt="Full Logo" />
+          </a>
         </NavbarBrand>
        
         <NavbarContent justify="end">

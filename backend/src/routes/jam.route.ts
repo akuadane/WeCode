@@ -103,6 +103,7 @@ router.get('/:jam_id', async (req: Request, res: Response)=>{
     const {jam_id} = req.params;
     // TODO: get user_id from the request/ session
     const user_id = 1;
+    console.log('Getting jam', jam_id);
     try{
         const result = await pool.query(`
             SELECT * 
@@ -145,14 +146,19 @@ router.get('/:jam_id', async (req: Request, res: Response)=>{
                             GROUP BY p.topic
                             ORDER BY MIN(p.topic_order)
                         ) as topic_groups
-                    ) as sections
+                    ) as sections, 
+                     (select json_agg(json_build_object('name', users.name, 'user_id', users.user_id))
+                                                 from jam_user as ju2
+                                                join users on ju2.user_id = users.user_id
+                                                 where ju2.jam_id = jam.jam_id
+                                                ) as users
                 FROM jam
                 WHERE jam.jam_id = $1
             `, [jam_id]);
+            console.log(jam.rows[0]);
             res.status(200).json(jam.rows[0]);
         }
     }catch(err: any){
-        console.log(err);
         res.status(500).json({error: err.message});
     }
 });

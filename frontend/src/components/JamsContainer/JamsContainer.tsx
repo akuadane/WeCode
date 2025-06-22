@@ -7,7 +7,7 @@ import {Card, CardBody, CardHeader} from "@heroui/react";
 
 
 
-function Jams() {
+function JamsContainer() {
     const [jams, setJams] = useState< JamSnippet[]>([]);
 
    useEffect(() => {
@@ -22,7 +22,7 @@ function Jams() {
 
     return (
         <Card className="shadow-none">
-            <CardHeader> Ongoing Jams</CardHeader>
+            <CardHeader className="text-xl font-bold"> Ongoing Jams</CardHeader>
       <CardBody>
       {jams.map((jam) => (
                 <Jam key={jam.jam_id} {...jam} />
@@ -33,4 +33,4 @@ function Jams() {
     )
 }
 
-export default Jams;
+export default JamsContainer;

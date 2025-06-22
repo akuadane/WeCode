@@ -1,8 +1,9 @@
 
 import './App.css'
 import NavBar from './components/NavBar/NavBar'
-import Jams from './components/JamsContainer/JamsContainer'
-import Plans from './components/PlansContainer/PlansContainer'
+import HomePage from './pages/HomePage'
+import JamPage from './pages/JamPage'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
 
@@ -10,9 +11,13 @@ function App() {
     <>
     <NavBar />
     <div className="main-body">
-      <Jams />
-      <Plans />
-    </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/jam/:id" element={<JamPage />} />
+        </Routes>
+      </Router>
+    </div>  
     </>
   )
 }

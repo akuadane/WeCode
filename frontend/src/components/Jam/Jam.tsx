@@ -1,15 +1,14 @@
 import {Card, CardHeader, CardBody, Divider, Avatar, AvatarGroup} from "@heroui/react";
 import type { JamSnippet } from "../../types/jam.types";
-import "./Jam.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Jam(jam: JamSnippet) {
-    console.log("jam", jam.users);
-    jam.users.push("John Doe");
-    jam.users.push("Smith Jogn")
+  
     const MAX_AVATAR_LEN = 2;
-    
+    const navigate = useNavigate();
+
   return (
-    <Card className="max-w-[400px] p-2 m-4 w-50">
+    <Card isHoverable isPressable className="max-w-[400px] p-2 mb-5 mr-5 w-50 border-none bg-background/60 dark:bg-default-100/50" onClick={() => navigate(`/jam/${jam.jam_id}`)}>
       <CardHeader className="flex gap-3">
        
         <div className="flex flex-col">

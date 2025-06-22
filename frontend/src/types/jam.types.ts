@@ -31,4 +31,24 @@ export interface JamUser {
 export interface JamProblemUser {
     jam_problem_id: number;
     user_id: number;
+}
+
+export interface Problem {
+    difficulty: number;
+    jam_problem_id: number;
+    name: string;
+    problem_id: number;
+    solved_by: number[];
+    tags: string[];
+    topic_order: number;
+    url: string;
+}
+
+export interface Section {
+    topic: string;
+    problems: Problem[];
+}
+
+export interface Jam extends JamSnippet {
+    sections: Section[];
 } 
