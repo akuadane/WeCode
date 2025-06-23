@@ -151,13 +151,35 @@ router.get('/:jam_id', async (req: Request, res: Response)=>{
                                                  from jam_user as ju2
                                                 join users on ju2.user_id = users.user_id
                                                  where ju2.jam_id = jam.jam_id
-                                                ) as members
+                                                ) as members,
+                plan.name as plan_name, plan.plan_id as plan_id, plan.source as plan_source, plan.source_link as plan_url
                 FROM jam
+                LEFT JOIN plan ON jam.plan_id = plan.plan_id
                 WHERE jam.jam_id = $1
             `, [jam_id]);
             console.log(jam.rows[0]);
             res.status(200).json(jam.rows[0]);
         }
+    }catch(err: any){
+        res.status(500).json({error: err.message});
+    }
+});
+
+router.post('/createLiveJam', async (req: Request, res: Response)=>{
+    const {jam_id} = req.body;
+    try{
+        await pool.query('UPDATE jam SET live_call = true, live_call_url = $1 WHERE jam_id = $2',['https://meet.google.com/landing', jam_id]);
+        res.status(200).json({live_call_url: 'https://meet.google.com/landing'});
+    }catch(err: any){
+        res.status(500).json({error: err.message});
+    }
+});
+
+router.post('/endLiveJam', async (req: Request, res: Response)=>{
+    const {jam_id} = req.body;
+    try{
+        await pool.query('UPDATE jam SET live_call = false, live_call_url = null WHERE jam_id = $1',[jam_id]);
+        res.status(200).json({message: 'Live jam ended successfully'});
     }catch(err: any){
         res.status(500).json({error: err.message});
     }

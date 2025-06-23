@@ -56,4 +56,8 @@ export interface UserSnippet {
 export interface Jam extends JamSnippet {
     sections: Section[];
     members: UserSnippet[];
+    plan_name: string;
+    plan_id: number;
+    plan_source: string;
+    plan_url: string;
 } 

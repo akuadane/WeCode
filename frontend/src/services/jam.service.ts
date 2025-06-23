@@ -37,6 +37,16 @@ const jamService = {
     markProblemUnsolved: async (data: JamProblemUser) => {
         const response = await axios.patch(`${apiUrl}/jam/unsolved`, data);
         return response.data;
+    },
+
+    createLiveJam: async (jam_id: string) => {
+        const response = await axios.post(`${apiUrl}/jam/createLiveJam`, {jam_id});
+        return response.data;
+    },
+
+    endLiveJam: async (jam_id: string) => {
+        const response = await axios.post(`${apiUrl}/jam/endLiveJam`, {jam_id});
+        return response.data;
     }
 };
 
