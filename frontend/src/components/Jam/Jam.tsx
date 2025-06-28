@@ -20,7 +20,8 @@ export default function Jam(jam: JamSnippet) {
       <CardBody>
         <p>Make beautiful websites regardless of your design experience.</p>
       </CardBody>
-     <AvatarGroup size="sm" isBordered max={MAX_AVATAR_LEN} className="flex justify-end">
+      <div className="flex justify-end px-4 pb-2">
+     <AvatarGroup size="sm" isBordered max={MAX_AVATAR_LEN}>
       {jam.users.map((user) => (
         <>
         <Avatar name={user}  size="sm" />
@@ -28,7 +29,7 @@ export default function Jam(jam: JamSnippet) {
         </>
       ))}
   </AvatarGroup>
-     
+  </div>
     </Card>
   );
 }

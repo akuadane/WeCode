@@ -12,7 +12,7 @@ const difficultyMap: { [key: number]: {text: string, color: any} } = {
 };
 
 
-export default function Problem({ problem, reload, members }: { problem: ProblemType, reload: () => void, members: any }) {
+export default function Problem({ problem, reload, members , hideTags}: { problem: ProblemType, reload: () => void, members: any, hideTags: boolean }) {
     const solved = problem.solved_by?.length > 0 && problem.solved_by?.includes(GlobalConstants.USER_ID);
     return (
 
@@ -48,11 +48,11 @@ export default function Problem({ problem, reload, members }: { problem: Problem
                         ))}
                     </AvatarGroup>
                     </div>
-                    <div className=" gap-2 mt-1">
+                    {!hideTags && <div className=" gap-2 mt-1">
                         {problem.tags.map(tag => (
                             <Chip className="mr-1" key={tag} variant="flat" color="default">{tag}</Chip> 
                         ))}
-                    </div>
+                    </div>}
                     </a>
                 </div>
             
