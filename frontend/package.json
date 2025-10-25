@@ -13,6 +13,7 @@
     "@heroui/react": "^2.7.11",
     "@types/axios": "^0.9.36",
     "axios": "^1.10.0",
+    "better-auth": "^1.2.12",
     "framer-motion": "^12.18.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

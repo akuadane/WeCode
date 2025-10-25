@@ -1,8 +1,9 @@
-import {  Avatar, AvatarGroup, Badge, Button, Chip } from "@heroui/react";
+import {  Avatar, AvatarGroup, Badge, Button, Checkbox, Chip } from "@heroui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import type { Problem as ProblemType, UserSnippet } from "../../types/jam.types";
 import { GlobalConstants } from "../../assets/GlobalConstants";
 import jamService from "../../services/jam.service";
+import { useState } from "react";
 
 
 const difficultyMap: { [key: number]: {text: string, color: any} } = {
@@ -13,24 +14,21 @@ const difficultyMap: { [key: number]: {text: string, color: any} } = {
 
 
 export default function Problem({ problem, reload, members , hideTags}: { problem: ProblemType, reload: () => void, members: any, hideTags: boolean }) {
-    const solved = problem.solved_by?.length > 0 && problem.solved_by?.includes(GlobalConstants.USER_ID);
+    const [solved, setSolved] = useState(problem.solved_by?.length > 0 && problem.solved_by?.includes(GlobalConstants.USER_ID));
     return (
 
   <div className="flex items-center justify-between p-4 rounded-lg hover:bg-default-100/50">
-            <Button isIconOnly variant="light" className="p-0" onPress={()=>{
+            <Checkbox color="success"  isSelected={solved} onValueChange={()=>{
                 if (solved) {
                     jamService.markProblemUnsolved({jam_problem_id: problem.jam_problem_id, user_id: GlobalConstants.USER_ID});
                 } else {
                     jamService.markProblemSolved({jam_problem_id: problem.jam_problem_id, user_id: GlobalConstants.USER_ID});
                 }
                 reload();
+                setSolved(!solved);
             }} >
-                {solved ? (
-                    <CheckCircleIcon className="w-6 h-6 text-green-500" />
-                ) : (
-                    <div className="w-6 h-6 rounded-full border-2 border-gray-400"></div>
-                )}
-                </Button>
+                
+                </Checkbox>
 
                 <div className="w-full" >
                     <a href={problem.url} target="_blank" rel="noopener noreferrer">

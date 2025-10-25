@@ -83,8 +83,8 @@ function JamPage() {
                     </div>
                  </div>
                 <CardBody>
-                    {jam.sections.map((section) => (
-                        <Section key={section.topic} section={section} reload={() => setLoading(true)} members={jam.members} hideTags={hideTags} hideSection={hideSection} />
+                    {jam.sections.map((section, index) => (
+                        <Section key={section.topic} section={section} index={index} reload={() => setLoading(true)} members={jam.members} hideTags={hideTags} hideSection={hideSection} />
                     ))}
                 </CardBody>
             </Card>
