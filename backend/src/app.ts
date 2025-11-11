@@ -2,9 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import {planRouter} from './routes/plan.route';
 import {jamRouter} from './routes/jam.route';
+import mongoose from 'mongoose';
+
 
 const app = express();
-const PORT = 3000;
 
 // Configure CORS with more detailed options
 app.use(cors({
@@ -15,6 +16,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
 app.use('/plan', planRouter);
 app.use('/jam', jamRouter);
 
