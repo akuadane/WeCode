@@ -1,121 +1,90 @@
 import {Request, Response } from 'express';
-import {pool} from '../config/database';
+import { Jam } from '../models/jam';
+import { User } from '../models/user';
+import mongoose from 'mongoose';
 
 const express = require('express')
 const router = express.Router()
 
+interface JamSnippet {
+    _id: string;
+    plan_id: string;
+    name: string;
+    prob_goal_per_day: number;
+    start_date: string;
+    end_date: string;
+    status: string;
+    live_call: boolean;
+    live_call_url: string | null;
+}
+
 router.get('/', (_req: Request, res: Response)=>{
     res.json({message: 'Hello World'});
-});
-
-router.get('/:jam_id', async (req: Request, res: Response)=>{
-    const {jam_id} = req.params;
-    const client = await pool.connect();
-    // TODO: get user_id from the request/ session
-    const user_id = 1;
-    try{
-        const result = await client.query(`
-            SELECT * 
-            FROM jam_user
-            WHERE jam_id = $1 AND user_id = $2
-        `,[jam_id, user_id]);
-        if(result.rows.length === 0){
-            res.status(404).json({error: 'Jam not found'});
-        }else{
-            
-            // get problems as json
-            const jam = await client.query(`
-                SELECT 
-                    jam.*,
-                    (
-                        SELECT json_agg(
-                            json_build_object(
-                                'topic', topic,
-                                'problems', problems
-                            )
-                        )
-                        FROM (
-                            SELECT 
-                                p.topic,
-                                json_agg(
-                                    json_build_object(
-                                        'problem_id', p.problem_id,
-                                        'name', p.name,
-                                        'difficulty', p.difficulty,
-                                        'url', p.url,
-                                        'tags', p.tags,
-                                        'topic_order', p.topic_order,
-                                        'solved_by', jp.solved_by
-                                    ) ORDER BY p.topic_order
-                                ) as problems
-                            FROM jam_problem jp
-                            JOIN problem p ON jp.problem_id = p.problem_id
-                            WHERE jp.jam_id = jam.jam_id
-                            GROUP BY p.topic
-                            ORDER BY MIN(p.topic_order)
-                        ) as topic_groups
-                    ) as sections
-                FROM jam
-                WHERE jam.jam_id = $1
-            `, [jam_id]);
-            res.status(200).json(jam.rows[0]);
-        }
-    }catch(err: any){
-        console.log(err);
-        res.status(500).json({error: err.message});
-    }finally{
-        client.release();
-    }
-
-});
-
-router.post('/createFromPlan', async (req: Request, res: Response)=>{
-    const {plan_id} = req.body;
-    // TODO: get user_id from the request/ session
-    const {user_id} = req.body;
-    const client = await pool.connect();
-    // transaction to insert jam_user and jam_problem
-    try{
-        await client.query('BEGIN');
-        const result = await client.query('INSERT INTO jam (plan_id, name,prob_goal_per_day,start_date,end_date,status,live_call) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING jam_id',[plan_id, req.body.name, req.body.prob_goal_per_day, req.body.start_date, req.body.end_date, req.body.status, req.body.live_call]);
-        await client.query('INSERT INTO jam_user (jam_id, user_id, is_admin) VALUES ($1, $2, $3)',[result.rows[0].jam_id, user_id, true]);
-        await client.query('INSERT INTO jam_problem (jam_id, problem_id) SELECT $1, problem_id FROM problem WHERE plan_id = $2',[result.rows[0].jam_id, plan_id]);
-        await client.query('COMMIT');
-        res.status(200).json({message: 'Jam created successfully', jam_id: result.rows[0].jam_id});
-    }catch(err: any){
-        await client.query('ROLLBACK');
-        res.status(500).json({error: err.message});
-    }finally{
-        client.release();
-    }
 });
 
 router.get('/ongoing', async (req: Request, res: Response)=>{
     // status 1 is ongoing
     // status 2 is completed
     // status 0 is pending
-    const client = await pool.connect();
+
     // TODO: get user_id from the request/ session
-    const user_id = 1;
-    client.query(`
-        SELECT jam.*, jam_user.is_admin
-        FROM jam 
-        LEFT JOIN jam_user ON jam.jam_id = jam_user.jam_id
-        where jam.status = 1 and jam_user.user_id = $1`
-        ,[user_id],(err: any,result: any)=>{
-        if(err){
-            res.status(500).json({error: err.message});
-        }else{
-            res.status(200).json(result.rows);
-        }
-    });
+    // const user_id = new mongoose.Types.ObjectId('1');
+    console.log('Getting ongoing jams');
+    try {
+        const jams = await Jam.find({status: 'active'}).lean();
+        
+        // Transform to JamSnippet format
+        const jamSnippets: JamSnippet[] = jams.map(jam => ({
+            _id: jam._id.toString(),
+            plan_id: jam.plan_id.toString(),
+            name: jam.name,
+            prob_goal_per_day: jam.prob_goal_per_day,
+            start_date: jam.start_date.toISOString(),
+            end_date: jam.end_date.toISOString(),
+            status: jam.status,
+            live_call: jam.live_call || false,
+            live_call_url: jam.live_call_url || null
+        }));
+        
+        res.status(200).json(jamSnippets);
+    } catch (err: any) {
+        console.error('Error getting ongoing jams', err);
+        res.status(500).json({error: err.message});
+    }
+}); 
+ 
+
+router.post('/createFromPlan', async (req: Request, res: Response)=>{
+    const {plan_id} = req.body;
+    // TODO: get user_id from the request/ session
+    const {user_id} = req.body;
+    try{
+        const newJam = new Jam({
+            plan_id: new mongoose.Types.ObjectId(plan_id),
+            name: req.body.name,
+            prob_goal_per_day: req.body.prob_goal_per_day,
+            start_date: req.body.start_date,
+            end_date: req.body.end_date,
+            status: req.body.status,
+            live_call: req.body.live_call,
+            sections: req.body.sections || []
+        });
+        const savedJam = await newJam.save();
+        res.status(200).json({message: 'Jam created successfully', jam_id: savedJam._id});
+    }catch(err: any){
+        res.status(500).json({error: err.message});
+    }
 });
+
 
 router.post('/adduser', async (req: Request, res: Response)=>{
     const {jam_id, user_id} = req.body;
-    const client = await pool.connect();
     try{
-        await client.query('INSERT INTO jam_user (jam_id, user_id) VALUES ($1, $2)',[jam_id, user_id]);
+        await Jam.findByIdAndUpdate(
+            jam_id,
+            { $addToSet: { sections: { $each: [] } } },
+            { new: true }
+        );
         res.status(200).json({message: 'User added to jam successfully'});
     }catch(err: any){
         res.status(500).json({error: err.message});
@@ -124,9 +93,8 @@ router.post('/adduser', async (req: Request, res: Response)=>{
 
 router.delete('/removeuser', async (req: Request, res: Response)=>{
     const {jam_id, user_id} = req.body;
-    const client = await pool.connect();
     try{
-        await client.query('DELETE FROM jam_user WHERE jam_id = $1 AND user_id = $2',[jam_id, user_id]);
+        await Jam.findByIdAndUpdate(jam_id, { new: true });
         res.status(200).json({message: 'User removed from jam successfully'});
     }catch(err: any){
         res.status(500).json({error: err.message});
@@ -134,10 +102,32 @@ router.delete('/removeuser', async (req: Request, res: Response)=>{
 });
 
 router.patch('/solved', async (req: Request, res: Response)=>{
-    const {jam_problem_id, user_id} = req.body;
-    const client = await pool.connect();
+    console.log('Solving problem');
+    const {jam_id, problem_slug, user_id} = req.body;
+    console.log('jam_id', jam_id);
+    console.log('problem_slug', problem_slug);
+    console.log('user_id', user_id);
     try{
-        await client.query("UPDATE jam_problem SET solved_by = COALESCE(solved_by, '{}')|| $1 WHERE jam_problem_id = $2",[user_id, jam_problem_id]);    
+        const jam = await Jam.findById(jam_id);
+        if (!jam) {
+            return res.status(404).json({error: 'Jam not found'});
+        }
+
+        // Find the problem in sections and add user to solved_by
+        for (let section of jam.sections) {
+            for (let problem of section.problems) {
+                if (problem.slug === problem_slug) {
+                    const solvedEntry = {
+                        user_id: new mongoose.Types.ObjectId(user_id),
+                        solved_at: new Date()
+                    };
+                    problem.solved_by.push(solvedEntry);
+                }
+            }
+        }
+
+        await jam.save();
+        console.log('Problem solved successfully');
         res.status(200).json({message: 'Problem solved successfully'});
     }catch(err: any){   
         res.status(500).json({error: err.message});
@@ -145,11 +135,76 @@ router.patch('/solved', async (req: Request, res: Response)=>{
 });
 
 router.patch('/unsolved', async (req: Request, res: Response)=>{
-    const {jam_problem_id, user_id} = req.body;
-    const client = await pool.connect();
+    const {jam_id, problem_slug, user_id} = req.body;
     try{
-        await client.query("UPDATE jam_problem SET solved_by = array_remove(solved_by, $1) WHERE jam_problem_id = $2",[user_id, jam_problem_id]);
+        const jam = await Jam.findById(jam_id);
+        if (!jam) {
+            return res.status(404).json({error: 'Jam not found'});
+        }
+
+        // Find the problem in sections and remove user from solved_by
+        for (let section of jam.sections) {
+            for (let problem of section.problems) {
+                if (problem.slug === problem_slug) {
+                    problem.solved_by = problem.solved_by.filter(
+                        (entry: any) => entry.user_id.toString() !== user_id
+                    );
+                }
+            }
+        }
+
+        await jam.save();
         res.status(200).json({message: 'Problem unsolved successfully'});
+    }catch(err: any){
+        res.status(500).json({error: err.message});
+    }
+});
+
+router.get('/:jam_id', async (req: Request, res: Response)=>{
+    const {jam_id} = req.params;
+    // TODO: get user_id from the request/ session
+    const user_id = '1';
+    console.log('Getting jam', jam_id);
+    try{
+        const jam = await Jam.findById(jam_id).lean();
+        if (!jam) {
+            return res.status(404).json({error: 'Jam not found'});
+        }
+        res.status(200).json(jam);
+    }catch(err: any){
+        res.status(500).json({error: err.message});
+    }
+});
+
+router.post('/createLiveJam', async (req: Request, res: Response)=>{
+    const {jam_id} = req.body;
+    try{
+        const updatedJam = await Jam.findByIdAndUpdate(
+            jam_id,
+            { 
+                live_call: true,
+                live_call_url: 'https://meet.google.com/landing'
+            },
+            { new: true }
+        );
+        res.status(200).json({live_call_url: 'https://meet.google.com/landing'});
+    }catch(err: any){
+        res.status(500).json({error: err.message});
+    }
+});
+
+router.post('/endLiveJam', async (req: Request, res: Response)=>{
+    const {jam_id} = req.body;
+    try{
+        const updatedJam = await Jam.findByIdAndUpdate(
+            jam_id,
+            { 
+                live_call: false,
+                live_call_url: null
+            },
+            { new: true }
+        );
+        res.status(200).json({message: 'Live jam ended successfully'});
     }catch(err: any){
         res.status(500).json({error: err.message});
     }

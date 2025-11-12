@@ -1,24 +1,28 @@
-import { Pool } from 'pg';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: parseInt(process.env.DB_PORT || '5432')
-});
 
 const connectDB = async () => {
   try {
-    const client = await pool.connect();
-    console.log('PostgreSQL database connected successfully');
-    client.release();
+    const conn = await mongoose.connect(process.env.MONGODB_URL!, {
+      autoIndex: true,
+      serverSelectionTimeoutMS: 10000,
+    });
+
+    console.log(`Connected to MongoDB Atlas`);
+    console.log(`Database: ${conn.connection.name}`);
+
+    if (conn.connection.db) {
+      const collections = await conn.connection.db.listCollections().toArray();
+      console.log("Collections in this DB:", collections.map(c => c.name));
+    } else {
+      console.warn("Database connection object is undefined.");
+    }
   } catch (error) {
-    console.error('Error connecting to PostgreSQL database:', error);
+    console.error("Error connecting to MongoDB Atlas:", error);
     process.exit(1);
   }
-};
+  };
 
-export { pool, connectDB };
+export { connectDB };
