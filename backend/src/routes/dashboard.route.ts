@@ -22,19 +22,13 @@ const ALGORITHMS_TAGS = [
   'Memoization',
   'Depth-First Search',
   'Breadth-First Search',
-  'Union Find',
   'Topological Sort',
   'Shortest Path',
   'Bit Manipulation',
   'String Matching',
-  'Combinatorics',
-  'Geometry',
   'Quickselect',
   'Merge Sort',
   'Counting Sort',
-  'Bucket Sort',
-  'Simulation',
-  'Interactive',
   'Randomized'
 ];
 
@@ -55,17 +49,13 @@ const DATA_STRUCTURE_TAGS = [
   'Doubly-Linked List',
   'Monotonic Stack',
   'Monotonic Queue',
-  'Ordered Set',
-  'Binary Indexed Tree',
-  'Segment Tree'
+
 ];
 
 const DB_TAGS = ['Database'];
 
 const SYSTEM_DESIGN_TAGS = [
-  'Design',
-  'Data Stream',
-  'Iterator'
+  'Design'
 ];
 
 function getSkillsFromTags(tags: string[]): string[] {
@@ -335,40 +325,14 @@ router.get('/barChartData', async (req: Request, res: Response)=>{
 
     const db = await getMongoDB();
     const jamCollection = db.collection('jams');
-    const studyPlanCollection = db.collection('study-plans');
 
-    // Get all tags from study plans (all available tags)
-    const allStudyPlanTags = await studyPlanCollection.aggregate([
-      {
-        $unwind: {
-          path: '$problems',
-          preserveNullAndEmptyArrays: false
-        }
-      },
-      {
-        $unwind: {
-          path: '$problems.problems',
-          preserveNullAndEmptyArrays: false
-        }
-      },
-      {
-        $unwind: {
-          path: '$problems.problems.tags',
-          preserveNullAndEmptyArrays: false
-        }
-      },
-      {
-        $group: {
-          _id: '$problems.problems.tags'
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          tag: '$_id'
-        }
-      }
-    ]).toArray();
+    // Get all tags from const arrays above
+    const allTags = [
+      ...ALGORITHMS_TAGS,
+      ...DATA_STRUCTURE_TAGS,
+      ...DB_TAGS,
+      ...SYSTEM_DESIGN_TAGS
+    ];
 
     // Get all solved problems with tags from jams for this user
     const solvedProblemsWithTags = await jamCollection.aggregate([
@@ -401,9 +365,9 @@ router.get('/barChartData', async (req: Request, res: Response)=>{
     // Create a map to count solved problems per tag
     const tagSolvedCount: Record<string, number> = {};
     
-    // Initialize all tags from study plans with 0
-    allStudyPlanTags.forEach((item: any) => {
-      tagSolvedCount[item.tag] = 0;
+    // Initialize all tags from const arrays with 0
+    allTags.forEach((tag: string) => {
+      tagSolvedCount[tag] = 0;
     });
 
     // Count solved problems per tag
@@ -412,9 +376,6 @@ router.get('/barChartData', async (req: Request, res: Response)=>{
       tags.forEach((tag: string) => {
         if (tagSolvedCount.hasOwnProperty(tag)) {
           tagSolvedCount[tag]++;
-        } else {
-          // If tag exists in jams but not in study plans, still count it
-          tagSolvedCount[tag] = 1;
         }
       });
     });
@@ -426,7 +387,7 @@ router.get('/barChartData', async (req: Request, res: Response)=>{
         count
       }))
       .sort((a, b) => a.count - b.count)
-      .slice(0, 5)
+      .slice(0, 10)
       .map(item => ({
         name: item.tag,
         value: item.count
