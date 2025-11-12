@@ -1,0 +1,1474 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.1
+-- Dumped by pg_dump version 17.0
+
+-- Started on 2025-10-25 17:10:36 EDT
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 227 (class 1259 OID 16585)
+-- Name: account; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.account (
+    id text NOT NULL,
+    "accountId" text NOT NULL,
+    "providerId" text NOT NULL,
+    "userId" text NOT NULL,
+    "accessToken" text,
+    "refreshToken" text,
+    "idToken" text,
+    "accessTokenExpiresAt" timestamp without time zone,
+    "refreshTokenExpiresAt" timestamp without time zone,
+    scope text,
+    password text,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.account OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16428)
+-- Name: jam; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.jam (
+    jam_id integer NOT NULL,
+    plan_id integer NOT NULL,
+    name character varying,
+    prob_goal_per_day smallint,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    status smallint NOT NULL,
+    live_call boolean NOT NULL,
+    live_call_url character varying
+);
+
+
+ALTER TABLE public.jam OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 16427)
+-- Name: jam_jamid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.jam_jamid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.jam_jamid_seq OWNER TO postgres;
+
+--
+-- TOC entry 3680 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: jam_jamid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.jam_jamid_seq OWNED BY public.jam.jam_id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 16538)
+-- Name: jam_problem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.jam_problem (
+    jam_problem_id integer NOT NULL,
+    problem_id integer NOT NULL,
+    jam_id integer NOT NULL,
+    solved_by integer[]
+);
+
+
+ALTER TABLE public.jam_problem OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16537)
+-- Name: jam_problem_jam_problem_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.jam_problem_jam_problem_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.jam_problem_jam_problem_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3681 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: jam_problem_jam_problem_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.jam_problem_jam_problem_id_seq OWNED BY public.jam_problem.jam_problem_id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 16522)
+-- Name: jam_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.jam_user (
+    user_id integer NOT NULL,
+    jam_id integer NOT NULL,
+    is_admin boolean NOT NULL
+);
+
+
+ALTER TABLE public.jam_user OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16396)
+-- Name: plan; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.plan (
+    plan_id integer NOT NULL,
+    name character varying NOT NULL,
+    slug character varying,
+    source character varying,
+    source_link character varying
+);
+
+
+ALTER TABLE public.plan OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 16395)
+-- Name: plan_planid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.plan_planid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.plan_planid_seq OWNER TO postgres;
+
+--
+-- TOC entry 3682 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: plan_planid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.plan_planid_seq OWNED BY public.plan.plan_id;
+
+
+--
+-- TOC entry 217 (class 1259 OID 16405)
+-- Name: problem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.problem (
+    problem_id integer NOT NULL,
+    name character varying NOT NULL,
+    slug character varying NOT NULL,
+    tags character varying[],
+    difficulty smallint,
+    topic character varying,
+    plan_id integer NOT NULL,
+    topic_order smallint NOT NULL,
+    url character varying NOT NULL
+);
+
+
+ALTER TABLE public.problem OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 16404)
+-- Name: problem_problemid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.problem_problemid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.problem_problemid_seq OWNER TO postgres;
+
+--
+-- TOC entry 3683 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: problem_problemid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.problem_problemid_seq OWNED BY public.problem.problem_id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 16571)
+-- Name: session; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.session (
+    id text NOT NULL,
+    "expiresAt" timestamp without time zone NOT NULL,
+    token text NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "ipAddress" text,
+    "userAgent" text,
+    "userId" text NOT NULL
+);
+
+
+ALTER TABLE public.session OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16562)
+-- Name: user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."user" (
+    id text NOT NULL,
+    name text NOT NULL,
+    email text NOT NULL,
+    "emailVerified" boolean NOT NULL,
+    image text,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."user" OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16512)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    user_id integer NOT NULL,
+    name character varying NOT NULL,
+    email character varying NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16511)
+-- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.users_user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3684 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
+
+
+--
+-- TOC entry 228 (class 1259 OID 16597)
+-- Name: verification; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.verification (
+    id text NOT NULL,
+    identifier text NOT NULL,
+    value text NOT NULL,
+    "expiresAt" timestamp without time zone NOT NULL,
+    "createdAt" timestamp without time zone,
+    "updatedAt" timestamp without time zone
+);
+
+
+ALTER TABLE public.verification OWNER TO postgres;
+
+--
+-- TOC entry 3481 (class 2604 OID 16431)
+-- Name: jam jam_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jam ALTER COLUMN jam_id SET DEFAULT nextval('public.jam_jamid_seq'::regclass);
+
+
+--
+-- TOC entry 3483 (class 2604 OID 16541)
+-- Name: jam_problem jam_problem_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jam_problem ALTER COLUMN jam_problem_id SET DEFAULT nextval('public.jam_problem_jam_problem_id_seq'::regclass);
+
+
+--
+-- TOC entry 3479 (class 2604 OID 16399)
+-- Name: plan plan_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.plan ALTER COLUMN plan_id SET DEFAULT nextval('public.plan_planid_seq'::regclass);
+
+
+--
+-- TOC entry 3480 (class 2604 OID 16408)
+-- Name: problem problem_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.problem ALTER COLUMN problem_id SET DEFAULT nextval('public.problem_problemid_seq'::regclass);
+
+
+--
+-- TOC entry 3482 (class 2604 OID 16515)
+-- Name: users user_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
+
+
+--
+-- TOC entry 3673 (class 0 OID 16585)
+-- Dependencies: 227
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.account (id, "accountId", "providerId", "userId", "accessToken", "refreshToken", "idToken", "accessTokenExpiresAt", "refreshTokenExpiresAt", scope, password, "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3665 (class 0 OID 16428)
+-- Dependencies: 219
+-- Data for Name: jam; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.jam (jam_id, plan_id, name, prob_goal_per_day, start_date, end_date, status, live_call, live_call_url) FROM stdin;
+1	1	Sample Jam	3	2024-01-01	2026-01-31	1	t	https://meet.google.com/landing
+2	3	Get the bag	2	2024-01-01	2025-07-31	1	t	https://meet.google.com/landing
+\.
+
+
+--
+-- TOC entry 3670 (class 0 OID 16538)
+-- Dependencies: 224
+-- Data for Name: jam_problem; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.jam_problem (jam_problem_id, problem_id, jam_id, solved_by) FROM stdin;
+17	17	1	\N
+18	18	1	\N
+19	19	1	\N
+20	20	1	\N
+21	21	1	\N
+22	22	1	\N
+23	23	1	\N
+24	24	1	\N
+25	25	1	\N
+26	26	1	\N
+27	27	1	\N
+28	28	1	\N
+29	29	1	\N
+30	30	1	\N
+31	31	1	\N
+32	32	1	\N
+33	33	1	\N
+34	34	1	\N
+35	35	1	\N
+36	36	1	\N
+37	37	1	\N
+38	38	1	\N
+39	39	1	\N
+40	40	1	\N
+41	41	1	\N
+42	42	1	\N
+43	43	1	\N
+44	44	1	\N
+46	46	1	\N
+47	47	1	\N
+48	48	1	\N
+49	49	1	\N
+50	50	1	\N
+51	51	1	\N
+52	52	1	\N
+53	53	1	\N
+54	54	1	\N
+55	55	1	\N
+56	56	1	\N
+57	57	1	\N
+58	58	1	\N
+59	59	1	\N
+60	60	1	\N
+61	61	1	\N
+62	62	1	\N
+63	63	1	\N
+64	64	1	\N
+65	65	1	\N
+66	66	1	\N
+67	67	1	\N
+68	68	1	\N
+69	69	1	\N
+70	70	1	\N
+71	71	1	\N
+72	72	1	\N
+73	73	1	\N
+74	74	1	\N
+75	75	1	\N
+76	76	1	\N
+77	77	1	\N
+78	78	1	\N
+79	79	1	\N
+80	80	1	\N
+81	81	1	\N
+82	82	1	\N
+83	83	1	\N
+84	84	1	\N
+85	85	1	\N
+86	86	1	\N
+87	87	1	\N
+88	88	1	\N
+89	89	1	\N
+90	90	1	\N
+91	91	1	\N
+92	92	1	\N
+93	93	1	\N
+94	94	1	\N
+95	95	1	\N
+96	96	1	\N
+97	97	1	\N
+98	98	1	\N
+99	99	1	\N
+100	100	1	\N
+101	101	1	\N
+102	102	1	\N
+104	104	1	\N
+105	105	1	\N
+106	106	1	\N
+107	107	1	\N
+108	108	1	\N
+109	109	1	\N
+110	110	1	\N
+111	111	1	\N
+112	112	1	\N
+113	113	1	\N
+114	114	1	\N
+115	115	1	\N
+116	116	1	\N
+117	117	1	\N
+118	118	1	\N
+119	119	1	\N
+120	120	1	\N
+121	121	1	\N
+122	122	1	\N
+123	123	1	\N
+124	124	1	\N
+125	125	1	\N
+126	126	1	\N
+127	127	1	\N
+128	128	1	\N
+129	129	1	\N
+130	130	1	\N
+131	131	1	\N
+132	132	1	\N
+133	133	1	\N
+134	134	1	\N
+135	135	1	\N
+136	136	1	\N
+137	137	1	\N
+138	138	1	\N
+139	139	1	\N
+140	140	1	\N
+141	141	1	\N
+142	142	1	\N
+143	143	1	\N
+144	144	1	\N
+145	145	1	\N
+146	146	1	\N
+147	147	1	\N
+148	148	1	\N
+149	149	1	\N
+150	150	1	\N
+157	193	2	\N
+158	194	2	\N
+159	195	2	\N
+161	197	2	\N
+163	199	2	\N
+164	200	2	\N
+165	201	2	\N
+166	202	2	\N
+167	203	2	\N
+169	205	2	\N
+170	206	2	\N
+171	207	2	\N
+172	208	2	\N
+173	209	2	\N
+174	210	2	\N
+175	211	2	\N
+176	212	2	\N
+177	213	2	\N
+178	214	2	\N
+180	216	2	\N
+181	217	2	\N
+182	218	2	\N
+183	219	2	\N
+184	220	2	\N
+185	221	2	\N
+15	15	1	{}
+162	198	2	{}
+2	2	1	{1}
+4	4	1	{}
+103	103	1	{}
+5	5	1	{}
+154	190	2	{}
+7	7	1	{}
+11	11	1	{}
+8	8	1	{}
+13	13	1	{}
+156	192	2	{}
+3	3	1	{1}
+155	191	2	{}
+179	215	2	{}
+160	196	2	{}
+168	204	2	{}
+186	222	2	\N
+187	223	2	\N
+188	224	2	\N
+189	225	2	\N
+190	226	2	\N
+191	227	2	\N
+192	228	2	\N
+193	229	2	\N
+194	230	2	\N
+195	231	2	\N
+196	232	2	\N
+197	233	2	\N
+198	234	2	\N
+199	235	2	\N
+200	236	2	\N
+201	237	2	\N
+202	238	2	\N
+203	239	2	\N
+204	240	2	\N
+205	241	2	\N
+206	242	2	\N
+207	243	2	\N
+208	244	2	\N
+209	245	2	\N
+210	246	2	\N
+211	247	2	\N
+212	248	2	\N
+213	249	2	\N
+214	250	2	\N
+215	251	2	\N
+216	252	2	\N
+217	253	2	\N
+218	254	2	\N
+219	255	2	\N
+220	256	2	\N
+221	257	2	\N
+222	258	2	\N
+223	259	2	\N
+225	261	2	\N
+224	260	2	{}
+1	1	1	{1}
+151	187	2	{1}
+153	189	2	{}
+6	6	1	{}
+9	9	1	{}
+10	10	1	{}
+12	12	1	{}
+16	16	1	{}
+45	45	1	{}
+14	14	1	{}
+152	188	2	{4,1}
+\.
+
+
+--
+-- TOC entry 3668 (class 0 OID 16522)
+-- Dependencies: 222
+-- Data for Name: jam_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.jam_user (user_id, jam_id, is_admin) FROM stdin;
+1	1	t
+1	2	t
+2	2	f
+4	2	f
+5	2	f
+\.
+
+
+--
+-- TOC entry 3661 (class 0 OID 16396)
+-- Dependencies: 215
+-- Data for Name: plan; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.plan (plan_id, name, slug, source, source_link) FROM stdin;
+1	Top Interview 150	top-interview-150	leetcode	https://leetcode.com/studyplan/top-interview-150/
+2	Graph Theory	graph-theory	leetcode	https://leetcode.com/studyplan/graph-theory/
+3	LeetCode 75	leetcode-75	leetcode	https://leetcode.com/study-plan/leetcode-75/
+4	Top SQL 50	top-sql-50	leetcode	https://leetcode.com/studyplan/top-sql-50/
+5	Programming Skills	programming-skills	leetcode	https://leetcode.com/studyplan/programming-skills/
+6	Top 100 Liked	top-100-liked	leetcode	https://leetcode.com/studyplan/top-100-liked/
+7	Binary Search	binary-search	leetcode	https://leetcode.com/studyplan/binary-search/
+8	Dynamic Programming	dynamic-programming	leetcode	https://leetcode.com/studyplan/dynamic-programming/
+9	Introduction to Pandas	introduction-to-pandas	leetcode	https://leetcode.com/studyplan/introduction-to-pandas/
+\.
+
+
+--
+-- TOC entry 3663 (class 0 OID 16405)
+-- Dependencies: 217
+-- Data for Name: problem; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.problem (problem_id, name, slug, tags, difficulty, topic, plan_id, topic_order, url) FROM stdin;
+1	Merge Sorted Array	merge-sorted-array	{Array,"Two Pointers",Sorting}	1	Array / String	1	0	https://leetcode.com/problems/merge-sorted-array
+2	Remove Element	remove-element	{Array,"Two Pointers"}	1	Array / String	1	0	https://leetcode.com/problems/remove-element
+3	Remove Duplicates from Sorted Array	remove-duplicates-from-sorted-array	{Array,"Two Pointers"}	1	Array / String	1	0	https://leetcode.com/problems/remove-duplicates-from-sorted-array
+4	Remove Duplicates from Sorted Array II	remove-duplicates-from-sorted-array-ii	{Array,"Two Pointers"}	2	Array / String	1	0	https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii
+5	Majority Element	majority-element	{Array,"Hash Table","Divide and Conquer",Sorting,Counting}	1	Array / String	1	0	https://leetcode.com/problems/majority-element
+6	Rotate Array	rotate-array	{Array,Math,"Two Pointers"}	2	Array / String	1	0	https://leetcode.com/problems/rotate-array
+7	Best Time to Buy and Sell Stock	best-time-to-buy-and-sell-stock	{Array,"Dynamic Programming"}	1	Array / String	1	0	https://leetcode.com/problems/best-time-to-buy-and-sell-stock
+8	Best Time to Buy and Sell Stock II	best-time-to-buy-and-sell-stock-ii	{Array,"Dynamic Programming",Greedy}	2	Array / String	1	0	https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii
+9	Jump Game	jump-game	{Array,"Dynamic Programming",Greedy}	2	Array / String	1	0	https://leetcode.com/problems/jump-game
+10	Jump Game II	jump-game-ii	{Array,"Dynamic Programming",Greedy}	2	Array / String	1	0	https://leetcode.com/problems/jump-game-ii
+11	H-Index	h-index	{Array,Sorting,"Counting Sort"}	2	Array / String	1	0	https://leetcode.com/problems/h-index
+12	Insert Delete GetRandom O(1)	insert-delete-getrandom-o1	{Array,"Hash Table",Math,Design,Randomized}	2	Array / String	1	0	https://leetcode.com/problems/insert-delete-getrandom-o1
+13	Product of Array Except Self	product-of-array-except-self	{Array,"Prefix Sum"}	2	Array / String	1	0	https://leetcode.com/problems/product-of-array-except-self
+14	Gas Station	gas-station	{Array,Greedy}	2	Array / String	1	0	https://leetcode.com/problems/gas-station
+15	Candy	candy	{Array,Greedy}	3	Array / String	1	0	https://leetcode.com/problems/candy
+16	Trapping Rain Water	trapping-rain-water	{Array,"Two Pointers","Dynamic Programming",Stack,"Monotonic Stack"}	3	Array / String	1	0	https://leetcode.com/problems/trapping-rain-water
+17	Roman to Integer	roman-to-integer	{"Hash Table",Math,String}	1	Array / String	1	0	https://leetcode.com/problems/roman-to-integer
+18	Integer to Roman	integer-to-roman	{"Hash Table",Math,String}	2	Array / String	1	0	https://leetcode.com/problems/integer-to-roman
+19	Length of Last Word	length-of-last-word	{String}	1	Array / String	1	0	https://leetcode.com/problems/length-of-last-word
+20	Longest Common Prefix	longest-common-prefix	{String,Trie}	1	Array / String	1	0	https://leetcode.com/problems/longest-common-prefix
+21	Reverse Words in a String	reverse-words-in-a-string	{"Two Pointers",String}	2	Array / String	1	0	https://leetcode.com/problems/reverse-words-in-a-string
+22	Zigzag Conversion	zigzag-conversion	{String}	2	Array / String	1	0	https://leetcode.com/problems/zigzag-conversion
+23	Find the Index of the First Occurrence in a String	find-the-index-of-the-first-occurrence-in-a-string	{"Two Pointers",String,"String Matching"}	1	Array / String	1	0	https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string
+24	Text Justification	text-justification	{Array,String,Simulation}	3	Array / String	1	0	https://leetcode.com/problems/text-justification
+25	Valid Palindrome	valid-palindrome	{"Two Pointers",String}	1	Two Pointers	1	1	https://leetcode.com/problems/valid-palindrome
+26	Is Subsequence	is-subsequence	{"Two Pointers",String,"Dynamic Programming"}	1	Two Pointers	1	1	https://leetcode.com/problems/is-subsequence
+27	Two Sum II - Input Array Is Sorted	two-sum-ii-input-array-is-sorted	{Array,"Two Pointers","Binary Search"}	2	Two Pointers	1	1	https://leetcode.com/problems/two-sum-ii-input-array-is-sorted
+28	Container With Most Water	container-with-most-water	{Array,"Two Pointers",Greedy}	2	Two Pointers	1	1	https://leetcode.com/problems/container-with-most-water
+29	3Sum	3sum	{Array,"Two Pointers",Sorting}	2	Two Pointers	1	1	https://leetcode.com/problems/3sum
+30	Minimum Size Subarray Sum	minimum-size-subarray-sum	{Array,"Binary Search","Sliding Window","Prefix Sum"}	2	Sliding Window	1	2	https://leetcode.com/problems/minimum-size-subarray-sum
+31	Longest Substring Without Repeating Characters	longest-substring-without-repeating-characters	{"Hash Table",String,"Sliding Window"}	2	Sliding Window	1	2	https://leetcode.com/problems/longest-substring-without-repeating-characters
+32	Substring with Concatenation of All Words	substring-with-concatenation-of-all-words	{"Hash Table",String,"Sliding Window"}	3	Sliding Window	1	2	https://leetcode.com/problems/substring-with-concatenation-of-all-words
+33	Minimum Window Substring	minimum-window-substring	{"Hash Table",String,"Sliding Window"}	3	Sliding Window	1	2	https://leetcode.com/problems/minimum-window-substring
+34	Valid Sudoku	valid-sudoku	{Array,"Hash Table",Matrix}	2	Matrix	1	3	https://leetcode.com/problems/valid-sudoku
+35	Spiral Matrix	spiral-matrix	{Array,Matrix,Simulation}	2	Matrix	1	3	https://leetcode.com/problems/spiral-matrix
+36	Rotate Image	rotate-image	{Array,Math,Matrix}	2	Matrix	1	3	https://leetcode.com/problems/rotate-image
+37	Set Matrix Zeroes	set-matrix-zeroes	{Array,"Hash Table",Matrix}	2	Matrix	1	3	https://leetcode.com/problems/set-matrix-zeroes
+38	Game of Life	game-of-life	{Array,Matrix,Simulation}	2	Matrix	1	3	https://leetcode.com/problems/game-of-life
+39	Ransom Note	ransom-note	{"Hash Table",String,Counting}	1	Hashmap	1	4	https://leetcode.com/problems/ransom-note
+40	Isomorphic Strings	isomorphic-strings	{"Hash Table",String}	1	Hashmap	1	4	https://leetcode.com/problems/isomorphic-strings
+41	Word Pattern	word-pattern	{"Hash Table",String}	1	Hashmap	1	4	https://leetcode.com/problems/word-pattern
+42	Valid Anagram	valid-anagram	{"Hash Table",String,Sorting}	1	Hashmap	1	4	https://leetcode.com/problems/valid-anagram
+43	Group Anagrams	group-anagrams	{Array,"Hash Table",String,Sorting}	2	Hashmap	1	4	https://leetcode.com/problems/group-anagrams
+44	Two Sum	two-sum	{Array,"Hash Table"}	1	Hashmap	1	4	https://leetcode.com/problems/two-sum
+45	Happy Number	happy-number	{"Hash Table",Math,"Two Pointers"}	1	Hashmap	1	4	https://leetcode.com/problems/happy-number
+46	Contains Duplicate II	contains-duplicate-ii	{Array,"Hash Table","Sliding Window"}	1	Hashmap	1	4	https://leetcode.com/problems/contains-duplicate-ii
+47	Longest Consecutive Sequence	longest-consecutive-sequence	{Array,"Hash Table","Union Find"}	2	Hashmap	1	4	https://leetcode.com/problems/longest-consecutive-sequence
+48	Summary Ranges	summary-ranges	{Array}	1	Intervals	1	5	https://leetcode.com/problems/summary-ranges
+49	Merge Intervals	merge-intervals	{Array,Sorting}	2	Intervals	1	5	https://leetcode.com/problems/merge-intervals
+50	Insert Interval	insert-interval	{Array}	2	Intervals	1	5	https://leetcode.com/problems/insert-interval
+51	Minimum Number of Arrows to Burst Balloons	minimum-number-of-arrows-to-burst-balloons	{Array,Greedy,Sorting}	2	Intervals	1	5	https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons
+52	Valid Parentheses	valid-parentheses	{String,Stack}	1	Stack	1	6	https://leetcode.com/problems/valid-parentheses
+53	Simplify Path	simplify-path	{String,Stack}	2	Stack	1	6	https://leetcode.com/problems/simplify-path
+54	Min Stack	min-stack	{Stack,Design}	2	Stack	1	6	https://leetcode.com/problems/min-stack
+55	Evaluate Reverse Polish Notation	evaluate-reverse-polish-notation	{Array,Math,Stack}	2	Stack	1	6	https://leetcode.com/problems/evaluate-reverse-polish-notation
+56	Basic Calculator	basic-calculator	{Math,String,Stack,Recursion}	3	Stack	1	6	https://leetcode.com/problems/basic-calculator
+57	Linked List Cycle	linked-list-cycle	{"Hash Table","Linked List","Two Pointers"}	1	Linked List	1	7	https://leetcode.com/problems/linked-list-cycle
+58	Add Two Numbers	add-two-numbers	{"Linked List",Math,Recursion}	2	Linked List	1	7	https://leetcode.com/problems/add-two-numbers
+59	Merge Two Sorted Lists	merge-two-sorted-lists	{"Linked List",Recursion}	1	Linked List	1	7	https://leetcode.com/problems/merge-two-sorted-lists
+60	Copy List with Random Pointer	copy-list-with-random-pointer	{"Hash Table","Linked List"}	2	Linked List	1	7	https://leetcode.com/problems/copy-list-with-random-pointer
+61	Reverse Linked List II	reverse-linked-list-ii	{"Linked List"}	2	Linked List	1	7	https://leetcode.com/problems/reverse-linked-list-ii
+62	Reverse Nodes in k-Group	reverse-nodes-in-k-group	{"Linked List",Recursion}	3	Linked List	1	7	https://leetcode.com/problems/reverse-nodes-in-k-group
+63	Remove Nth Node From End of List	remove-nth-node-from-end-of-list	{"Linked List","Two Pointers"}	2	Linked List	1	7	https://leetcode.com/problems/remove-nth-node-from-end-of-list
+64	Remove Duplicates from Sorted List II	remove-duplicates-from-sorted-list-ii	{"Linked List","Two Pointers"}	2	Linked List	1	7	https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii
+65	Rotate List	rotate-list	{"Linked List","Two Pointers"}	2	Linked List	1	7	https://leetcode.com/problems/rotate-list
+66	Partition List	partition-list	{"Linked List","Two Pointers"}	2	Linked List	1	7	https://leetcode.com/problems/partition-list
+67	LRU Cache	lru-cache	{"Hash Table","Linked List",Design,"Doubly-Linked List"}	2	Linked List	1	7	https://leetcode.com/problems/lru-cache
+68	Maximum Depth of Binary Tree	maximum-depth-of-binary-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	1	Binary Tree General	1	8	https://leetcode.com/problems/maximum-depth-of-binary-tree
+69	Same Tree	same-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	1	Binary Tree General	1	8	https://leetcode.com/problems/same-tree
+70	Invert Binary Tree	invert-binary-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	1	Binary Tree General	1	8	https://leetcode.com/problems/invert-binary-tree
+71	Symmetric Tree	symmetric-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	1	Binary Tree General	1	8	https://leetcode.com/problems/symmetric-tree
+72	Construct Binary Tree from Preorder and Inorder Traversal	construct-binary-tree-from-preorder-and-inorder-traversal	{Array,"Hash Table","Divide and Conquer",Tree,"Binary Tree"}	2	Binary Tree General	1	8	https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal
+73	Construct Binary Tree from Inorder and Postorder Traversal	construct-binary-tree-from-inorder-and-postorder-traversal	{Array,"Hash Table","Divide and Conquer",Tree,"Binary Tree"}	2	Binary Tree General	1	8	https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal
+74	Populating Next Right Pointers in Each Node II	populating-next-right-pointers-in-each-node-ii	{"Linked List",Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	2	Binary Tree General	1	8	https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii
+75	Flatten Binary Tree to Linked List	flatten-binary-tree-to-linked-list	{"Linked List",Stack,Tree,"Depth-First Search","Binary Tree"}	2	Binary Tree General	1	8	https://leetcode.com/problems/flatten-binary-tree-to-linked-list
+76	Path Sum	path-sum	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	1	Binary Tree General	1	8	https://leetcode.com/problems/path-sum
+77	Sum Root to Leaf Numbers	sum-root-to-leaf-numbers	{Tree,"Depth-First Search","Binary Tree"}	2	Binary Tree General	1	8	https://leetcode.com/problems/sum-root-to-leaf-numbers
+78	Binary Tree Maximum Path Sum	binary-tree-maximum-path-sum	{"Dynamic Programming",Tree,"Depth-First Search","Binary Tree"}	3	Binary Tree General	1	8	https://leetcode.com/problems/binary-tree-maximum-path-sum
+79	Binary Search Tree Iterator	binary-search-tree-iterator	{Stack,Tree,Design,"Binary Search Tree","Binary Tree",Iterator}	2	Binary Tree General	1	8	https://leetcode.com/problems/binary-search-tree-iterator
+80	Count Complete Tree Nodes	count-complete-tree-nodes	{"Binary Search","Bit Manipulation",Tree,"Binary Tree"}	1	Binary Tree General	1	8	https://leetcode.com/problems/count-complete-tree-nodes
+81	Lowest Common Ancestor of a Binary Tree	lowest-common-ancestor-of-a-binary-tree	{Tree,"Depth-First Search","Binary Tree"}	2	Binary Tree General	1	8	https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree
+82	Binary Tree Right Side View	binary-tree-right-side-view	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	2	Binary Tree BFS	1	9	https://leetcode.com/problems/binary-tree-right-side-view
+83	Average of Levels in Binary Tree	average-of-levels-in-binary-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	1	Binary Tree BFS	1	9	https://leetcode.com/problems/average-of-levels-in-binary-tree
+84	Binary Tree Level Order Traversal	binary-tree-level-order-traversal	{Tree,"Breadth-First Search","Binary Tree"}	2	Binary Tree BFS	1	9	https://leetcode.com/problems/binary-tree-level-order-traversal
+85	Binary Tree Zigzag Level Order Traversal	binary-tree-zigzag-level-order-traversal	{Tree,"Breadth-First Search","Binary Tree"}	2	Binary Tree BFS	1	9	https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal
+86	Minimum Absolute Difference in BST	minimum-absolute-difference-in-bst	{Tree,"Depth-First Search","Breadth-First Search","Binary Search Tree","Binary Tree"}	1	Binary Search Tree	1	10	https://leetcode.com/problems/minimum-absolute-difference-in-bst
+87	Kth Smallest Element in a BST	kth-smallest-element-in-a-bst	{Tree,"Depth-First Search","Binary Search Tree","Binary Tree"}	2	Binary Search Tree	1	10	https://leetcode.com/problems/kth-smallest-element-in-a-bst
+88	Validate Binary Search Tree	validate-binary-search-tree	{Tree,"Depth-First Search","Binary Search Tree","Binary Tree"}	2	Binary Search Tree	1	10	https://leetcode.com/problems/validate-binary-search-tree
+89	Number of Islands	number-of-islands	{Array,"Depth-First Search","Breadth-First Search","Union Find",Matrix}	2	Graph General	1	11	https://leetcode.com/problems/number-of-islands
+90	Surrounded Regions	surrounded-regions	{Array,"Depth-First Search","Breadth-First Search","Union Find",Matrix}	2	Graph General	1	11	https://leetcode.com/problems/surrounded-regions
+91	Clone Graph	clone-graph	{"Hash Table","Depth-First Search","Breadth-First Search",Graph}	2	Graph General	1	11	https://leetcode.com/problems/clone-graph
+92	Evaluate Division	evaluate-division	{Array,String,"Depth-First Search","Breadth-First Search","Union Find",Graph,"Shortest Path"}	2	Graph General	1	11	https://leetcode.com/problems/evaluate-division
+93	Course Schedule	course-schedule	{"Depth-First Search","Breadth-First Search",Graph,"Topological Sort"}	2	Graph General	1	11	https://leetcode.com/problems/course-schedule
+94	Course Schedule II	course-schedule-ii	{"Depth-First Search","Breadth-First Search",Graph,"Topological Sort"}	2	Graph General	1	11	https://leetcode.com/problems/course-schedule-ii
+95	Snakes and Ladders	snakes-and-ladders	{Array,"Breadth-First Search",Matrix}	2	Graph BFS	1	12	https://leetcode.com/problems/snakes-and-ladders
+96	Minimum Genetic Mutation	minimum-genetic-mutation	{"Hash Table",String,"Breadth-First Search"}	2	Graph BFS	1	12	https://leetcode.com/problems/minimum-genetic-mutation
+97	Word Ladder	word-ladder	{"Hash Table",String,"Breadth-First Search"}	3	Graph BFS	1	12	https://leetcode.com/problems/word-ladder
+98	Implement Trie (Prefix Tree)	implement-trie-prefix-tree	{"Hash Table",String,Design,Trie}	2	Trie	1	13	https://leetcode.com/problems/implement-trie-prefix-tree
+99	Design Add and Search Words Data Structure	design-add-and-search-words-data-structure	{String,"Depth-First Search",Design,Trie}	2	Trie	1	13	https://leetcode.com/problems/design-add-and-search-words-data-structure
+100	Word Search II	word-search-ii	{Array,String,Backtracking,Trie,Matrix}	3	Trie	1	13	https://leetcode.com/problems/word-search-ii
+101	Letter Combinations of a Phone Number	letter-combinations-of-a-phone-number	{"Hash Table",String,Backtracking}	2	Backtracking	1	14	https://leetcode.com/problems/letter-combinations-of-a-phone-number
+102	Combinations	combinations	{Backtracking}	2	Backtracking	1	14	https://leetcode.com/problems/combinations
+103	Permutations	permutations	{Array,Backtracking}	2	Backtracking	1	14	https://leetcode.com/problems/permutations
+104	Combination Sum	combination-sum	{Array,Backtracking}	2	Backtracking	1	14	https://leetcode.com/problems/combination-sum
+105	N-Queens II	n-queens-ii	{Backtracking}	3	Backtracking	1	14	https://leetcode.com/problems/n-queens-ii
+106	Generate Parentheses	generate-parentheses	{String,"Dynamic Programming",Backtracking}	2	Backtracking	1	14	https://leetcode.com/problems/generate-parentheses
+107	Word Search	word-search	{Array,String,Backtracking,"Depth-First Search",Matrix}	2	Backtracking	1	14	https://leetcode.com/problems/word-search
+108	Convert Sorted Array to Binary Search Tree	convert-sorted-array-to-binary-search-tree	{Array,"Divide and Conquer",Tree,"Binary Search Tree","Binary Tree"}	1	Divide & Conquer	1	15	https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree
+109	Sort List	sort-list	{"Linked List","Two Pointers","Divide and Conquer",Sorting,"Merge Sort"}	2	Divide & Conquer	1	15	https://leetcode.com/problems/sort-list
+110	Construct Quad Tree	construct-quad-tree	{Array,"Divide and Conquer",Tree,Matrix}	2	Divide & Conquer	1	15	https://leetcode.com/problems/construct-quad-tree
+111	Merge k Sorted Lists	merge-k-sorted-lists	{"Linked List","Divide and Conquer","Heap (Priority Queue)","Merge Sort"}	3	Divide & Conquer	1	15	https://leetcode.com/problems/merge-k-sorted-lists
+112	Maximum Subarray	maximum-subarray	{Array,"Divide and Conquer","Dynamic Programming"}	2	Kadane's Algorithm	1	16	https://leetcode.com/problems/maximum-subarray
+113	Maximum Sum Circular Subarray	maximum-sum-circular-subarray	{Array,"Divide and Conquer","Dynamic Programming",Queue,"Monotonic Queue"}	2	Kadane's Algorithm	1	16	https://leetcode.com/problems/maximum-sum-circular-subarray
+114	Search Insert Position	search-insert-position	{Array,"Binary Search"}	1	Binary Search	1	17	https://leetcode.com/problems/search-insert-position
+115	Search a 2D Matrix	search-a-2d-matrix	{Array,"Binary Search",Matrix}	2	Binary Search	1	17	https://leetcode.com/problems/search-a-2d-matrix
+116	Find Peak Element	find-peak-element	{Array,"Binary Search"}	2	Binary Search	1	17	https://leetcode.com/problems/find-peak-element
+117	Search in Rotated Sorted Array	search-in-rotated-sorted-array	{Array,"Binary Search"}	2	Binary Search	1	17	https://leetcode.com/problems/search-in-rotated-sorted-array
+118	Find First and Last Position of Element in Sorted Array	find-first-and-last-position-of-element-in-sorted-array	{Array,"Binary Search"}	2	Binary Search	1	17	https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array
+119	Find Minimum in Rotated Sorted Array	find-minimum-in-rotated-sorted-array	{Array,"Binary Search"}	2	Binary Search	1	17	https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
+120	Median of Two Sorted Arrays	median-of-two-sorted-arrays	{Array,"Binary Search","Divide and Conquer"}	3	Binary Search	1	17	https://leetcode.com/problems/median-of-two-sorted-arrays
+121	Kth Largest Element in an Array	kth-largest-element-in-an-array	{Array,"Divide and Conquer",Sorting,"Heap (Priority Queue)",Quickselect}	2	Heap	1	18	https://leetcode.com/problems/kth-largest-element-in-an-array
+122	IPO	ipo	{Array,Greedy,Sorting,"Heap (Priority Queue)"}	3	Heap	1	18	https://leetcode.com/problems/ipo
+123	Find K Pairs with Smallest Sums	find-k-pairs-with-smallest-sums	{Array,"Heap (Priority Queue)"}	2	Heap	1	18	https://leetcode.com/problems/find-k-pairs-with-smallest-sums
+124	Find Median from Data Stream	find-median-from-data-stream	{"Two Pointers",Design,Sorting,"Heap (Priority Queue)","Data Stream"}	3	Heap	1	18	https://leetcode.com/problems/find-median-from-data-stream
+125	Add Binary	add-binary	{Math,String,"Bit Manipulation",Simulation}	1	Bit Manipulation	1	19	https://leetcode.com/problems/add-binary
+126	Reverse Bits	reverse-bits	{"Divide and Conquer","Bit Manipulation"}	1	Bit Manipulation	1	19	https://leetcode.com/problems/reverse-bits
+127	Number of 1 Bits	number-of-1-bits	{"Divide and Conquer","Bit Manipulation"}	1	Bit Manipulation	1	19	https://leetcode.com/problems/number-of-1-bits
+128	Single Number	single-number	{Array,"Bit Manipulation"}	1	Bit Manipulation	1	19	https://leetcode.com/problems/single-number
+129	Single Number II	single-number-ii	{Array,"Bit Manipulation"}	2	Bit Manipulation	1	19	https://leetcode.com/problems/single-number-ii
+130	Bitwise AND of Numbers Range	bitwise-and-of-numbers-range	{"Bit Manipulation"}	2	Bit Manipulation	1	19	https://leetcode.com/problems/bitwise-and-of-numbers-range
+131	Palindrome Number	palindrome-number	{Math}	1	Math	1	20	https://leetcode.com/problems/palindrome-number
+132	Plus One	plus-one	{Array,Math}	1	Math	1	20	https://leetcode.com/problems/plus-one
+133	Factorial Trailing Zeroes	factorial-trailing-zeroes	{Math}	2	Math	1	20	https://leetcode.com/problems/factorial-trailing-zeroes
+134	Sqrt(x)	sqrtx	{Math,"Binary Search"}	1	Math	1	20	https://leetcode.com/problems/sqrtx
+135	Pow(x, n)	powx-n	{Math,Recursion}	2	Math	1	20	https://leetcode.com/problems/powx-n
+136	Max Points on a Line	max-points-on-a-line	{Array,"Hash Table",Math,Geometry}	3	Math	1	20	https://leetcode.com/problems/max-points-on-a-line
+137	Climbing Stairs	climbing-stairs	{Math,"Dynamic Programming",Memoization}	1	1D DP	1	21	https://leetcode.com/problems/climbing-stairs
+138	House Robber	house-robber	{Array,"Dynamic Programming"}	2	1D DP	1	21	https://leetcode.com/problems/house-robber
+139	Word Break	word-break	{Array,"Hash Table",String,"Dynamic Programming",Trie,Memoization}	2	1D DP	1	21	https://leetcode.com/problems/word-break
+140	Coin Change	coin-change	{Array,"Dynamic Programming","Breadth-First Search"}	2	1D DP	1	21	https://leetcode.com/problems/coin-change
+141	Longest Increasing Subsequence	longest-increasing-subsequence	{Array,"Binary Search","Dynamic Programming"}	2	1D DP	1	21	https://leetcode.com/problems/longest-increasing-subsequence
+142	Triangle	triangle	{Array,"Dynamic Programming"}	2	Multidimensional DP	1	22	https://leetcode.com/problems/triangle
+143	Minimum Path Sum	minimum-path-sum	{Array,"Dynamic Programming",Matrix}	2	Multidimensional DP	1	22	https://leetcode.com/problems/minimum-path-sum
+144	Unique Paths II	unique-paths-ii	{Array,"Dynamic Programming",Matrix}	2	Multidimensional DP	1	22	https://leetcode.com/problems/unique-paths-ii
+145	Longest Palindromic Substring	longest-palindromic-substring	{"Two Pointers",String,"Dynamic Programming"}	2	Multidimensional DP	1	22	https://leetcode.com/problems/longest-palindromic-substring
+146	Interleaving String	interleaving-string	{String,"Dynamic Programming"}	2	Multidimensional DP	1	22	https://leetcode.com/problems/interleaving-string
+147	Edit Distance	edit-distance	{String,"Dynamic Programming"}	2	Multidimensional DP	1	22	https://leetcode.com/problems/edit-distance
+148	Best Time to Buy and Sell Stock III	best-time-to-buy-and-sell-stock-iii	{Array,"Dynamic Programming"}	3	Multidimensional DP	1	22	https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii
+149	Best Time to Buy and Sell Stock IV	best-time-to-buy-and-sell-stock-iv	{Array,"Dynamic Programming"}	3	Multidimensional DP	1	22	https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv
+150	Maximal Square	maximal-square	{Array,"Dynamic Programming",Matrix}	2	Multidimensional DP	1	22	https://leetcode.com/problems/maximal-square
+151	Number of Provinces	number-of-provinces	{"Depth-First Search","Breadth-First Search","Union Find",Graph}	2	Standard Traversal	2	0	https://leetcode.com/problems/number-of-provinces
+152	Find Eventual Safe States	find-eventual-safe-states	{"Depth-First Search","Breadth-First Search",Graph,"Topological Sort"}	2	Standard Traversal	2	0	https://leetcode.com/problems/find-eventual-safe-states
+153	Keys and Rooms	keys-and-rooms	{"Depth-First Search","Breadth-First Search",Graph}	2	Standard Traversal	2	0	https://leetcode.com/problems/keys-and-rooms
+154	Shortest Path with Alternating Colors	shortest-path-with-alternating-colors	{"Breadth-First Search",Graph}	2	Standard Traversal	2	0	https://leetcode.com/problems/shortest-path-with-alternating-colors
+155	Time Needed to Inform All Employees	time-needed-to-inform-all-employees	{Tree,"Depth-First Search","Breadth-First Search"}	2	Standard Traversal	2	0	https://leetcode.com/problems/time-needed-to-inform-all-employees
+156	Reorder Routes to Make All Paths Lead to the City Zero	reorder-routes-to-make-all-paths-lead-to-the-city-zero	{"Depth-First Search","Breadth-First Search",Graph}	2	Standard Traversal	2	0	https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero
+157	All Paths From Source to Target	all-paths-from-source-to-target	{Backtracking,"Depth-First Search","Breadth-First Search",Graph}	2	Standard Traversal	2	0	https://leetcode.com/problems/all-paths-from-source-to-target
+158	Critical Connections in a Network	critical-connections-in-a-network	{"Depth-First Search",Graph,"Biconnected Component"}	3	Standard Traversal	2	0	https://leetcode.com/problems/critical-connections-in-a-network
+159	Nearest Exit from Entrance in Maze	nearest-exit-from-entrance-in-maze	{Array,"Breadth-First Search",Matrix}	2	BFS	2	1	https://leetcode.com/problems/nearest-exit-from-entrance-in-maze
+160	Shortest Bridge	shortest-bridge	{Array,"Depth-First Search","Breadth-First Search",Matrix}	2	BFS	2	1	https://leetcode.com/problems/shortest-bridge
+161	Minimum Genetic Mutation	minimum-genetic-mutation	{"Hash Table",String,"Breadth-First Search"}	2	BFS	2	1	https://leetcode.com/problems/minimum-genetic-mutation
+162	Word Ladder	word-ladder	{"Hash Table",String,"Breadth-First Search"}	3	BFS	2	1	https://leetcode.com/problems/word-ladder
+163	Jump Game III	jump-game-iii	{Array,"Depth-First Search","Breadth-First Search"}	2	BFS	2	1	https://leetcode.com/problems/jump-game-iii
+164	01 Matrix	01-matrix	{Array,"Dynamic Programming","Breadth-First Search",Matrix}	2	BFS	2	1	https://leetcode.com/problems/01-matrix
+165	Shortest Path in Binary Matrix	shortest-path-in-binary-matrix	{Array,"Breadth-First Search",Matrix}	2	BFS	2	1	https://leetcode.com/problems/shortest-path-in-binary-matrix
+166	All Nodes Distance K in Binary Tree	all-nodes-distance-k-in-binary-tree	{"Hash Table",Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	2	BFS	2	1	https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree
+167	Shortest Path to Get All Keys	shortest-path-to-get-all-keys	{Array,"Bit Manipulation","Breadth-First Search",Matrix}	3	BFS	2	1	https://leetcode.com/problems/shortest-path-to-get-all-keys
+168	Number of Islands	number-of-islands	{Array,"Depth-First Search","Breadth-First Search","Union Find",Matrix}	2	Matrix Graphs	2	2	https://leetcode.com/problems/number-of-islands
+169	Number of Enclaves	number-of-enclaves	{Array,"Depth-First Search","Breadth-First Search","Union Find",Matrix}	2	Matrix Graphs	2	2	https://leetcode.com/problems/number-of-enclaves
+170	Number of Closed Islands	number-of-closed-islands	{Array,"Depth-First Search","Breadth-First Search","Union Find",Matrix}	2	Matrix Graphs	2	2	https://leetcode.com/problems/number-of-closed-islands
+171	Max Area of Island	max-area-of-island	{Array,"Depth-First Search","Breadth-First Search","Union Find",Matrix}	2	Matrix Graphs	2	2	https://leetcode.com/problems/max-area-of-island
+172	Pacific Atlantic Water Flow	pacific-atlantic-water-flow	{Array,"Depth-First Search","Breadth-First Search",Matrix}	2	Matrix Graphs	2	2	https://leetcode.com/problems/pacific-atlantic-water-flow
+173	Find the Town Judge	find-the-town-judge	{Array,"Hash Table",Graph}	1	Graph Theory	2	3	https://leetcode.com/problems/find-the-town-judge
+174	Minimum Number of Vertices to Reach All Nodes	minimum-number-of-vertices-to-reach-all-nodes	{Graph}	2	Graph Theory	2	3	https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes
+175	Maximal Network Rank	maximal-network-rank	{Graph}	2	Graph Theory	2	3	https://leetcode.com/problems/maximal-network-rank
+176	Is Graph Bipartite?	is-graph-bipartite	{"Depth-First Search","Breadth-First Search","Union Find",Graph}	2	Graph Theory	2	3	https://leetcode.com/problems/is-graph-bipartite
+177	Graph Valid Tree	graph-valid-tree	{"Depth-First Search","Breadth-First Search","Union Find",Graph}	2	Graph Theory	2	3	https://leetcode.com/problems/graph-valid-tree
+178	Accounts Merge	accounts-merge	{Array,"Hash Table",String,"Depth-First Search","Breadth-First Search","Union Find",Sorting}	2	Union Find / DSU	2	4	https://leetcode.com/problems/accounts-merge
+179	Satisfiability of Equality Equations	satisfiability-of-equality-equations	{Array,String,"Union Find",Graph}	2	Union Find / DSU	2	4	https://leetcode.com/problems/satisfiability-of-equality-equations
+180	Lexicographically Smallest Equivalent String	lexicographically-smallest-equivalent-string	{String,"Union Find"}	2	Union Find / DSU	2	4	https://leetcode.com/problems/lexicographically-smallest-equivalent-string
+181	Similar String Groups	similar-string-groups	{Array,"Hash Table",String,"Depth-First Search","Breadth-First Search","Union Find"}	3	Union Find / DSU	2	4	https://leetcode.com/problems/similar-string-groups
+182	Course Schedule	course-schedule	{"Depth-First Search","Breadth-First Search",Graph,"Topological Sort"}	2	Topological Sort	2	5	https://leetcode.com/problems/course-schedule
+183	Course Schedule II	course-schedule-ii	{"Depth-First Search","Breadth-First Search",Graph,"Topological Sort"}	2	Topological Sort	2	5	https://leetcode.com/problems/course-schedule-ii
+184	Alien Dictionary	alien-dictionary	{Array,String,"Depth-First Search","Breadth-First Search",Graph,"Topological Sort"}	3	Topological Sort	2	5	https://leetcode.com/problems/alien-dictionary
+185	Sort Items by Groups Respecting Dependencies	sort-items-by-groups-respecting-dependencies	{"Depth-First Search","Breadth-First Search",Graph,"Topological Sort"}	3	Topological Sort	2	5	https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies
+186	Largest Color Value in a Directed Graph	largest-color-value-in-a-directed-graph	{"Hash Table","Dynamic Programming",Graph,"Topological Sort",Memoization,Counting}	3	Topological Sort	2	5	https://leetcode.com/problems/largest-color-value-in-a-directed-graph
+187	Merge Strings Alternately	merge-strings-alternately	{"Two Pointers",String}	1	Array / String	3	0	https://leetcode.com/problems/merge-strings-alternately
+188	Greatest Common Divisor of Strings	greatest-common-divisor-of-strings	{Math,String}	1	Array / String	3	0	https://leetcode.com/problems/greatest-common-divisor-of-strings
+189	Kids With the Greatest Number of Candies	kids-with-the-greatest-number-of-candies	{Array}	1	Array / String	3	0	https://leetcode.com/problems/kids-with-the-greatest-number-of-candies
+190	Can Place Flowers	can-place-flowers	{Array,Greedy}	1	Array / String	3	0	https://leetcode.com/problems/can-place-flowers
+191	Reverse Vowels of a String	reverse-vowels-of-a-string	{"Two Pointers",String}	1	Array / String	3	0	https://leetcode.com/problems/reverse-vowels-of-a-string
+192	Reverse Words in a String	reverse-words-in-a-string	{"Two Pointers",String}	2	Array / String	3	0	https://leetcode.com/problems/reverse-words-in-a-string
+193	Product of Array Except Self	product-of-array-except-self	{Array,"Prefix Sum"}	2	Array / String	3	0	https://leetcode.com/problems/product-of-array-except-self
+194	Increasing Triplet Subsequence	increasing-triplet-subsequence	{Array,Greedy}	2	Array / String	3	0	https://leetcode.com/problems/increasing-triplet-subsequence
+195	String Compression	string-compression	{"Two Pointers",String}	2	Array / String	3	0	https://leetcode.com/problems/string-compression
+196	Move Zeroes	move-zeroes	{Array,"Two Pointers"}	1	Two Pointers	3	1	https://leetcode.com/problems/move-zeroes
+197	Is Subsequence	is-subsequence	{"Two Pointers",String,"Dynamic Programming"}	1	Two Pointers	3	1	https://leetcode.com/problems/is-subsequence
+198	Container With Most Water	container-with-most-water	{Array,"Two Pointers",Greedy}	2	Two Pointers	3	1	https://leetcode.com/problems/container-with-most-water
+199	Max Number of K-Sum Pairs	max-number-of-k-sum-pairs	{Array,"Hash Table","Two Pointers",Sorting}	2	Two Pointers	3	1	https://leetcode.com/problems/max-number-of-k-sum-pairs
+200	Maximum Average Subarray I	maximum-average-subarray-i	{Array,"Sliding Window"}	1	Sliding Window	3	2	https://leetcode.com/problems/maximum-average-subarray-i
+201	Maximum Number of Vowels in a Substring of Given Length	maximum-number-of-vowels-in-a-substring-of-given-length	{String,"Sliding Window"}	2	Sliding Window	3	2	https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length
+202	Max Consecutive Ones III	max-consecutive-ones-iii	{Array,"Binary Search","Sliding Window","Prefix Sum"}	2	Sliding Window	3	2	https://leetcode.com/problems/max-consecutive-ones-iii
+203	Longest Subarray of 1's After Deleting One Element	longest-subarray-of-1s-after-deleting-one-element	{Array,"Dynamic Programming","Sliding Window"}	2	Sliding Window	3	2	https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element
+204	Find the Highest Altitude	find-the-highest-altitude	{Array,"Prefix Sum"}	1	Prefix Sum	3	3	https://leetcode.com/problems/find-the-highest-altitude
+205	Find Pivot Index	find-pivot-index	{Array,"Prefix Sum"}	1	Prefix Sum	3	3	https://leetcode.com/problems/find-pivot-index
+206	Find the Difference of Two Arrays	find-the-difference-of-two-arrays	{Array,"Hash Table"}	1	Hash Map / Set	3	4	https://leetcode.com/problems/find-the-difference-of-two-arrays
+207	Unique Number of Occurrences	unique-number-of-occurrences	{Array,"Hash Table"}	1	Hash Map / Set	3	4	https://leetcode.com/problems/unique-number-of-occurrences
+208	Determine if Two Strings Are Close	determine-if-two-strings-are-close	{"Hash Table",String,Sorting,Counting}	2	Hash Map / Set	3	4	https://leetcode.com/problems/determine-if-two-strings-are-close
+209	Equal Row and Column Pairs	equal-row-and-column-pairs	{Array,"Hash Table",Matrix,Simulation}	2	Hash Map / Set	3	4	https://leetcode.com/problems/equal-row-and-column-pairs
+210	Removing Stars From a String	removing-stars-from-a-string	{String,Stack,Simulation}	2	Stack	3	5	https://leetcode.com/problems/removing-stars-from-a-string
+211	Asteroid Collision	asteroid-collision	{Array,Stack,Simulation}	2	Stack	3	5	https://leetcode.com/problems/asteroid-collision
+212	Decode String	decode-string	{String,Stack,Recursion}	2	Stack	3	5	https://leetcode.com/problems/decode-string
+213	Number of Recent Calls	number-of-recent-calls	{Design,Queue,"Data Stream"}	1	Queue	3	6	https://leetcode.com/problems/number-of-recent-calls
+214	Dota2 Senate	dota2-senate	{String,Greedy,Queue}	2	Queue	3	6	https://leetcode.com/problems/dota2-senate
+215	Delete the Middle Node of a Linked List	delete-the-middle-node-of-a-linked-list	{"Linked List","Two Pointers"}	2	Linked List	3	7	https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list
+216	Odd Even Linked List	odd-even-linked-list	{"Linked List"}	2	Linked List	3	7	https://leetcode.com/problems/odd-even-linked-list
+217	Reverse Linked List	reverse-linked-list	{"Linked List",Recursion}	1	Linked List	3	7	https://leetcode.com/problems/reverse-linked-list
+218	Maximum Twin Sum of a Linked List	maximum-twin-sum-of-a-linked-list	{"Linked List","Two Pointers",Stack}	2	Linked List	3	7	https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list
+219	Maximum Depth of Binary Tree	maximum-depth-of-binary-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	1	Binary Tree - DFS	3	8	https://leetcode.com/problems/maximum-depth-of-binary-tree
+220	Leaf-Similar Trees	leaf-similar-trees	{Tree,"Depth-First Search","Binary Tree"}	1	Binary Tree - DFS	3	8	https://leetcode.com/problems/leaf-similar-trees
+221	Count Good Nodes in Binary Tree	count-good-nodes-in-binary-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	2	Binary Tree - DFS	3	8	https://leetcode.com/problems/count-good-nodes-in-binary-tree
+222	Path Sum III	path-sum-iii	{Tree,"Depth-First Search","Binary Tree"}	2	Binary Tree - DFS	3	8	https://leetcode.com/problems/path-sum-iii
+223	Longest ZigZag Path in a Binary Tree	longest-zigzag-path-in-a-binary-tree	{"Dynamic Programming",Tree,"Depth-First Search","Binary Tree"}	2	Binary Tree - DFS	3	8	https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree
+224	Lowest Common Ancestor of a Binary Tree	lowest-common-ancestor-of-a-binary-tree	{Tree,"Depth-First Search","Binary Tree"}	2	Binary Tree - DFS	3	8	https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree
+225	Binary Tree Right Side View	binary-tree-right-side-view	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	2	Binary Tree - BFS	3	9	https://leetcode.com/problems/binary-tree-right-side-view
+226	Maximum Level Sum of a Binary Tree	maximum-level-sum-of-a-binary-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	2	Binary Tree - BFS	3	9	https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree
+227	Search in a Binary Search Tree	search-in-a-binary-search-tree	{Tree,"Binary Search Tree","Binary Tree"}	1	Binary Search Tree	3	10	https://leetcode.com/problems/search-in-a-binary-search-tree
+228	Delete Node in a BST	delete-node-in-a-bst	{Tree,"Binary Search Tree","Binary Tree"}	2	Binary Search Tree	3	10	https://leetcode.com/problems/delete-node-in-a-bst
+229	Keys and Rooms	keys-and-rooms	{"Depth-First Search","Breadth-First Search",Graph}	2	Graphs - DFS	3	11	https://leetcode.com/problems/keys-and-rooms
+230	Number of Provinces	number-of-provinces	{"Depth-First Search","Breadth-First Search","Union Find",Graph}	2	Graphs - DFS	3	11	https://leetcode.com/problems/number-of-provinces
+231	Reorder Routes to Make All Paths Lead to the City Zero	reorder-routes-to-make-all-paths-lead-to-the-city-zero	{"Depth-First Search","Breadth-First Search",Graph}	2	Graphs - DFS	3	11	https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero
+232	Evaluate Division	evaluate-division	{Array,String,"Depth-First Search","Breadth-First Search","Union Find",Graph,"Shortest Path"}	2	Graphs - DFS	3	11	https://leetcode.com/problems/evaluate-division
+233	Nearest Exit from Entrance in Maze	nearest-exit-from-entrance-in-maze	{Array,"Breadth-First Search",Matrix}	2	Graphs - BFS	3	12	https://leetcode.com/problems/nearest-exit-from-entrance-in-maze
+234	Rotting Oranges	rotting-oranges	{Array,"Breadth-First Search",Matrix}	2	Graphs - BFS	3	12	https://leetcode.com/problems/rotting-oranges
+235	Kth Largest Element in an Array	kth-largest-element-in-an-array	{Array,"Divide and Conquer",Sorting,"Heap (Priority Queue)",Quickselect}	2	Heap / Priority Queue	3	13	https://leetcode.com/problems/kth-largest-element-in-an-array
+236	Smallest Number in Infinite Set	smallest-number-in-infinite-set	{"Hash Table",Design,"Heap (Priority Queue)","Ordered Set"}	2	Heap / Priority Queue	3	13	https://leetcode.com/problems/smallest-number-in-infinite-set
+237	Maximum Subsequence Score	maximum-subsequence-score	{Array,Greedy,Sorting,"Heap (Priority Queue)"}	2	Heap / Priority Queue	3	13	https://leetcode.com/problems/maximum-subsequence-score
+238	Total Cost to Hire K Workers	total-cost-to-hire-k-workers	{Array,"Two Pointers","Heap (Priority Queue)",Simulation}	2	Heap / Priority Queue	3	13	https://leetcode.com/problems/total-cost-to-hire-k-workers
+239	Guess Number Higher or Lower	guess-number-higher-or-lower	{"Binary Search",Interactive}	1	Binary Search	3	14	https://leetcode.com/problems/guess-number-higher-or-lower
+240	Successful Pairs of Spells and Potions	successful-pairs-of-spells-and-potions	{Array,"Two Pointers","Binary Search",Sorting}	2	Binary Search	3	14	https://leetcode.com/problems/successful-pairs-of-spells-and-potions
+241	Find Peak Element	find-peak-element	{Array,"Binary Search"}	2	Binary Search	3	14	https://leetcode.com/problems/find-peak-element
+242	Koko Eating Bananas	koko-eating-bananas	{Array,"Binary Search"}	2	Binary Search	3	14	https://leetcode.com/problems/koko-eating-bananas
+243	Letter Combinations of a Phone Number	letter-combinations-of-a-phone-number	{"Hash Table",String,Backtracking}	2	Backtracking	3	15	https://leetcode.com/problems/letter-combinations-of-a-phone-number
+244	Combination Sum III	combination-sum-iii	{Array,Backtracking}	2	Backtracking	3	15	https://leetcode.com/problems/combination-sum-iii
+245	N-th Tribonacci Number	n-th-tribonacci-number	{Math,"Dynamic Programming",Memoization}	1	DP - 1D	3	16	https://leetcode.com/problems/n-th-tribonacci-number
+246	Min Cost Climbing Stairs	min-cost-climbing-stairs	{Array,"Dynamic Programming"}	1	DP - 1D	3	16	https://leetcode.com/problems/min-cost-climbing-stairs
+247	House Robber	house-robber	{Array,"Dynamic Programming"}	2	DP - 1D	3	16	https://leetcode.com/problems/house-robber
+248	Domino and Tromino Tiling	domino-and-tromino-tiling	{"Dynamic Programming"}	2	DP - 1D	3	16	https://leetcode.com/problems/domino-and-tromino-tiling
+249	Unique Paths	unique-paths	{Math,"Dynamic Programming",Combinatorics}	2	DP - Multidimensional	3	17	https://leetcode.com/problems/unique-paths
+250	Longest Common Subsequence	longest-common-subsequence	{String,"Dynamic Programming"}	2	DP - Multidimensional	3	17	https://leetcode.com/problems/longest-common-subsequence
+251	Best Time to Buy and Sell Stock with Transaction Fee	best-time-to-buy-and-sell-stock-with-transaction-fee	{Array,"Dynamic Programming",Greedy}	2	DP - Multidimensional	3	17	https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee
+252	Edit Distance	edit-distance	{String,"Dynamic Programming"}	2	DP - Multidimensional	3	17	https://leetcode.com/problems/edit-distance
+253	Counting Bits	counting-bits	{"Dynamic Programming","Bit Manipulation"}	1	Bit Manipulation	3	18	https://leetcode.com/problems/counting-bits
+254	Single Number	single-number	{Array,"Bit Manipulation"}	1	Bit Manipulation	3	18	https://leetcode.com/problems/single-number
+255	Minimum Flips to Make a OR b Equal to c	minimum-flips-to-make-a-or-b-equal-to-c	{"Bit Manipulation"}	2	Bit Manipulation	3	18	https://leetcode.com/problems/minimum-flips-to-make-a-or-b-equal-to-c
+256	Implement Trie (Prefix Tree)	implement-trie-prefix-tree	{"Hash Table",String,Design,Trie}	2	Trie	3	19	https://leetcode.com/problems/implement-trie-prefix-tree
+257	Search Suggestions System	search-suggestions-system	{Array,String,"Binary Search",Trie,Sorting,"Heap (Priority Queue)"}	2	Trie	3	19	https://leetcode.com/problems/search-suggestions-system
+258	Non-overlapping Intervals	non-overlapping-intervals	{Array,"Dynamic Programming",Greedy,Sorting}	2	Intervals	3	20	https://leetcode.com/problems/non-overlapping-intervals
+259	Minimum Number of Arrows to Burst Balloons	minimum-number-of-arrows-to-burst-balloons	{Array,Greedy,Sorting}	2	Intervals	3	20	https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons
+260	Daily Temperatures	daily-temperatures	{Array,Stack,"Monotonic Stack"}	2	Monotonic Stack	3	21	https://leetcode.com/problems/daily-temperatures
+261	Online Stock Span	online-stock-span	{Stack,Design,"Monotonic Stack","Data Stream"}	2	Monotonic Stack	3	21	https://leetcode.com/problems/online-stock-span
+262	Recyclable and Low Fat Products	recyclable-and-low-fat-products	{Database}	1	Select	4	0	https://leetcode.com/problems/recyclable-and-low-fat-products
+263	Find Customer Referee	find-customer-referee	{Database}	1	Select	4	0	https://leetcode.com/problems/find-customer-referee
+264	Big Countries	big-countries	{Database}	1	Select	4	0	https://leetcode.com/problems/big-countries
+265	Article Views I	article-views-i	{Database}	1	Select	4	0	https://leetcode.com/problems/article-views-i
+266	Invalid Tweets	invalid-tweets	{Database}	1	Select	4	0	https://leetcode.com/problems/invalid-tweets
+267	Replace Employee ID With The Unique Identifier	replace-employee-id-with-the-unique-identifier	{Database}	1	Basic Joins	4	1	https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier
+268	Product Sales Analysis I	product-sales-analysis-i	{Database}	1	Basic Joins	4	1	https://leetcode.com/problems/product-sales-analysis-i
+269	Customer Who Visited but Did Not Make Any Transactions	customer-who-visited-but-did-not-make-any-transactions	{Database}	1	Basic Joins	4	1	https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions
+270	Rising Temperature	rising-temperature	{Database}	1	Basic Joins	4	1	https://leetcode.com/problems/rising-temperature
+271	Average Time of Process per Machine	average-time-of-process-per-machine	{Database}	1	Basic Joins	4	1	https://leetcode.com/problems/average-time-of-process-per-machine
+272	Employee Bonus	employee-bonus	{Database}	1	Basic Joins	4	1	https://leetcode.com/problems/employee-bonus
+273	Students and Examinations	students-and-examinations	{Database}	1	Basic Joins	4	1	https://leetcode.com/problems/students-and-examinations
+274	Managers with at Least 5 Direct Reports	managers-with-at-least-5-direct-reports	{Database}	2	Basic Joins	4	1	https://leetcode.com/problems/managers-with-at-least-5-direct-reports
+275	Confirmation Rate	confirmation-rate	{Database}	2	Basic Joins	4	1	https://leetcode.com/problems/confirmation-rate
+276	Not Boring Movies	not-boring-movies	{Database}	1	Basic Aggregate Functions	4	2	https://leetcode.com/problems/not-boring-movies
+277	Average Selling Price	average-selling-price	{Database}	1	Basic Aggregate Functions	4	2	https://leetcode.com/problems/average-selling-price
+278	Project Employees I	project-employees-i	{Database}	1	Basic Aggregate Functions	4	2	https://leetcode.com/problems/project-employees-i
+279	Percentage of Users Attended a Contest	percentage-of-users-attended-a-contest	{Database}	1	Basic Aggregate Functions	4	2	https://leetcode.com/problems/percentage-of-users-attended-a-contest
+280	Queries Quality and Percentage	queries-quality-and-percentage	{Database}	1	Basic Aggregate Functions	4	2	https://leetcode.com/problems/queries-quality-and-percentage
+281	Monthly Transactions I	monthly-transactions-i	{Database}	2	Basic Aggregate Functions	4	2	https://leetcode.com/problems/monthly-transactions-i
+282	Immediate Food Delivery II	immediate-food-delivery-ii	{Database}	2	Basic Aggregate Functions	4	2	https://leetcode.com/problems/immediate-food-delivery-ii
+283	Game Play Analysis IV	game-play-analysis-iv	{Database}	2	Basic Aggregate Functions	4	2	https://leetcode.com/problems/game-play-analysis-iv
+284	Number of Unique Subjects Taught by Each Teacher	number-of-unique-subjects-taught-by-each-teacher	{Database}	1	Sorting and Grouping	4	3	https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher
+285	User Activity for the Past 30 Days I	user-activity-for-the-past-30-days-i	{Database}	1	Sorting and Grouping	4	3	https://leetcode.com/problems/user-activity-for-the-past-30-days-i
+286	Product Sales Analysis III	product-sales-analysis-iii	{Database}	2	Sorting and Grouping	4	3	https://leetcode.com/problems/product-sales-analysis-iii
+287	Classes With at Least 5 Students	classes-with-at-least-5-students	{Database}	1	Sorting and Grouping	4	3	https://leetcode.com/problems/classes-with-at-least-5-students
+288	Find Followers Count	find-followers-count	{Database}	1	Sorting and Grouping	4	3	https://leetcode.com/problems/find-followers-count
+289	Biggest Single Number	biggest-single-number	{Database}	1	Sorting and Grouping	4	3	https://leetcode.com/problems/biggest-single-number
+290	Customers Who Bought All Products	customers-who-bought-all-products	{Database}	2	Sorting and Grouping	4	3	https://leetcode.com/problems/customers-who-bought-all-products
+291	The Number of Employees Which Report to Each Employee	the-number-of-employees-which-report-to-each-employee	{Database}	1	Advanced Select and Joins	4	4	https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee
+292	Primary Department for Each Employee	primary-department-for-each-employee	{Database}	1	Advanced Select and Joins	4	4	https://leetcode.com/problems/primary-department-for-each-employee
+293	Triangle Judgement	triangle-judgement	{Database}	1	Advanced Select and Joins	4	4	https://leetcode.com/problems/triangle-judgement
+294	Consecutive Numbers	consecutive-numbers	{Database}	2	Advanced Select and Joins	4	4	https://leetcode.com/problems/consecutive-numbers
+295	Product Price at a Given Date	product-price-at-a-given-date	{Database}	2	Advanced Select and Joins	4	4	https://leetcode.com/problems/product-price-at-a-given-date
+296	Last Person to Fit in the Bus	last-person-to-fit-in-the-bus	{Database}	2	Advanced Select and Joins	4	4	https://leetcode.com/problems/last-person-to-fit-in-the-bus
+297	Count Salary Categories	count-salary-categories	{Database}	2	Advanced Select and Joins	4	4	https://leetcode.com/problems/count-salary-categories
+298	Employees Whose Manager Left the Company	employees-whose-manager-left-the-company	{Database}	1	Subqueries	4	5	https://leetcode.com/problems/employees-whose-manager-left-the-company
+299	Exchange Seats	exchange-seats	{Database}	2	Subqueries	4	5	https://leetcode.com/problems/exchange-seats
+300	Movie Rating	movie-rating	{Database}	2	Subqueries	4	5	https://leetcode.com/problems/movie-rating
+301	Restaurant Growth	restaurant-growth	{Database}	2	Subqueries	4	5	https://leetcode.com/problems/restaurant-growth
+302	Friend Requests II: Who Has the Most Friends	friend-requests-ii-who-has-the-most-friends	{Database}	2	Subqueries	4	5	https://leetcode.com/problems/friend-requests-ii-who-has-the-most-friends
+303	Investments in 2016	investments-in-2016	{Database}	2	Subqueries	4	5	https://leetcode.com/problems/investments-in-2016
+304	Department Top Three Salaries	department-top-three-salaries	{Database}	3	Subqueries	4	5	https://leetcode.com/problems/department-top-three-salaries
+305	Fix Names in a Table	fix-names-in-a-table	{Database}	1	Advanced String Functions / Regex / Clause	4	6	https://leetcode.com/problems/fix-names-in-a-table
+306	Patients With a Condition	patients-with-a-condition	{Database}	1	Advanced String Functions / Regex / Clause	4	6	https://leetcode.com/problems/patients-with-a-condition
+307	Delete Duplicate Emails	delete-duplicate-emails	{Database}	1	Advanced String Functions / Regex / Clause	4	6	https://leetcode.com/problems/delete-duplicate-emails
+308	Second Highest Salary	second-highest-salary	{Database}	2	Advanced String Functions / Regex / Clause	4	6	https://leetcode.com/problems/second-highest-salary
+309	Group Sold Products By The Date	group-sold-products-by-the-date	{Database}	1	Advanced String Functions / Regex / Clause	4	6	https://leetcode.com/problems/group-sold-products-by-the-date
+310	List the Products Ordered in a Period	list-the-products-ordered-in-a-period	{Database}	1	Advanced String Functions / Regex / Clause	4	6	https://leetcode.com/problems/list-the-products-ordered-in-a-period
+311	Find Users With Valid E-Mails	find-users-with-valid-e-mails	{Database}	1	Advanced String Functions / Regex / Clause	4	6	https://leetcode.com/problems/find-users-with-valid-e-mails
+312	Merge Strings Alternately	merge-strings-alternately	{"Two Pointers",String}	1	Basic Implementation	5	0	https://leetcode.com/problems/merge-strings-alternately
+313	Find the Difference	find-the-difference	{"Hash Table",String,"Bit Manipulation",Sorting}	1	Basic Implementation	5	0	https://leetcode.com/problems/find-the-difference
+314	Find the Index of the First Occurrence in a String	find-the-index-of-the-first-occurrence-in-a-string	{"Two Pointers",String,"String Matching"}	1	Basic Implementation	5	0	https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string
+315	Valid Anagram	valid-anagram	{"Hash Table",String,Sorting}	1	Basic Implementation	5	0	https://leetcode.com/problems/valid-anagram
+316	Repeated Substring Pattern	repeated-substring-pattern	{String,"String Matching"}	1	Basic Implementation	5	0	https://leetcode.com/problems/repeated-substring-pattern
+317	Move Zeroes	move-zeroes	{Array,"Two Pointers"}	1	Basic Implementation	5	0	https://leetcode.com/problems/move-zeroes
+318	Plus One	plus-one	{Array,Math}	1	Basic Implementation	5	0	https://leetcode.com/problems/plus-one
+319	Sign of the Product of an Array	sign-of-the-product-of-an-array	{Array,Math}	1	Basic Implementation	5	0	https://leetcode.com/problems/sign-of-the-product-of-an-array
+320	Can Make Arithmetic Progression From Sequence	can-make-arithmetic-progression-from-sequence	{Array,Sorting}	1	Basic Implementation	5	0	https://leetcode.com/problems/can-make-arithmetic-progression-from-sequence
+321	Monotonic Array	monotonic-array	{Array}	1	Basic Implementation	5	0	https://leetcode.com/problems/monotonic-array
+322	Roman to Integer	roman-to-integer	{"Hash Table",Math,String}	1	Basic Implementation	5	0	https://leetcode.com/problems/roman-to-integer
+323	Length of Last Word	length-of-last-word	{String}	1	Built-In Functions	5	1	https://leetcode.com/problems/length-of-last-word
+324	To Lower Case	to-lower-case	{String}	1	Built-In Functions	5	1	https://leetcode.com/problems/to-lower-case
+325	Baseball Game	baseball-game	{Array,Stack,Simulation}	1	Simulation	5	2	https://leetcode.com/problems/baseball-game
+326	Robot Return to Origin	robot-return-to-origin	{String,Simulation}	1	Simulation	5	2	https://leetcode.com/problems/robot-return-to-origin
+327	Find Winner on a Tic Tac Toe Game	find-winner-on-a-tic-tac-toe-game	{Array,"Hash Table",Matrix,Simulation}	1	Simulation	5	2	https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game
+328	Robot Bounded In Circle	robot-bounded-in-circle	{Math,String,Simulation}	2	Simulation	5	2	https://leetcode.com/problems/robot-bounded-in-circle
+329	Richest Customer Wealth	richest-customer-wealth	{Array,Matrix}	1	Matrix	5	3	https://leetcode.com/problems/richest-customer-wealth
+330	Matrix Diagonal Sum	matrix-diagonal-sum	{Array,Matrix}	1	Matrix	5	3	https://leetcode.com/problems/matrix-diagonal-sum
+331	Spiral Matrix	spiral-matrix	{Array,Matrix,Simulation}	2	Matrix	5	3	https://leetcode.com/problems/spiral-matrix
+332	Set Matrix Zeroes	set-matrix-zeroes	{Array,"Hash Table",Matrix}	2	Matrix	5	3	https://leetcode.com/problems/set-matrix-zeroes
+333	Count Odd Numbers in an Interval Range	count-odd-numbers-in-an-interval-range	{Math}	1	Math	5	4	https://leetcode.com/problems/count-odd-numbers-in-an-interval-range
+334	Average Salary Excluding the Minimum and Maximum Salary	average-salary-excluding-the-minimum-and-maximum-salary	{Array,Sorting}	1	Math	5	4	https://leetcode.com/problems/average-salary-excluding-the-minimum-and-maximum-salary
+335	Lemonade Change	lemonade-change	{Array,Greedy}	1	Math	5	4	https://leetcode.com/problems/lemonade-change
+336	Largest Perimeter Triangle	largest-perimeter-triangle	{Array,Math,Greedy,Sorting}	1	Math	5	4	https://leetcode.com/problems/largest-perimeter-triangle
+337	Check If It Is a Straight Line	check-if-it-is-a-straight-line	{Array,Math,Geometry}	1	Math	5	4	https://leetcode.com/problems/check-if-it-is-a-straight-line
+338	Add Binary	add-binary	{Math,String,"Bit Manipulation",Simulation}	1	Math	5	4	https://leetcode.com/problems/add-binary
+339	Multiply Strings	multiply-strings	{Math,String,Simulation}	2	Math	5	4	https://leetcode.com/problems/multiply-strings
+340	Pow(x, n)	powx-n	{Math,Recursion}	2	Math	5	4	https://leetcode.com/problems/powx-n
+341	Merge Two Sorted Lists	merge-two-sorted-lists	{"Linked List",Recursion}	1	Linked List	5	5	https://leetcode.com/problems/merge-two-sorted-lists
+342	Reverse Linked List	reverse-linked-list	{"Linked List",Recursion}	1	Linked List	5	5	https://leetcode.com/problems/reverse-linked-list
+343	Add Two Numbers	add-two-numbers	{"Linked List",Math,Recursion}	2	Linked List	5	5	https://leetcode.com/problems/add-two-numbers
+344	Add Two Numbers II	add-two-numbers-ii	{"Linked List",Math,Stack}	2	Linked List	5	5	https://leetcode.com/problems/add-two-numbers-ii
+345	Letter Combinations of a Phone Number	letter-combinations-of-a-phone-number	{"Hash Table",String,Backtracking}	2	Backtracking	6	0	https://leetcode.com/problems/letter-combinations-of-a-phone-number
+346	Generate Parentheses	generate-parentheses	{String,"Dynamic Programming",Backtracking}	2	Backtracking	6	0	https://leetcode.com/problems/generate-parentheses
+347	Combination Sum	combination-sum	{Array,Backtracking}	2	Backtracking	6	0	https://leetcode.com/problems/combination-sum
+348	Permutations	permutations	{Array,Backtracking}	2	Backtracking	6	0	https://leetcode.com/problems/permutations
+349	N-Queens	n-queens	{Array,Backtracking}	3	Backtracking	6	0	https://leetcode.com/problems/n-queens
+350	Subsets	subsets	{Array,Backtracking,"Bit Manipulation"}	2	Backtracking	6	0	https://leetcode.com/problems/subsets
+351	Word Search	word-search	{Array,String,Backtracking,"Depth-First Search",Matrix}	2	Backtracking	6	0	https://leetcode.com/problems/word-search
+352	Palindrome Partitioning	palindrome-partitioning	{String,"Dynamic Programming",Backtracking}	2	Backtracking	6	0	https://leetcode.com/problems/palindrome-partitioning
+353	Median of Two Sorted Arrays	median-of-two-sorted-arrays	{Array,"Binary Search","Divide and Conquer"}	3	Binary Search	6	1	https://leetcode.com/problems/median-of-two-sorted-arrays
+354	Search in Rotated Sorted Array	search-in-rotated-sorted-array	{Array,"Binary Search"}	2	Binary Search	6	1	https://leetcode.com/problems/search-in-rotated-sorted-array
+355	Find First and Last Position of Element in Sorted Array	find-first-and-last-position-of-element-in-sorted-array	{Array,"Binary Search"}	2	Binary Search	6	1	https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array
+356	Search Insert Position	search-insert-position	{Array,"Binary Search"}	1	Binary Search	6	1	https://leetcode.com/problems/search-insert-position
+357	Search a 2D Matrix	search-a-2d-matrix	{Array,"Binary Search",Matrix}	2	Binary Search	6	1	https://leetcode.com/problems/search-a-2d-matrix
+358	Binary Tree Maximum Path Sum	binary-tree-maximum-path-sum	{"Dynamic Programming",Tree,"Depth-First Search","Binary Tree"}	3	Binary Search	6	1	https://leetcode.com/problems/binary-tree-maximum-path-sum
+359	Find Minimum in Rotated Sorted Array	find-minimum-in-rotated-sorted-array	{Array,"Binary Search"}	2	Binary Search	6	1	https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
+360	Binary Tree Inorder Traversal	binary-tree-inorder-traversal	{Stack,Tree,"Depth-First Search","Binary Tree"}	1	Binary Tree	6	2	https://leetcode.com/problems/binary-tree-inorder-traversal
+361	Validate Binary Search Tree	validate-binary-search-tree	{Tree,"Depth-First Search","Binary Search Tree","Binary Tree"}	2	Binary Tree	6	2	https://leetcode.com/problems/validate-binary-search-tree
+362	Symmetric Tree	symmetric-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	1	Binary Tree	6	2	https://leetcode.com/problems/symmetric-tree
+363	Binary Tree Level Order Traversal	binary-tree-level-order-traversal	{Tree,"Breadth-First Search","Binary Tree"}	2	Binary Tree	6	2	https://leetcode.com/problems/binary-tree-level-order-traversal
+364	Maximum Depth of Binary Tree	maximum-depth-of-binary-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	1	Binary Tree	6	2	https://leetcode.com/problems/maximum-depth-of-binary-tree
+365	Construct Binary Tree from Preorder and Inorder Traversal	construct-binary-tree-from-preorder-and-inorder-traversal	{Array,"Hash Table","Divide and Conquer",Tree,"Binary Tree"}	2	Binary Tree	6	2	https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal
+366	Convert Sorted Array to Binary Search Tree	convert-sorted-array-to-binary-search-tree	{Array,"Divide and Conquer",Tree,"Binary Search Tree","Binary Tree"}	1	Binary Tree	6	2	https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree
+367	Flatten Binary Tree to Linked List	flatten-binary-tree-to-linked-list	{"Linked List",Stack,Tree,"Depth-First Search","Binary Tree"}	2	Binary Tree	6	2	https://leetcode.com/problems/flatten-binary-tree-to-linked-list
+368	Binary Tree Right Side View	binary-tree-right-side-view	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	2	Binary Tree	6	2	https://leetcode.com/problems/binary-tree-right-side-view
+369	Invert Binary Tree	invert-binary-tree	{Tree,"Depth-First Search","Breadth-First Search","Binary Tree"}	1	Binary Tree	6	2	https://leetcode.com/problems/invert-binary-tree
+370	Kth Smallest Element in a BST	kth-smallest-element-in-a-bst	{Tree,"Depth-First Search","Binary Search Tree","Binary Tree"}	2	Binary Tree	6	2	https://leetcode.com/problems/kth-smallest-element-in-a-bst
+371	Lowest Common Ancestor of a Binary Tree	lowest-common-ancestor-of-a-binary-tree	{Tree,"Depth-First Search","Binary Tree"}	2	Binary Tree	6	2	https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree
+372	Path Sum III	path-sum-iii	{Tree,"Depth-First Search","Binary Tree"}	2	Binary Tree	6	2	https://leetcode.com/problems/path-sum-iii
+373	Diameter of Binary Tree	diameter-of-binary-tree	{Tree,"Depth-First Search","Binary Tree"}	1	Binary Tree	6	2	https://leetcode.com/problems/diameter-of-binary-tree
+374	Longest Palindromic Substring	longest-palindromic-substring	{"Two Pointers",String,"Dynamic Programming"}	2	Dynamic Programming	6	3	https://leetcode.com/problems/longest-palindromic-substring
+375	Longest Valid Parentheses	longest-valid-parentheses	{String,"Dynamic Programming",Stack}	3	Dynamic Programming	6	3	https://leetcode.com/problems/longest-valid-parentheses
+376	Unique Paths	unique-paths	{Math,"Dynamic Programming",Combinatorics}	2	Dynamic Programming	6	3	https://leetcode.com/problems/unique-paths
+377	Minimum Path Sum	minimum-path-sum	{Array,"Dynamic Programming",Matrix}	2	Dynamic Programming	6	3	https://leetcode.com/problems/minimum-path-sum
+378	Climbing Stairs	climbing-stairs	{Math,"Dynamic Programming",Memoization}	1	Dynamic Programming	6	3	https://leetcode.com/problems/climbing-stairs
+379	Edit Distance	edit-distance	{String,"Dynamic Programming"}	2	Dynamic Programming	6	3	https://leetcode.com/problems/edit-distance
+380	Pascal's Triangle	pascals-triangle	{Array,"Dynamic Programming"}	1	Dynamic Programming	6	3	https://leetcode.com/problems/pascals-triangle
+381	Word Break	word-break	{Array,"Hash Table",String,"Dynamic Programming",Trie,Memoization}	2	Dynamic Programming	6	3	https://leetcode.com/problems/word-break
+382	Maximum Product Subarray	maximum-product-subarray	{Array,"Dynamic Programming"}	2	Dynamic Programming	6	3	https://leetcode.com/problems/maximum-product-subarray
+383	House Robber	house-robber	{Array,"Dynamic Programming"}	2	Dynamic Programming	6	3	https://leetcode.com/problems/house-robber
+384	Perfect Squares	perfect-squares	{Math,"Dynamic Programming","Breadth-First Search"}	2	Dynamic Programming	6	3	https://leetcode.com/problems/perfect-squares
+385	Longest Increasing Subsequence	longest-increasing-subsequence	{Array,"Binary Search","Dynamic Programming"}	2	Dynamic Programming	6	3	https://leetcode.com/problems/longest-increasing-subsequence
+386	Coin Change	coin-change	{Array,"Dynamic Programming","Breadth-First Search"}	2	Dynamic Programming	6	3	https://leetcode.com/problems/coin-change
+387	Partition Equal Subset Sum	partition-equal-subset-sum	{Array,"Dynamic Programming"}	2	Dynamic Programming	6	3	https://leetcode.com/problems/partition-equal-subset-sum
+388	Longest Common Subsequence	longest-common-subsequence	{String,"Dynamic Programming"}	2	Dynamic Programming	6	3	https://leetcode.com/problems/longest-common-subsequence
+389	Number of Islands	number-of-islands	{Array,"Depth-First Search","Breadth-First Search","Union Find",Matrix}	2	Graph	6	4	https://leetcode.com/problems/number-of-islands
+390	Course Schedule	course-schedule	{"Depth-First Search","Breadth-First Search",Graph,"Topological Sort"}	2	Graph	6	4	https://leetcode.com/problems/course-schedule
+391	Rotting Oranges	rotting-oranges	{Array,"Breadth-First Search",Matrix}	2	Graph	6	4	https://leetcode.com/problems/rotting-oranges
+392	Jump Game II	jump-game-ii	{Array,"Dynamic Programming",Greedy}	2	Greedy	6	5	https://leetcode.com/problems/jump-game-ii
+393	Jump Game	jump-game	{Array,"Dynamic Programming",Greedy}	2	Greedy	6	5	https://leetcode.com/problems/jump-game
+394	Best Time to Buy and Sell Stock	best-time-to-buy-and-sell-stock	{Array,"Dynamic Programming"}	1	Greedy	6	5	https://leetcode.com/problems/best-time-to-buy-and-sell-stock
+395	Partition Labels	partition-labels	{"Hash Table","Two Pointers",String,Greedy}	2	Greedy	6	5	https://leetcode.com/problems/partition-labels
+396	Two Sum	two-sum	{Array,"Hash Table"}	1	Hashing	6	6	https://leetcode.com/problems/two-sum
+397	Group Anagrams	group-anagrams	{Array,"Hash Table",String,Sorting}	2	Hashing	6	6	https://leetcode.com/problems/group-anagrams
+398	Longest Consecutive Sequence	longest-consecutive-sequence	{Array,"Hash Table","Union Find"}	2	Hashing	6	6	https://leetcode.com/problems/longest-consecutive-sequence
+399	Subarray Sum Equals K	subarray-sum-equals-k	{Array,"Hash Table","Prefix Sum"}	2	Hashing	6	6	https://leetcode.com/problems/subarray-sum-equals-k
+400	Kth Largest Element in an Array	kth-largest-element-in-an-array	{Array,"Divide and Conquer",Sorting,"Heap (Priority Queue)",Quickselect}	2	Heap	6	7	https://leetcode.com/problems/kth-largest-element-in-an-array
+401	Find Median from Data Stream	find-median-from-data-stream	{"Two Pointers",Design,Sorting,"Heap (Priority Queue)","Data Stream"}	3	Heap	6	7	https://leetcode.com/problems/find-median-from-data-stream
+402	Top K Frequent Elements	top-k-frequent-elements	{Array,"Hash Table","Divide and Conquer",Sorting,"Heap (Priority Queue)","Bucket Sort",Counting,Quickselect}	2	Heap	6	7	https://leetcode.com/problems/top-k-frequent-elements
+403	Add Two Numbers	add-two-numbers	{"Linked List",Math,Recursion}	2	Linked Lists	6	8	https://leetcode.com/problems/add-two-numbers
+404	Remove Nth Node From End of List	remove-nth-node-from-end-of-list	{"Linked List","Two Pointers"}	2	Linked Lists	6	8	https://leetcode.com/problems/remove-nth-node-from-end-of-list
+405	Merge Two Sorted Lists	merge-two-sorted-lists	{"Linked List",Recursion}	1	Linked Lists	6	8	https://leetcode.com/problems/merge-two-sorted-lists
+406	Merge k Sorted Lists	merge-k-sorted-lists	{"Linked List","Divide and Conquer","Heap (Priority Queue)","Merge Sort"}	3	Linked Lists	6	8	https://leetcode.com/problems/merge-k-sorted-lists
+407	Swap Nodes in Pairs	swap-nodes-in-pairs	{"Linked List",Recursion}	2	Linked Lists	6	8	https://leetcode.com/problems/swap-nodes-in-pairs
+408	Reverse Nodes in k-Group	reverse-nodes-in-k-group	{"Linked List",Recursion}	3	Linked Lists	6	8	https://leetcode.com/problems/reverse-nodes-in-k-group
+409	Copy List with Random Pointer	copy-list-with-random-pointer	{"Hash Table","Linked List"}	2	Linked Lists	6	8	https://leetcode.com/problems/copy-list-with-random-pointer
+410	Linked List Cycle	linked-list-cycle	{"Hash Table","Linked List","Two Pointers"}	1	Linked Lists	6	8	https://leetcode.com/problems/linked-list-cycle
+411	Linked List Cycle II	linked-list-cycle-ii	{"Hash Table","Linked List","Two Pointers"}	2	Linked Lists	6	8	https://leetcode.com/problems/linked-list-cycle-ii
+412	LRU Cache	lru-cache	{"Hash Table","Linked List",Design,"Doubly-Linked List"}	2	Linked Lists	6	8	https://leetcode.com/problems/lru-cache
+413	Sort List	sort-list	{"Linked List","Two Pointers","Divide and Conquer",Sorting,"Merge Sort"}	2	Linked Lists	6	8	https://leetcode.com/problems/sort-list
+414	Intersection of Two Linked Lists	intersection-of-two-linked-lists	{"Hash Table","Linked List","Two Pointers"}	1	Linked Lists	6	8	https://leetcode.com/problems/intersection-of-two-linked-lists
+415	Reverse Linked List	reverse-linked-list	{"Linked List",Recursion}	1	Linked Lists	6	8	https://leetcode.com/problems/reverse-linked-list
+416	Palindrome Linked List	palindrome-linked-list	{"Linked List","Two Pointers",Stack,Recursion}	1	Linked Lists	6	8	https://leetcode.com/problems/palindrome-linked-list
+417	Rotate Image	rotate-image	{Array,Math,Matrix}	2	Matrix	6	9	https://leetcode.com/problems/rotate-image
+418	Spiral Matrix	spiral-matrix	{Array,Matrix,Simulation}	2	Matrix	6	9	https://leetcode.com/problems/spiral-matrix
+419	Set Matrix Zeroes	set-matrix-zeroes	{Array,"Hash Table",Matrix}	2	Matrix	6	9	https://leetcode.com/problems/set-matrix-zeroes
+420	Search a 2D Matrix II	search-a-2d-matrix-ii	{Array,"Binary Search","Divide and Conquer",Matrix}	2	Matrix	6	9	https://leetcode.com/problems/search-a-2d-matrix-ii
+421	Longest Substring Without Repeating Characters	longest-substring-without-repeating-characters	{"Hash Table",String,"Sliding Window"}	2	Sliding Window	6	10	https://leetcode.com/problems/longest-substring-without-repeating-characters
+422	Minimum Window Substring	minimum-window-substring	{"Hash Table",String,"Sliding Window"}	3	Sliding Window	6	10	https://leetcode.com/problems/minimum-window-substring
+423	Sliding Window Maximum	sliding-window-maximum	{Array,Queue,"Sliding Window","Heap (Priority Queue)","Monotonic Queue"}	3	Sliding Window	6	10	https://leetcode.com/problems/sliding-window-maximum
+461	Valid Perfect Square	valid-perfect-square	{Math,"Binary Search"}	1	Math	7	3	https://leetcode.com/problems/valid-perfect-square
+424	Find All Anagrams in a String	find-all-anagrams-in-a-string	{"Hash Table",String,"Sliding Window"}	2	Sliding Window	6	10	https://leetcode.com/problems/find-all-anagrams-in-a-string
+425	Valid Parentheses	valid-parentheses	{String,Stack}	1	Stack	6	11	https://leetcode.com/problems/valid-parentheses
+426	Largest Rectangle in Histogram	largest-rectangle-in-histogram	{Array,Stack,"Monotonic Stack"}	3	Stack	6	11	https://leetcode.com/problems/largest-rectangle-in-histogram
+427	Min Stack	min-stack	{Stack,Design}	2	Stack	6	11	https://leetcode.com/problems/min-stack
+428	Decode String	decode-string	{String,Stack,Recursion}	2	Stack	6	11	https://leetcode.com/problems/decode-string
+429	Daily Temperatures	daily-temperatures	{Array,Stack,"Monotonic Stack"}	2	Stack	6	11	https://leetcode.com/problems/daily-temperatures
+430	Container With Most Water	container-with-most-water	{Array,"Two Pointers",Greedy}	2	Two Pointers	6	12	https://leetcode.com/problems/container-with-most-water
+431	3Sum	3sum	{Array,"Two Pointers",Sorting}	2	Two Pointers	6	12	https://leetcode.com/problems/3sum
+432	Trapping Rain Water	trapping-rain-water	{Array,"Two Pointers","Dynamic Programming",Stack,"Monotonic Stack"}	3	Two Pointers	6	12	https://leetcode.com/problems/trapping-rain-water
+433	Move Zeroes	move-zeroes	{Array,"Two Pointers"}	1	Two Pointers	6	12	https://leetcode.com/problems/move-zeroes
+434	Implement Trie (Prefix Tree)	implement-trie-prefix-tree	{"Hash Table",String,Design,Trie}	2	Trie	6	13	https://leetcode.com/problems/implement-trie-prefix-tree
+435	Next Permutation	next-permutation	{Array,"Two Pointers"}	2	Misc	6	14	https://leetcode.com/problems/next-permutation
+436	First Missing Positive	first-missing-positive	{Array,"Hash Table"}	3	Misc	6	14	https://leetcode.com/problems/first-missing-positive
+437	Maximum Subarray	maximum-subarray	{Array,"Divide and Conquer","Dynamic Programming"}	2	Misc	6	14	https://leetcode.com/problems/maximum-subarray
+438	Merge Intervals	merge-intervals	{Array,Sorting}	2	Misc	6	14	https://leetcode.com/problems/merge-intervals
+439	Sort Colors	sort-colors	{Array,"Two Pointers",Sorting}	2	Misc	6	14	https://leetcode.com/problems/sort-colors
+440	Single Number	single-number	{Array,"Bit Manipulation"}	1	Misc	6	14	https://leetcode.com/problems/single-number
+441	Majority Element	majority-element	{Array,"Hash Table","Divide and Conquer",Sorting,Counting}	1	Misc	6	14	https://leetcode.com/problems/majority-element
+442	Rotate Array	rotate-array	{Array,Math,"Two Pointers"}	2	Misc	6	14	https://leetcode.com/problems/rotate-array
+443	Product of Array Except Self	product-of-array-except-self	{Array,"Prefix Sum"}	2	Misc	6	14	https://leetcode.com/problems/product-of-array-except-self
+444	Find the Duplicate Number	find-the-duplicate-number	{Array,"Two Pointers","Binary Search","Bit Manipulation"}	2	Misc	6	14	https://leetcode.com/problems/find-the-duplicate-number
+445	Binary Search	binary-search	{Array,"Binary Search"}	1	Search In Array	7	0	https://leetcode.com/problems/binary-search
+446	Search Insert Position	search-insert-position	{Array,"Binary Search"}	1	Search In Array	7	0	https://leetcode.com/problems/search-insert-position
+447	Find Smallest Letter Greater Than Target	find-smallest-letter-greater-than-target	{Array,"Binary Search"}	1	Search In Array	7	0	https://leetcode.com/problems/find-smallest-letter-greater-than-target
+448	Count Negative Numbers in a Sorted Matrix	count-negative-numbers-in-a-sorted-matrix	{Array,"Binary Search",Matrix}	1	Search In Array	7	0	https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix
+449	Find First and Last Position of Element in Sorted Array	find-first-and-last-position-of-element-in-sorted-array	{Array,"Binary Search"}	2	Search In Array	7	0	https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array
+450	Find Right Interval	find-right-interval	{Array,"Binary Search",Sorting}	2	Search In Array	7	0	https://leetcode.com/problems/find-right-interval
+451	Time Based Key-Value Store	time-based-key-value-store	{"Hash Table",String,"Binary Search",Design}	2	Search In Array	7	0	https://leetcode.com/problems/time-based-key-value-store
+452	Snapshot Array	snapshot-array	{Array,"Hash Table","Binary Search",Design}	2	Search In Array	7	0	https://leetcode.com/problems/snapshot-array
+453	Search in Rotated Sorted Array	search-in-rotated-sorted-array	{Array,"Binary Search"}	2	Rotated Array	7	1	https://leetcode.com/problems/search-in-rotated-sorted-array
+454	Find Minimum in Rotated Sorted Array	find-minimum-in-rotated-sorted-array	{Array,"Binary Search"}	2	Rotated Array	7	1	https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
+455	Find Minimum in Rotated Sorted Array II	find-minimum-in-rotated-sorted-array-ii	{Array,"Binary Search"}	3	Rotated Array	7	1	https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii
+456	Guess Number Higher or Lower	guess-number-higher-or-lower	{"Binary Search",Interactive}	1	Standard Search	7	2	https://leetcode.com/problems/guess-number-higher-or-lower
+457	First Bad Version	first-bad-version	{"Binary Search",Interactive}	1	Standard Search	7	2	https://leetcode.com/problems/first-bad-version
+458	Search a 2D Matrix	search-a-2d-matrix	{Array,"Binary Search",Matrix}	2	Standard Search	7	2	https://leetcode.com/problems/search-a-2d-matrix
+459	Search in a Sorted Array of Unknown Size	search-in-a-sorted-array-of-unknown-size	{Array,"Binary Search",Interactive}	2	Standard Search	7	2	https://leetcode.com/problems/search-in-a-sorted-array-of-unknown-size
+460	Find the Index of the Large Integer	find-the-index-of-the-large-integer	{Array,"Binary Search",Interactive}	2	Standard Search	7	2	https://leetcode.com/problems/find-the-index-of-the-large-integer
+462	Sqrt(x)	sqrtx	{Math,"Binary Search"}	1	Math	7	3	https://leetcode.com/problems/sqrtx
+463	Arranging Coins	arranging-coins	{Math,"Binary Search"}	1	Math	7	3	https://leetcode.com/problems/arranging-coins
+464	Kth Missing Positive Number	kth-missing-positive-number	{Array,"Binary Search"}	1	Tricky Invariant	7	4	https://leetcode.com/problems/kth-missing-positive-number
+465	H-Index II	h-index-ii	{Array,"Binary Search"}	2	Tricky Invariant	7	4	https://leetcode.com/problems/h-index-ii
+466	Single Element in a Sorted Array	single-element-in-a-sorted-array	{Array,"Binary Search"}	2	Tricky Invariant	7	4	https://leetcode.com/problems/single-element-in-a-sorted-array
+467	Peak Index in a Mountain Array	peak-index-in-a-mountain-array	{Array,"Binary Search"}	2	Tricky Invariant	7	4	https://leetcode.com/problems/peak-index-in-a-mountain-array
+468	Find K Closest Elements	find-k-closest-elements	{Array,"Two Pointers","Binary Search","Sliding Window",Sorting,"Heap (Priority Queue)"}	2	Tricky Invariant	7	4	https://leetcode.com/problems/find-k-closest-elements
+469	Median of Two Sorted Arrays	median-of-two-sorted-arrays	{Array,"Binary Search","Divide and Conquer"}	3	Tricky Invariant	7	4	https://leetcode.com/problems/median-of-two-sorted-arrays
+470	Two Sum Less Than K	two-sum-less-than-k	{Array,"Two Pointers","Binary Search",Sorting}	1	As A Tool	7	5	https://leetcode.com/problems/two-sum-less-than-k
+471	Valid Triangle Number	valid-triangle-number	{Array,"Two Pointers","Binary Search",Greedy,Sorting}	2	As A Tool	7	5	https://leetcode.com/problems/valid-triangle-number
+472	Successful Pairs of Spells and Potions	successful-pairs-of-spells-and-potions	{Array,"Two Pointers","Binary Search",Sorting}	2	As A Tool	7	5	https://leetcode.com/problems/successful-pairs-of-spells-and-potions
+473	Number of Subsequences That Satisfy the Given Sum Condition	number-of-subsequences-that-satisfy-the-given-sum-condition	{Array,"Two Pointers","Binary Search",Sorting}	2	As A Tool	7	5	https://leetcode.com/problems/number-of-subsequences-that-satisfy-the-given-sum-condition
+474	Random Pick with Weight	random-pick-with-weight	{Array,Math,"Binary Search","Prefix Sum",Randomized}	2	As A Tool	7	5	https://leetcode.com/problems/random-pick-with-weight
+475	Longest Increasing Subsequence	longest-increasing-subsequence	{Array,"Binary Search","Dynamic Programming"}	2	As A Tool	7	5	https://leetcode.com/problems/longest-increasing-subsequence
+476	Russian Doll Envelopes	russian-doll-envelopes	{Array,"Binary Search","Dynamic Programming",Sorting}	3	As A Tool	7	5	https://leetcode.com/problems/russian-doll-envelopes
+477	Climbing Stairs	climbing-stairs	{Math,"Dynamic Programming",Memoization}	1	Fibonacci style	8	0	https://leetcode.com/problems/climbing-stairs
+478	Fibonacci Number	fibonacci-number	{Math,"Dynamic Programming",Recursion,Memoization}	1	Fibonacci style	8	0	https://leetcode.com/problems/fibonacci-number
+479	N-th Tribonacci Number	n-th-tribonacci-number	{Math,"Dynamic Programming",Memoization}	1	Fibonacci style	8	0	https://leetcode.com/problems/n-th-tribonacci-number
+480	Min Cost Climbing Stairs	min-cost-climbing-stairs	{Array,"Dynamic Programming"}	1	Fibonacci style	8	0	https://leetcode.com/problems/min-cost-climbing-stairs
+481	House Robber	house-robber	{Array,"Dynamic Programming"}	2	Fibonacci style	8	0	https://leetcode.com/problems/house-robber
+482	Delete and Earn	delete-and-earn	{Array,"Hash Table","Dynamic Programming"}	2	Fibonacci style	8	0	https://leetcode.com/problems/delete-and-earn
+483	Unique Paths	unique-paths	{Math,"Dynamic Programming",Combinatorics}	2	Matrix	8	1	https://leetcode.com/problems/unique-paths
+484	Minimum Path Sum	minimum-path-sum	{Array,"Dynamic Programming",Matrix}	2	Matrix	8	1	https://leetcode.com/problems/minimum-path-sum
+485	Unique Paths II	unique-paths-ii	{Array,"Dynamic Programming",Matrix}	2	Matrix	8	1	https://leetcode.com/problems/unique-paths-ii
+486	Triangle	triangle	{Array,"Dynamic Programming"}	2	Matrix	8	1	https://leetcode.com/problems/triangle
+487	Minimum Falling Path Sum	minimum-falling-path-sum	{Array,"Dynamic Programming",Matrix}	2	Matrix	8	1	https://leetcode.com/problems/minimum-falling-path-sum
+488	Maximal Square	maximal-square	{Array,"Dynamic Programming",Matrix}	2	Matrix	8	1	https://leetcode.com/problems/maximal-square
+489	Longest Palindromic Substring	longest-palindromic-substring	{"Two Pointers",String,"Dynamic Programming"}	2	On Strings	8	2	https://leetcode.com/problems/longest-palindromic-substring
+490	Word Break	word-break	{Array,"Hash Table",String,"Dynamic Programming",Trie,Memoization}	2	On Strings	8	2	https://leetcode.com/problems/word-break
+491	Longest Palindromic Subsequence	longest-palindromic-subsequence	{String,"Dynamic Programming"}	2	On Strings	8	2	https://leetcode.com/problems/longest-palindromic-subsequence
+492	Edit Distance	edit-distance	{String,"Dynamic Programming"}	2	On Strings	8	2	https://leetcode.com/problems/edit-distance
+493	Minimum ASCII Delete Sum for Two Strings	minimum-ascii-delete-sum-for-two-strings	{String,"Dynamic Programming"}	2	On Strings	8	2	https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings
+494	Distinct Subsequences	distinct-subsequences	{String,"Dynamic Programming"}	3	On Strings	8	2	https://leetcode.com/problems/distinct-subsequences
+495	Longest Increasing Subsequence	longest-increasing-subsequence	{Array,"Binary Search","Dynamic Programming"}	2	Longest Increasing Subsequence	8	3	https://leetcode.com/problems/longest-increasing-subsequence
+496	Number of Longest Increasing Subsequence	number-of-longest-increasing-subsequence	{Array,"Dynamic Programming","Binary Indexed Tree","Segment Tree"}	2	Longest Increasing Subsequence	8	3	https://leetcode.com/problems/number-of-longest-increasing-subsequence
+497	Maximum Length of Pair Chain	maximum-length-of-pair-chain	{Array,"Dynamic Programming",Greedy,Sorting}	2	Longest Increasing Subsequence	8	3	https://leetcode.com/problems/maximum-length-of-pair-chain
+498	Longest Arithmetic Subsequence of Given Difference	longest-arithmetic-subsequence-of-given-difference	{Array,"Hash Table","Dynamic Programming"}	2	Longest Increasing Subsequence	8	3	https://leetcode.com/problems/longest-arithmetic-subsequence-of-given-difference
+499	Longest Arithmetic Subsequence	longest-arithmetic-subsequence	{Array,"Hash Table","Binary Search","Dynamic Programming"}	2	Longest Increasing Subsequence	8	3	https://leetcode.com/problems/longest-arithmetic-subsequence
+500	Russian Doll Envelopes	russian-doll-envelopes	{Array,"Binary Search","Dynamic Programming",Sorting}	3	Longest Increasing Subsequence	8	3	https://leetcode.com/problems/russian-doll-envelopes
+501	Find the Longest Valid Obstacle Course at Each Position	find-the-longest-valid-obstacle-course-at-each-position	{Array,"Binary Search","Binary Indexed Tree"}	3	Longest Increasing Subsequence	8	3	https://leetcode.com/problems/find-the-longest-valid-obstacle-course-at-each-position
+502	Longest Common Subsequence	longest-common-subsequence	{String,"Dynamic Programming"}	2	Longest Common Subsequence	8	4	https://leetcode.com/problems/longest-common-subsequence
+503	Uncrossed Lines	uncrossed-lines	{Array,"Dynamic Programming"}	2	Longest Common Subsequence	8	4	https://leetcode.com/problems/uncrossed-lines
+504	Minimum Insertion Steps to Make a String Palindrome	minimum-insertion-steps-to-make-a-string-palindrome	{String,"Dynamic Programming"}	3	Longest Common Subsequence	8	4	https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome
+505	Best Time to Buy and Sell Stock with Cooldown	best-time-to-buy-and-sell-stock-with-cooldown	{Array,"Dynamic Programming"}	2	Best Time to Buy & Sell Stock / State Machine	8	5	https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown
+506	Best Time to Buy and Sell Stock with Transaction Fee	best-time-to-buy-and-sell-stock-with-transaction-fee	{Array,"Dynamic Programming",Greedy}	2	Best Time to Buy & Sell Stock / State Machine	8	5	https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee
+507	Best Time to Buy and Sell Stock III	best-time-to-buy-and-sell-stock-iii	{Array,"Dynamic Programming"}	3	Best Time to Buy & Sell Stock / State Machine	8	5	https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii
+508	Best Time to Buy and Sell Stock IV	best-time-to-buy-and-sell-stock-iv	{Array,"Dynamic Programming"}	3	Best Time to Buy & Sell Stock / State Machine	8	5	https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv
+509	Unique Binary Search Trees	unique-binary-search-trees	{Math,"Dynamic Programming",Tree,"Binary Search Tree","Binary Tree"}	2	On Trees	8	6	https://leetcode.com/problems/unique-binary-search-trees
+510	Unique Binary Search Trees II	unique-binary-search-trees-ii	{"Dynamic Programming",Backtracking,Tree,"Binary Search Tree","Binary Tree"}	2	On Trees	8	6	https://leetcode.com/problems/unique-binary-search-trees-ii
+511	House Robber III	house-robber-iii	{"Dynamic Programming",Tree,"Depth-First Search","Binary Tree"}	2	On Trees	8	6	https://leetcode.com/problems/house-robber-iii
+512	Binary Tree Maximum Path Sum	binary-tree-maximum-path-sum	{"Dynamic Programming",Tree,"Depth-First Search","Binary Tree"}	3	On Trees	8	6	https://leetcode.com/problems/binary-tree-maximum-path-sum
+513	Perfect Squares	perfect-squares	{Math,"Dynamic Programming","Breadth-First Search"}	2	Knapsack	8	7	https://leetcode.com/problems/perfect-squares
+514	Coin Change II	coin-change-ii	{Array,"Dynamic Programming"}	2	Knapsack	8	7	https://leetcode.com/problems/coin-change-ii
+515	Combination Sum IV	combination-sum-iv	{Array,"Dynamic Programming"}	2	Knapsack	8	7	https://leetcode.com/problems/combination-sum-iv
+516	Ones and Zeroes	ones-and-zeroes	{Array,String,"Dynamic Programming"}	2	Knapsack	8	7	https://leetcode.com/problems/ones-and-zeroes
+517	Solving Questions With Brainpower	solving-questions-with-brainpower	{Array,"Dynamic Programming"}	2	General 1D	8	8	https://leetcode.com/problems/solving-questions-with-brainpower
+518	Coin Change	coin-change	{Array,"Dynamic Programming","Breadth-First Search"}	2	General 1D	8	8	https://leetcode.com/problems/coin-change
+519	Count Ways To Build Good Strings	count-ways-to-build-good-strings	{"Dynamic Programming"}	2	General 1D	8	8	https://leetcode.com/problems/count-ways-to-build-good-strings
+520	Decode Ways	decode-ways	{String,"Dynamic Programming"}	2	General 1D	8	8	https://leetcode.com/problems/decode-ways
+521	Minimum Cost For Tickets	minimum-cost-for-tickets	{Array,"Dynamic Programming"}	2	General 1D	8	8	https://leetcode.com/problems/minimum-cost-for-tickets
+522	Domino and Tromino Tiling	domino-and-tromino-tiling	{"Dynamic Programming"}	2	General 1D	8	8	https://leetcode.com/problems/domino-and-tromino-tiling
+\.
+
+
+--
+-- TOC entry 3672 (class 0 OID 16571)
+-- Dependencies: 226
+-- Data for Name: session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.session (id, "expiresAt", token, "createdAt", "updatedAt", "ipAddress", "userAgent", "userId") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3671 (class 0 OID 16562)
+-- Dependencies: 225
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."user" (id, name, email, "emailVerified", image, "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3667 (class 0 OID 16512)
+-- Dependencies: 221
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (user_id, name, email) FROM stdin;
+1	Test Akayou	akuadane35@gmail.com
+2	Nebus	nebus12@mit.edu
+4	Veronica	vernocia@morganstanley.com
+5	Elda	elda@Bloomberg.com
+\.
+
+
+--
+-- TOC entry 3674 (class 0 OID 16597)
+-- Dependencies: 228
+-- Data for Name: verification; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.verification (id, identifier, value, "expiresAt", "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3685 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: jam_jamid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.jam_jamid_seq', 2, true);
+
+
+--
+-- TOC entry 3686 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: jam_problem_jam_problem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.jam_problem_jam_problem_id_seq', 225, true);
+
+
+--
+-- TOC entry 3687 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: plan_planid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.plan_planid_seq', 9, true);
+
+
+--
+-- TOC entry 3688 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: problem_problemid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.problem_problemid_seq', 537, true);
+
+
+--
+-- TOC entry 3689 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_user_id_seq', 5, true);
+
+
+--
+-- TOC entry 3507 (class 2606 OID 16591)
+-- Name: account account_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT account_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3489 (class 2606 OID 16435)
+-- Name: jam jam_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jam
+    ADD CONSTRAINT jam_pkey PRIMARY KEY (jam_id);
+
+
+--
+-- TOC entry 3497 (class 2606 OID 16545)
+-- Name: jam_problem jam_problem_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jam_problem
+    ADD CONSTRAINT jam_problem_pkey PRIMARY KEY (jam_problem_id);
+
+
+--
+-- TOC entry 3495 (class 2606 OID 16526)
+-- Name: jam_user jam_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jam_user
+    ADD CONSTRAINT jam_user_pkey PRIMARY KEY (user_id, jam_id);
+
+
+--
+-- TOC entry 3485 (class 2606 OID 16403)
+-- Name: plan plan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.plan
+    ADD CONSTRAINT plan_pkey PRIMARY KEY (plan_id);
+
+
+--
+-- TOC entry 3487 (class 2606 OID 16412)
+-- Name: problem problem_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.problem
+    ADD CONSTRAINT problem_pkey PRIMARY KEY (problem_id);
+
+
+--
+-- TOC entry 3503 (class 2606 OID 16577)
+-- Name: session session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.session
+    ADD CONSTRAINT session_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3505 (class 2606 OID 16579)
+-- Name: session session_token_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.session
+    ADD CONSTRAINT session_token_key UNIQUE (token);
+
+
+--
+-- TOC entry 3491 (class 2606 OID 16521)
+-- Name: users unique_email; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT unique_email UNIQUE (email);
+
+
+--
+-- TOC entry 3499 (class 2606 OID 16570)
+-- Name: user user_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 3501 (class 2606 OID 16568)
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3493 (class 2606 OID 16519)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+
+
+--
+-- TOC entry 3509 (class 2606 OID 16603)
+-- Name: verification verification_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.verification
+    ADD CONSTRAINT verification_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3517 (class 2606 OID 16592)
+-- Name: account account_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT "account_userId_fkey" FOREIGN KEY ("userId") REFERENCES public."user"(id);
+
+
+--
+-- TOC entry 3511 (class 2606 OID 16436)
+-- Name: jam jam_planid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jam
+    ADD CONSTRAINT jam_planid_fkey FOREIGN KEY (plan_id) REFERENCES public.plan(plan_id);
+
+
+--
+-- TOC entry 3514 (class 2606 OID 16551)
+-- Name: jam_problem jam_problem_jam_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jam_problem
+    ADD CONSTRAINT jam_problem_jam_id_fkey FOREIGN KEY (jam_id) REFERENCES public.jam(jam_id);
+
+
+--
+-- TOC entry 3515 (class 2606 OID 16546)
+-- Name: jam_problem jam_problem_problem_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jam_problem
+    ADD CONSTRAINT jam_problem_problem_id_fkey FOREIGN KEY (problem_id) REFERENCES public.problem(problem_id);
+
+
+--
+-- TOC entry 3512 (class 2606 OID 16532)
+-- Name: jam_user jam_user_jam_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jam_user
+    ADD CONSTRAINT jam_user_jam_id_fkey FOREIGN KEY (jam_id) REFERENCES public.jam(jam_id);
+
+
+--
+-- TOC entry 3513 (class 2606 OID 16527)
+-- Name: jam_user jam_user_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jam_user
+    ADD CONSTRAINT jam_user_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id);
+
+
+--
+-- TOC entry 3510 (class 2606 OID 16413)
+-- Name: problem problem_planid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.problem
+    ADD CONSTRAINT problem_planid_fkey FOREIGN KEY (plan_id) REFERENCES public.plan(plan_id);
+
+
+--
+-- TOC entry 3516 (class 2606 OID 16580)
+-- Name: session session_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.session
+    ADD CONSTRAINT "session_userId_fkey" FOREIGN KEY ("userId") REFERENCES public."user"(id);
+
+
+-- Completed on 2025-10-25 17:10:36 EDT
+
+--
+-- PostgreSQL database dump complete
+--
+

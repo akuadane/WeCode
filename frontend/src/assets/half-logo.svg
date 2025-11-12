@@ -1,0 +1,9 @@
+<svg width="220" height="60" viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- People-like shapes -->
+  <circle cx="46" cy="20" r="35" fill="#4CAF50"/>
+  <circle cx="140" cy="20" r="35" fill="#2196F3"/>
+  
+  <!-- Arcs to suggest collaboration -->
+<path d="M11 80 Q46 120, 81 80" stroke="#4CAF50" stroke-width="4" fill="none"/>
+<path d="M105 80 Q140 120, 175 80" stroke="#2196F3" stroke-width="4" fill="none"/>
+</svg>

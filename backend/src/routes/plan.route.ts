@@ -25,8 +25,7 @@ router.get('/', (_req: Request, res: Response) => {
 });
 
 router.get('/all', async (req: Request, res: Response)=>{
-    const client = await pool.connect();
-    client.query('SELECT * FROM plan',(err: any,result: any)=>{
+    pool.query('SELECT * FROM plan',(err: any,result: any)=>{
         if(err){
             res.status(500).json({error: err.message});
         }else{
@@ -38,12 +37,11 @@ router.get('/all', async (req: Request, res: Response)=>{
 
 router.get('/:id', async (req: Request, res: Response)=>{
     const {id} = req.params;
-    const client = await pool.connect();
-    client.query('SELECT * FROM plan where plan_id = $1',[id],(err: any,result: any)=>{
+    pool.query('SELECT * FROM plan where plan_id = $1',[id],(err: any,result: any)=>{
         if(err){
             res.status(500).json({error: err.message});
         }else{
-            client.query(`SELECT * 
+                pool.query(`SELECT * 
                         FROM problem 
                         WHERE plan_id = $1
                         ORDER BY topic_order`,
