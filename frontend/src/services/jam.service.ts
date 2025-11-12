@@ -14,8 +14,8 @@ const jamService = {
         return response.data;
     },
 
-    getOngoingJams: async () => {
-        const response = await axios.get(`${apiUrl}/jam/ongoing`);
+    getOngoingJams: async (user_id: string) => {
+        const response = await axios.get(`${apiUrl}/jam/ongoing`,{params: {user_id}});
         return response.data as JamSnippet[];
     },
 

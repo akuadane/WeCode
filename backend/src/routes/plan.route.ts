@@ -13,7 +13,6 @@ router.get('/', (_req: Request, res: Response) => {
 router.get('/all', async (req: Request, res: Response)=>{
     try {
         const plans = await StudyPlan.find();
-        console.log(plans);
         res.status(200).json(plans);
     } catch (err: any) {
         res.status(500).json({ error: err.message });

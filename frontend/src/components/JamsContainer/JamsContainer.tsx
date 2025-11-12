@@ -4,6 +4,7 @@ import type { JamSnippet } from "../../types/jam.types";
 import Jam from "../Jam/Jam";
 
 import {Card, CardBody, CardHeader} from "@heroui/react";
+import { GlobalConstants } from "../../assets/GlobalConstants";
 
 
 
@@ -12,24 +13,23 @@ function JamsContainer() {
 
    useEffect(() => {
     const fetchJams = async () => {
-        const data = await jamService.getOngoingJams();
+        const data = await jamService.getOngoingJams(GlobalConstants.USER_ID);
         setJams(data as any);
     }
     fetchJams();
 }, []);
 
-    console.log("jams", jams);
-
     return (
         <Card className="shadow-none">
             <CardHeader className="text-xl font-bold"> Ongoing Jams</CardHeader>
-      <CardBody>
-      {jams.map((jam) => (
-                <Jam key={jam._id.toString()} {...jam} />
-            ))}
-      </CardBody>
-    </Card>
-       
+            <CardBody>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {jams.map((jam) => (
+                        <Jam key={jam._id.toString()} {...jam} />
+                    ))}
+                </div>
+            </CardBody>
+        </Card>
     )
 }
 
