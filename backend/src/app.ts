@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import {planRouter} from './routes/plan.route';
 import {jamRouter} from './routes/jam.route';
+import {dashboardRouter} from './routes/dashboard.route';
 
 const app = express();
 const PORT = 3000;
@@ -17,6 +18,7 @@ app.use(cors({
 app.use(express.json());
 app.use('/plan', planRouter);
 app.use('/jam', jamRouter);
+app.use('/dashboard', dashboardRouter);
 
 export default app;
 
