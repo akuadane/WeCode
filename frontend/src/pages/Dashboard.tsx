@@ -2,25 +2,30 @@ import {BarChart, Bar, Rectangle, Radar, RadarChart, PolarGrid, PolarAngleAxis, 
 import { TagCloud } from 'react-tagcloud';
 import { useState, useEffect } from 'react';
 import dashboardService from '../services/dashboard.service';
-import type { RadarChartDataItem, LineChartDataItem, TagCloudDataItem } from '../types/dashboard.types';
+import type { RadarChartDataItem, LineChartDataItem, TagCloudDataItem, BarChartDataItem } from '../types/dashboard.types';
 import { GlobalConstants } from '../assets/GlobalConstants';
 
 const DashboardPage = () => {
   const [radarChartData, setRadarChartData] = useState<RadarChartDataItem[]>([]);
   const [lineChartData, setLineChartData] = useState<LineChartDataItem[]>([]);
+  const [barChartData, setBarChartData] = useState<BarChartDataItem[]>([]);
   const [tagCloudData, setTagCloudData] = useState<TagCloudDataItem[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [radarData, lineData, tagData] = await Promise.all([
+        const [radarData, lineData, tagData, barData] = await Promise.all([
           dashboardService.getRadarChartData(GlobalConstants.USER_ID),
-          dashboardService.getLineChartData(),
-          dashboardService.getTagCloudData(GlobalConstants.USER_ID)
+          dashboardService.getLineChartData(GlobalConstants.USER_ID),
+          dashboardService.getTagCloudData(GlobalConstants.USER_ID),
+          dashboardService.getBarChartData(GlobalConstants.USER_ID)
         ]);
+        
         setRadarChartData(radarData);
         setLineChartData(lineData);
         setTagCloudData(tagData);
+        setBarChartData(barData);
+        
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       }
@@ -54,7 +59,7 @@ const DashboardPage = () => {
     <LineChart
       style={{ width: '100%', maxWidth: '700px', height: '100%', maxHeight: '70vh', aspectRatio: 1.618 }}
       responsive
-      data={lineChartData}
+      data = {lineChartData}
       margin={{
         top: 5,
         right: 0,
@@ -67,8 +72,8 @@ const DashboardPage = () => {
       <YAxis width="auto" />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-      <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+      <Line type="monotone" dataKey="solved" stroke="#8884d8" activeDot={{ r: 8 }} />
+
     </LineChart>
    
     </div>
@@ -84,7 +89,7 @@ const DashboardPage = () => {
 <BarChart
       style={{ width: '100%', maxWidth: '700px', maxHeight: '70vh', aspectRatio: 1.618 }}
       responsive
-      data={lineChartData}
+      data={barChartData}
       margin={{
         top: 5,
         right: 0,
@@ -97,8 +102,7 @@ const DashboardPage = () => {
       <YAxis width="auto" />
       <Tooltip />
       <Legend />
-      <Bar dataKey="pv" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-      <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+      <Bar dataKey="value" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
     </BarChart>
     </div>
    

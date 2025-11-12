@@ -6,9 +6,7 @@ interface RadarChartDataItem {
 
 interface LineChartDataItem {
     name: string;
-    uv: number;
-    pv: number;
-    amt: number;
+    solved: number;
 }
 
 interface TagCloudDataItem {
@@ -16,4 +14,9 @@ interface TagCloudDataItem {
     count: number;
 }
 
-export type { RadarChartDataItem, LineChartDataItem, TagCloudDataItem };
+interface BarChartDataItem {
+    name: string;
+    value: number;
+}
+
+export type { RadarChartDataItem, LineChartDataItem, TagCloudDataItem, BarChartDataItem };

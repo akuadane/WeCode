@@ -97,52 +97,6 @@ function getSkillsFromTags(tags: string[]): string[] {
   return skills;
 }
 
-// Dummy data for line and bar charts
-const lineChartData = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
-
 // Dummy data for tag cloud
 const tagCloudData = [
   { value: 'JavaScript', count: 25 },
@@ -213,7 +167,6 @@ router.get('/radarChartData', async (req: Request, res: Response) => {
       });
     });
 
-    console.log(skillCounts);
     // Format response
     const radarChartData = [
       {
@@ -246,7 +199,76 @@ router.get('/radarChartData', async (req: Request, res: Response) => {
 });
 
 router.get('/lineChartData', async (req: Request, res: Response)=>{
+  try {
+    const userId = req.query.user_id as string;
+    if (!userId) {
+      return res.status(400).json({ error: 'user_id query parameter is required' });
+    }
+
+    const db = await getMongoDB();
+    const jamCollection = db.collection('jams');
+
+    // Aggregate problems solved by day for the user
+    const lineChartData = await jamCollection.aggregate([
+      {
+        $unwind: {
+          path: '$sections',
+          preserveNullAndEmptyArrays: false
+        }
+      },
+      {
+        $unwind: {
+          path: '$sections.problems',
+          preserveNullAndEmptyArrays: false
+        }
+      },
+      {
+        $unwind: {
+          path: '$sections.problems.solved_by',
+          preserveNullAndEmptyArrays: false
+        }
+      },
+      {
+        $match: {
+          'sections.problems.solved_by.user_id': {
+            $eq: new ObjectId(userId)
+          }
+        }
+      },
+      {
+        $project: {
+          solved_at: '$sections.problems.solved_by.solved_at',
+          date: {
+            $dateToString: {
+              format: '%Y-%m-%d:%H:%M',
+              date: '$sections.problems.solved_by.solved_at'
+            }
+          }
+        }
+      },
+      {
+        $group: {
+          _id: '$date',
+          solved: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          name: '$_id',
+          solved: 1
+        }
+      },
+      {
+        $sort: { name: 1 }
+      }
+    ]).toArray();
+
     res.json(lineChartData);
+  } catch (error: any) {
+    console.error('Error fetching line chart data:', error);
+    res.status(500).json({ error: error.message });
+  }
 });
 
 router.get('/tagCloudData', async (req: Request, res: Response)=>{
@@ -305,6 +327,115 @@ router.get('/tagCloudData', async (req: Request, res: Response)=>{
 });
 
 router.get('/barChartData', async (req: Request, res: Response)=>{
-    res.json(lineChartData);
+  try {
+    const userId = req.query.user_id as string;
+    if (!userId) {
+      return res.status(400).json({ error: 'user_id query parameter is required' });
+    }
+
+    const db = await getMongoDB();
+    const jamCollection = db.collection('jams');
+    const studyPlanCollection = db.collection('study-plans');
+
+    // Get all tags from study plans (all available tags)
+    const allStudyPlanTags = await studyPlanCollection.aggregate([
+      {
+        $unwind: {
+          path: '$problems',
+          preserveNullAndEmptyArrays: false
+        }
+      },
+      {
+        $unwind: {
+          path: '$problems.problems',
+          preserveNullAndEmptyArrays: false
+        }
+      },
+      {
+        $unwind: {
+          path: '$problems.problems.tags',
+          preserveNullAndEmptyArrays: false
+        }
+      },
+      {
+        $group: {
+          _id: '$problems.problems.tags'
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          tag: '$_id'
+        }
+      }
+    ]).toArray();
+
+    // Get all solved problems with tags from jams for this user
+    const solvedProblemsWithTags = await jamCollection.aggregate([
+      {
+        $unwind: {
+          path: '$sections',
+          preserveNullAndEmptyArrays: false
+        }
+      },
+      {
+        $unwind: {
+          path: '$sections.problems',
+          preserveNullAndEmptyArrays: false
+        }
+      },
+      {
+        $match: {
+          'sections.problems.solved_by.user_id': {
+            $eq: new ObjectId(userId)
+          }
+        }
+      },
+      {
+        $project: {
+          tags: '$sections.problems.tags'
+        }
+      }
+    ]).toArray();
+
+    // Create a map to count solved problems per tag
+    const tagSolvedCount: Record<string, number> = {};
+    
+    // Initialize all tags from study plans with 0
+    allStudyPlanTags.forEach((item: any) => {
+      tagSolvedCount[item.tag] = 0;
+    });
+
+    // Count solved problems per tag
+    solvedProblemsWithTags.forEach((problem: any) => {
+      const tags = problem.tags || [];
+      tags.forEach((tag: string) => {
+        if (tagSolvedCount.hasOwnProperty(tag)) {
+          tagSolvedCount[tag]++;
+        } else {
+          // If tag exists in jams but not in study plans, still count it
+          tagSolvedCount[tag] = 1;
+        }
+      });
+    });
+
+    // Convert to array and sort by count (ascending), then take top 10
+    const barChartData = Object.entries(tagSolvedCount)
+      .map(([tag, count]) => ({
+        tag,
+        count
+      }))
+      .sort((a, b) => a.count - b.count)
+      .slice(0, 5)
+      .map(item => ({
+        name: item.tag,
+        value: item.count
+      }));
+    console.log(barChartData);
+    res.json(barChartData);
+  } catch (error: any) {
+    console.error('Error fetching bar chart data:', error);
+    res.status(500).json({ error: error.message });
+  }
 });
 export {router as dashboardRouter};
