@@ -14,8 +14,8 @@ const dashboardService = {
         return response.data;
     },
 
-    getTagCloudData: async (): Promise<TagCloudDataItem[]> => {
-        const response = await axios.get<TagCloudDataItem[]>(`${apiUrl}/dashboard/tagCloudData`);
+    getTagCloudData: async (user_id: string): Promise<TagCloudDataItem[]> => {
+        const response = await axios.get<TagCloudDataItem[]>(`${apiUrl}/dashboard/tagCloudData`, { params: { user_id } });
         return response.data;
     },
 

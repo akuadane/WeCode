@@ -71,7 +71,7 @@ const SYSTEM_DESIGN_TAGS = [
 function getSkillsFromTags(tags: string[]): string[] {
   const skills: string[] = [];
   const tagSet = new Set(tags.map(t => t.toLowerCase())); 
-  
+  console.log(tagSet);
   // Check for Algorithms
   if (ALGORITHMS_TAGS.some(tag => tagSet.has(tag.toLowerCase()))) {
     skills.push('Algorithms');
@@ -250,6 +250,57 @@ router.get('/lineChartData', async (req: Request, res: Response)=>{
 });
 
 router.get('/tagCloudData', async (req: Request, res: Response)=>{
+  const userId = req.query.user_id as string;
+  if (!userId) {
+    return res.status(400).json({ error: 'user_id query parameter is required and must be a number' });
+  }
+
+  const db = await getMongoDB();
+  const jamCollection = db.collection('jams');
+  const tagCloudData = await jamCollection.aggregate([
+     
+    {
+      $unwind: {
+        path: '$sections',
+        preserveNullAndEmptyArrays: false
+      }
+    },
+    {
+      $unwind: {
+        path: '$sections.problems',
+        preserveNullAndEmptyArrays: false
+      }
+    },
+    {
+      $match: {
+        'sections.problems.solved_by.user_id': {
+          $eq: new ObjectId(userId)
+        }
+      }
+    },
+    {
+      $unwind: {
+        path: '$sections.problems.tags',
+        preserveNullAndEmptyArrays: false
+      }
+    },
+    {
+      $group: {
+        _id: '$sections.problems.tags',
+        count: { $sum: 1 }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        value: '$_id',
+        count: 1
+      }
+    },
+    {
+      $sort: { count: -1 }
+    }
+  ]).toArray();
     res.json(tagCloudData);
 });
 

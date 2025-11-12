@@ -3,6 +3,7 @@ import { TagCloud } from 'react-tagcloud';
 import { useState, useEffect } from 'react';
 import dashboardService from '../services/dashboard.service';
 import type { RadarChartDataItem, LineChartDataItem, TagCloudDataItem } from '../types/dashboard.types';
+import { GlobalConstants } from '../assets/GlobalConstants';
 
 const DashboardPage = () => {
   const [radarChartData, setRadarChartData] = useState<RadarChartDataItem[]>([]);
@@ -13,9 +14,9 @@ const DashboardPage = () => {
     const fetchData = async () => {
       try {
         const [radarData, lineData, tagData] = await Promise.all([
-          dashboardService.getRadarChartData("673210a81f9a3e2d88f0b001"),
+          dashboardService.getRadarChartData(GlobalConstants.USER_ID),
           dashboardService.getLineChartData(),
-          dashboardService.getTagCloudData()
+          dashboardService.getTagCloudData(GlobalConstants.USER_ID)
         ]);
         setRadarChartData(radarData);
         setLineChartData(lineData);
