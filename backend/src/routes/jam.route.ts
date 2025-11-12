@@ -1,21 +1,27 @@
 import {Request, Response } from 'express';
 import { Jam } from '../models/jam';
 import { User } from '../models/user';
-import mongoose from 'mongoose';
+import mongoose, { ObjectId } from 'mongoose';
 
 const express = require('express')
 const router = express.Router()
 
+interface JamUser {
+    user_id: string;
+    name: string;
+}
+
 interface JamSnippet {
     _id: string;
-    plan_id: string;
+    plan_id: string | null;
     name: string;
     prob_goal_per_day: number;
-    start_date: string;
-    end_date: string;
+    start_date: string | null;
+    end_date: string | null;
     status: string;
     live_call: boolean;
     live_call_url: string | null;
+    users?: JamUser[];
 }
 
 router.get('/', (_req: Request, res: Response)=>{
@@ -30,27 +36,48 @@ router.get('/ongoing', async (req: Request, res: Response)=>{
     // TODO: get user_id from the request/ session
     // const user_id = new mongoose.Types.ObjectId('1');
     console.log('Getting ongoing jams');
-    try {
-        const jams = await Jam.find({status: 'active'}).lean();
-        
-        // Transform to JamSnippet format
-        const jamSnippets: JamSnippet[] = jams.map(jam => ({
-            _id: jam._id.toString(),
-            plan_id: jam.plan_id.toString(),
-            name: jam.name,
-            prob_goal_per_day: jam.prob_goal_per_day,
-            start_date: jam.start_date.toISOString(),
-            end_date: jam.end_date.toISOString(),
-            status: jam.status,
-            live_call: jam.live_call || false,
-            live_call_url: jam.live_call_url || null
-        }));
-        
-        res.status(200).json(jamSnippets);
-    } catch (err: any) {
-        console.error('Error getting ongoing jams', err);
-        res.status(500).json({error: err.message});
-    }
+try {
+    // Fetch all active jams
+    const jams = await Jam.find({ status: 'active' }).lean();
+
+    // Fetch all users once (select _id, name, jams)
+    const users = await User.find({}, { _id: 1, name: 1, jams: 1 }).lean();
+
+    // Build a map of jam_id -> users (store as strings)
+    const jamUsersMap: Record<string, JamUser[]> = {};
+    users.forEach(user => {
+        // user.jams is an array of ObjectId references (or populated objects).
+        user.jams?.forEach((jamRef: any) => {
+            // jamRef may be an ObjectId or an object with _id depending on population
+            const jamId = (jamRef?.jam_id ?? jamRef)?.toString?.();
+            if (!jamId) return;
+            if (!jamUsersMap[jamId]) jamUsersMap[jamId] = [];
+            jamUsersMap[jamId].push({
+                user_id: user._id.toString(),
+                name: user.name,
+            });
+        });
+    });
+
+    // Transform to JamSnippet format
+    const jamSnippets: JamSnippet[] = jams.map(jam => ({
+        _id: jam._id.toString(),
+        plan_id: jam.plan_id ? jam.plan_id.toString() : null,
+        name: jam.name,
+        prob_goal_per_day: jam.prob_goal_per_day,
+        start_date: jam.start_date ? jam.start_date.toISOString() : null,
+        end_date: jam.end_date ? jam.end_date.toISOString() : null,
+        status: jam.status,
+        live_call: jam.live_call || false,
+        live_call_url: jam.live_call_url || null,
+        users: jamUsersMap[jam._id.toString()] || [] // attach users here
+    }));
+
+    res.status(200).json(jamSnippets);
+} catch (err: any) {
+    console.error('Error getting ongoing jams', err);
+    res.status(500).json({ error: err.message });
+}
 }); 
  
 

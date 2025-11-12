@@ -44,4 +44,4 @@ const StudyPlanSchema = new Schema<IStudyPlan>({
   problems: [ProblemGroupSchema],
 });
 
-export const StudyPlan = mongoose.model<IStudyPlan>("StudyPlan", StudyPlanSchema);
+export const StudyPlan = mongoose.model<IStudyPlan>("StudyPlan", StudyPlanSchema, "study-plans");

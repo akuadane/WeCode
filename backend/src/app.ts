@@ -3,7 +3,6 @@ import cors from 'cors';
 import {planRouter} from './routes/plan.route';
 import {jamRouter} from './routes/jam.route';
 import {dashboardRouter} from './routes/dashboard.route';
-import mongoose from 'mongoose';
 
 
 const app = express();
