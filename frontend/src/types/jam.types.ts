@@ -10,17 +10,15 @@ export interface CreateJamFromPlanData {
 }
 
 export interface JamSnippet {
-    end_date: string;
-    is_admin: boolean;
-    jam_id: number;
-    live_call: boolean;
-    live_call_url: string | null;
+    _id: string;
+    plan_id: string;
     name: string;
-    plan_id: number;
     prob_goal_per_day: number;
     start_date: string;
-    status: number;
-    users: string[];
+    end_date: string;
+    status: string;
+    live_call: boolean;
+    live_call_url: string | null;
 }
 
 export interface JamUser {
@@ -29,16 +27,18 @@ export interface JamUser {
 }
 
 export interface JamProblemUser {
-    jam_problem_id: number;
-    user_id: number;
+    jam_id: string;
+    problem_slug: string;
+    user_id: string;
 }
 
 export interface Problem {
-    difficulty: number;
+    slug: string;
+    difficulty: string;
     jam_problem_id: number;
     name: string;
     problem_id: number;
-    solved_by: number[];
+    solved_by: { user_id: string, solved_at: string }[];
     tags: string[];
     topic_order: number;
     url: string;
@@ -55,9 +55,5 @@ export interface UserSnippet {
 
 export interface Jam extends JamSnippet {
     sections: Section[];
-    members: UserSnippet[];
-    plan_name: string;
-    plan_id: number;
-    plan_source: string;
-    plan_url: string;
+    plan_id: string;
 } 
