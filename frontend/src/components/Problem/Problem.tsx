@@ -6,14 +6,16 @@ import { useState } from "react";
 
 
 const difficultyMap: { [key: string]: {text: string, color: any} } = {
-    "Easy": { text: "Easy", color: "success" },
-    "Medium": { text: "Medium", color: "warning" },
-    "Hard": { text: "Hard", color: "danger" },
+    "easy": { text: "EASY", color: "success" },
+    "medium": { text: "MEDIUM", color: "warning" },
+    "hard": { text: "HARD", color: "danger" },
 };
 
 
 export default function Problem({ problem, jam_id, reload, hideTags}: { problem: ProblemType, jam_id: string, reload: () => void, hideTags: boolean }) {
     const [solved, setSolved] = useState(problem.solved_by?.length > 0 && problem.solved_by?.some(solved => solved.user_id === GlobalConstants.USER_ID));
+   
+    console.log('problem', problem);
     return (
 
   <div className="flex items-center justify-between p-4 rounded-lg hover:bg-default-100/50">
@@ -54,8 +56,8 @@ export default function Problem({ problem, jam_id, reload, hideTags}: { problem:
                 </div>
             
             <div className="flex items-center gap-4">
-                <Chip  color={difficultyMap[problem.difficulty]?.color || "default"}>
-                    {difficultyMap[problem.difficulty]?.text || "Unknown"}
+                <Chip  color={difficultyMap[problem.difficulty.toLowerCase()]?.color || "default"}>
+                    {difficultyMap[problem.difficulty.toLowerCase()]?.text || "Unknown"}
                 </Chip>
             </div>
         </div>

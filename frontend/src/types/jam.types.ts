@@ -1,11 +1,11 @@
 export interface CreateJamFromPlanData {
     plan_id: number;
-    user_id: number;
+    user_id: string;
     name: string;
     prob_goal_per_day: number;
     start_date: string;
     end_date: string;
-    status: number;
+    status: string;
     live_call: boolean;
 }
 

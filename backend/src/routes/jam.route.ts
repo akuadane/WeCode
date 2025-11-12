@@ -39,9 +39,17 @@ router.get('/ongoing', async (req: Request, res: Response)=>{
 try {
     // Fetch all active jams
     const jams = await Jam.find({ status: 'active' }).lean();
-
+    const user_id = req.query.user_id as string;
+    if (!user_id) {
+        return res.status(400).json({error: 'User ID is required'});
+    }
+    const user = await User.findById(user_id);
+    if (!user) {
+        return res.status(404).json({error: 'User not found'});
+    }
+   
     // Fetch all users once (select _id, name, jams)
-    const users = await User.find({}, { _id: 1, name: 1, jams: 1 }).lean();
+    const users = await User.find({_id: user_id}, { _id: 1, name: 1, jams: 1 }).lean();
 
     // Build a map of jam_id -> users (store as strings)
     const jamUsersMap: Record<string, JamUser[]> = {};
@@ -97,6 +105,9 @@ router.post('/createFromPlan', async (req: Request, res: Response)=>{
             sections: req.body.sections || []
         });
         const savedJam = await newJam.save();
+
+        await User.findByIdAndUpdate(user_id, { $push: { jams: savedJam._id } });
+
         res.status(200).json({message: 'Jam created successfully', jam_id: savedJam._id});
     }catch(err: any){
         res.status(500).json({error: err.message});
