@@ -2,8 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import {planRouter} from './routes/plan.route';
 import {jamRouter} from './routes/jam.route';
-import mongoose from 'mongoose';
-
 
 const app = express();
 
