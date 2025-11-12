@@ -25,7 +25,7 @@ function JamsContainer() {
             <CardHeader className="text-xl font-bold"> Ongoing Jams</CardHeader>
       <CardBody>
       {jams.map((jam) => (
-                <Jam key={jam.jam_id} {...jam} />
+                <Jam key={jam._id.toString()} {...jam} />
             ))}
       </CardBody>
     </Card>

@@ -6,6 +6,18 @@ import mongoose from 'mongoose';
 const express = require('express')
 const router = express.Router()
 
+interface JamSnippet {
+    _id: string;
+    plan_id: string;
+    name: string;
+    prob_goal_per_day: number;
+    start_date: string;
+    end_date: string;
+    status: string;
+    live_call: boolean;
+    live_call_url: string | null;
+}
+
 router.get('/', (_req: Request, res: Response)=>{
     res.json({message: 'Hello World'});
 });
@@ -20,8 +32,23 @@ router.get('/ongoing', async (req: Request, res: Response)=>{
     console.log('Getting ongoing jams');
     try {
         const jams = await Jam.find({status: 'active'}).lean();
-        res.status(200).json(jams);
+        
+        // Transform to JamSnippet format
+        const jamSnippets: JamSnippet[] = jams.map(jam => ({
+            _id: jam._id.toString(),
+            plan_id: jam.plan_id.toString(),
+            name: jam.name,
+            prob_goal_per_day: jam.prob_goal_per_day,
+            start_date: jam.start_date.toISOString(),
+            end_date: jam.end_date.toISOString(),
+            status: jam.status,
+            live_call: jam.live_call || false,
+            live_call_url: jam.live_call_url || null
+        }));
+        
+        res.status(200).json(jamSnippets);
     } catch (err: any) {
+        console.error('Error getting ongoing jams', err);
         res.status(500).json({error: err.message});
     }
 }); 
@@ -77,6 +104,9 @@ router.delete('/removeuser', async (req: Request, res: Response)=>{
 router.patch('/solved', async (req: Request, res: Response)=>{
     console.log('Solving problem');
     const {jam_id, problem_slug, user_id} = req.body;
+    console.log('jam_id', jam_id);
+    console.log('problem_slug', problem_slug);
+    console.log('user_id', user_id);
     try{
         const jam = await Jam.findById(jam_id);
         if (!jam) {
