@@ -1,11 +1,13 @@
-import {Navbar, NavbarBrand, NavbarContent,Avatar, Button, cn} from "@heroui/react";
+import {Navbar, NavbarBrand, NavbarContent, Button} from "@heroui/react";
 import FullLogo from "../../assets/full-logo.svg";
-import { useState } from "react";
-import { signIn } from "../../services/auth-client";
+import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
+// import { signIn } from "../../services/auth-client";
 
 function NavBar() {
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [loading, setLoading] = useState(false);
+    // const [loggedIn, setLoggedIn] = useState(false);
+    // const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     return (
         <Navbar maxWidth="full">
         <NavbarBrand>
@@ -14,7 +16,7 @@ function NavBar() {
           </a>
         </NavbarBrand>
        
-        <NavbarContent justify="end">
+        {/* <NavbarContent justify="end">
          {loggedIn ? (
             <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
          ) : (
@@ -49,6 +51,9 @@ function NavBar() {
           Sign in with Google
         </Button>
          )}
+        </NavbarContent> */}
+        <NavbarContent justify="end">
+          <Button onPress={() => navigate('/dashboard')}>Dashboard</Button>
         </NavbarContent>
       </Navbar>
     )
