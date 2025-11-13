@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { CreateJamFromPlanData, JamSnippet, JamUser, JamProblemUser } from "../types/jam.types";
+import type { CreateJamFromPlanData, JamSnippet, AddJamUserPayload, RemoveJamUserPayload, JamProblemUser } from "../types/jam.types";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -19,12 +19,12 @@ const jamService = {
         return response.data as JamSnippet[];
     },
 
-    addUser: async (data: JamUser) => {
-        const response = await axios.post(`${apiUrl}/jam/adduser`, data);
-        return response.data;
+    addUser: async (data: AddJamUserPayload): Promise<{ message: string }> => {
+        const response = await axios.post(`${apiUrl}/jam/${data.jam_id}/add-user`, { email: data.email });
+        return response.data as {message: string};
     },
 
-    removeUser: async (data: JamUser) => {
+    removeUser: async (data: RemoveJamUserPayload) => {
         const response = await axios.post(`${apiUrl}/jam/removeuser`, data);
         return response.data;
     },

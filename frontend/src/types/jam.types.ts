@@ -19,13 +19,23 @@ export interface JamSnippet {
     status: string;
     live_call: boolean;
     live_call_url: string | null;
+    users: JamUser[];
 }
 
 export interface JamUser {
-    jam_id: number;
-    user_id: number;
+    _id: string;
+    name: string;
+    email: string;
+}
+export interface AddJamUserPayload {
+    jam_id: string;
+    email: string;
 }
 
+export interface RemoveJamUserPayload {
+    jam_id: string;
+    user_id: string;
+}
 export interface JamProblemUser {
     jam_id: string;
     problem_slug: string;

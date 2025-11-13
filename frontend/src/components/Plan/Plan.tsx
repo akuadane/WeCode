@@ -30,6 +30,7 @@ export default function Plan(plan: PlanSnippet) {
     };
 
     const calculateEndDate = (start: string, goal: number) => {
+        console.log('Calculating end date');
         if (!start || !goal || goal <= 0 || totalProblems === 0) return "";
         
         const startDateObj = new Date(start);
