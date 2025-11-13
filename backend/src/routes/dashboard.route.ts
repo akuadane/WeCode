@@ -101,7 +101,13 @@ router.get('/radarChartData', async (req: Request, res: Response) => {
     // Aggregate to find all solved problems for the user
     // sections is an object with topic names as keys, so we need to convert it to array first
     const solvedProblems = await jamCollection.aggregate([
-     
+      {
+        $match: {
+          'sections.problems.solved_by.user_id': {
+            $eq: new ObjectId(userId)
+          }
+        }
+      },
       {
         $unwind: {
           path: '$sections',
@@ -114,13 +120,7 @@ router.get('/radarChartData', async (req: Request, res: Response) => {
           preserveNullAndEmptyArrays: false
         }
       },
-      {
-        $match: {
-          'sections.problems.solved_by.user_id': {
-            $eq: new ObjectId(userId)
-          }
-        }
-      },
+
       {
         $project: {
           tags: '$sections.problems.tags'
