@@ -120,7 +120,13 @@ router.get('/radarChartData', async (req: Request, res: Response) => {
           preserveNullAndEmptyArrays: false
         }
       },
-
+      {
+        $match: {
+          'sections.problems.solved_by.user_id': {
+            $eq: new ObjectId(userId)
+          }
+        }
+      },
       {
         $project: {
           tags: '$sections.problems.tags'
@@ -137,6 +143,7 @@ router.get('/radarChartData', async (req: Request, res: Response) => {
       'System Design': 0
     };
 
+    console.log('solvedProblems', solvedProblems);
     solvedProblems.forEach((problem: any) => {
       const tags = problem.tags || [];
       const skills = getSkillsFromTags(tags);
@@ -214,6 +221,13 @@ router.get('/lineChartData', async (req: Request, res: Response)=>{
         }
       },
       {
+        $match: {
+          'sections.problems.solved_by.user_id': {
+            $eq: new ObjectId(userId)
+          }
+        }
+      },
+      {
         $project: {
           solved_at: '$sections.problems.solved_by.solved_at',
           date: {
@@ -275,6 +289,13 @@ router.get('/tagCloudData', async (req: Request, res: Response)=>{
       $unwind: {
         path: '$sections.problems',
         preserveNullAndEmptyArrays: false
+      }
+    },
+    {
+      $match: {
+        'sections.problems.solved_by.user_id': {
+          $eq: new ObjectId(userId)
+        }
       }
     },
     {
@@ -340,6 +361,13 @@ router.get('/barChartData', async (req: Request, res: Response)=>{
         $unwind: {
           path: '$sections.problems',
           preserveNullAndEmptyArrays: false
+        }
+      },
+      {
+        $match: {
+          'sections.problems.solved_by.user_id': {
+            $eq: new ObjectId(userId)
+          }
         }
       },
       {
