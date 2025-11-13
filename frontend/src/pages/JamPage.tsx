@@ -4,7 +4,6 @@ import jamService from "../services/jam.service";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarGroup, Button, Card, CardBody, Checkbox, Input, Link, Progress } from "@heroui/react";
 import Section from "../components/Section/Section";
-import { UserPlusIcon } from "@heroicons/react/16/solid";
 
 
 function JamPage() {
@@ -74,17 +73,18 @@ function JamPage() {
     }, 0);
 
     return (
-        <div className="container mx-auto p-4">
-            <Card>
+        <div className="container mx-auto p-6 bg-gray-50 min-h-screen">
+            <Card className="border border-gray-200 bg-white dark:bg-gray-800 shadow-md">
+                <div className="h-1 bg-gradient-to-r from-blue-200 to-blue-300 rounded-t-lg"></div>
                 <div className="flex justify-between items-top">
-                    <div className="flex-col gap-4 p-4 w-3/4">
-                        <h2 className="text-2xl font-bold">{jam.name}</h2>
+                    <div className="flex-col gap-4 p-6 w-3/4">
+                        <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-100 mb-2">{jam.name}</h2>
                         
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4 mb-4">
                             <Progress className="flex-1" value={(solvedProblems / totalProblems) * 100} />
-                            <p className="flex-shrink-0 text-sm font-medium text-gray-500 whitespace-nowrap">{solvedProblems} / {totalProblems} solved</p>
+                            <p className="flex-shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400 whitespace-nowrap">{solvedProblems} / {totalProblems} solved</p>
                         </div>
-                        <div className="flex justify-start">
+                        <div className="flex justify-start mb-4">
                             <AvatarGroup>
                                 {jam.users.map((member) => (
                                     <Avatar key={member._id} name={member.name} />
@@ -92,24 +92,24 @@ function JamPage() {
                             </AvatarGroup>
                           
                         </div>
-                        <div className="flex justify-start">
-                                <Checkbox isSelected={hideTags} onValueChange={() => setHideTags(!hideTags)} size="sm" color="primary" className="mr-2"> Hide tags</Checkbox>
-                                <Checkbox isSelected={hideSection} onValueChange={() => setHideSection(!hideSection)} size="sm" color="primary" className="mr-2"> Hide Section</Checkbox>
+                        <div className="flex justify-start gap-4">
+                                <Checkbox isSelected={hideTags} onValueChange={() => setHideTags(!hideTags)} size="sm" color="primary" className="text-gray-700 dark:text-gray-300"> Hide tags</Checkbox>
+                                <Checkbox isSelected={hideSection} onValueChange={() => setHideSection(!hideSection)} size="sm" color="primary" className="text-gray-700 dark:text-gray-300"> Hide Section</Checkbox>
                         </div>
                     </div>
                     <div className="flex flex-col justify-left gap-4 p-6">
                         {LiveJamUrl ? (
-                            <Link color="danger" showAnchorIcon={true} href={LiveJamUrl} target="_blank" rel="noopener noreferrer">
+                            <Link color="danger" showAnchorIcon={true} href={LiveJamUrl} target="_blank" rel="noopener noreferrer" className="text-sm">
                                Live Jam
                             </Link>
                         ) : (
-                            <Button color="primary" variant="flat" size="sm" className="mr-2" onPress={handleCreateLiveJam}>
+                            <Button color="primary" variant="flat" size="sm" className="mr-2 bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50" onPress={handleCreateLiveJam}>
                                 Create Live Jam
                             </Button>
                         )}
 
                         <div className="flex flex-col gap-3 border-t border-gray-200 pt-4">
-                            <h3 className="text-sm font-semibold text-gray-700">Add user to this jam</h3>
+                            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Add user to this jam</h3>
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
                                 <Input
                                     type="email"
@@ -129,6 +129,7 @@ function JamPage() {
                                     onPress={handleAddMember}
                                     isLoading={isAddingMember}
                                     isDisabled={isAddingMember || newMemberEmail.trim().length === 0}
+                                    className="bg-blue-400 hover:bg-blue-500 text-white"
                                 >
                                     Add user
                                 </Button>
@@ -142,7 +143,7 @@ function JamPage() {
                         </div>
                     </div>
                  </div>
-                <CardBody>
+                <CardBody className="pt-4">
                     {jam.sections.map((section, index) => (
                         <Section key={section.topic} section={section} users={jam.users} index={index} jam_id={jam._id} reload={() => setLoading(true)} hideTags={hideTags} hideSection={hideSection} />
                     ))}

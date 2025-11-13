@@ -33,89 +33,121 @@ const DashboardPage = () => {
     fetchData();
   }, []);
   return (
-    <>
-    <div className="flex flex-row items-start justify-between">
-            
-    <div className="flex flex-col items-center justify-start w-full max-w-[500px] h-[70vh]">
-    <h2 className="text-2xl font-bold mb-4">Skills</h2>
-    <RadarChart
-      style={{ width: '100%', height: '100%', maxWidth: '500px', maxHeight: '70vh', aspectRatio: 1 }}
-      responsive
-      outerRadius="80%"
-      data={radarChartData}
-      margin={{
-        top: 20,
-        left: 20,
-        right: 20,
-        bottom: 20,
-      }}
-    >
-      <PolarGrid />
-      <PolarAngleAxis dataKey="subject" />
-      <PolarRadiusAxis />
-      <Radar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-    </RadarChart>
-    </div>
-    <div className="flex flex-col items-center justify-start w-full max-w-[700px] h-[70vh]">
-    <h2 className="text-2xl font-bold mb-4">Recently solved problems</h2>
-    <LineChart
-      style={{ width: '100%', maxWidth: '700px', height: '100%', maxHeight: '70vh', aspectRatio: 1.618 }}
-      responsive
-      data = {lineChartData}
-      margin={{
-        top: 5,
-        right: 0,
-        left: 0,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis width="auto" />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="solved" stroke="#8884d8" activeDot={{ r: 8 }} />
+    <div className="p-6 bg-gray-50 min-h-screen flex flex-col items-center">
+      <div className="grid grid-cols-2 gap-6 w-full max-w-[1400px]">
+        {/* Top Left - Skills */}
+        <div className="flex flex-col items-center justify-start bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Skills</h2>
+          <RadarChart
+            style={{ width: '100%', height: '100%', aspectRatio: 1 }}
+            responsive
+            outerRadius="80%"
+            data={radarChartData}
+            margin={{
+              top: 20,
+              left: 20,
+              right: 20,
+              bottom: 20,
+            }}
+          >
+            <PolarGrid stroke="#e5e7eb" />
+            <PolarAngleAxis dataKey="subject" tick={{ fill: '#6b7280', fontSize: 12 }} />
+            <PolarRadiusAxis tick={{ fill: '#9ca3af', fontSize: 10 }} />
+            <Radar name="Skills" dataKey="A" stroke={GlobalConstants.BLUE} fill={GlobalConstants.BLUE} fillOpacity={0.6} />
+          </RadarChart>
+        </div>
+        
+        {/* Top Right - Recently solved problems */}
+        <div className="flex flex-col items-center justify-start bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Recently solved problems</h2>
+          <LineChart
+            style={{ width: '100%', height: '100%', aspectRatio: 1.618 }}
+            responsive
+            data={lineChartData}
+            margin={{
+              top: 5,
+              right: 20,
+              left: 0,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <XAxis dataKey="name" tick={{ fill: '#6b7280', fontSize: 11 }} />
+            <YAxis width="auto" tick={{ fill: '#6b7280', fontSize: 11 }} />
+            <Tooltip 
+              contentStyle={{ 
+                backgroundColor: 'white', 
+                border: '1px solid #e5e7eb', 
+                borderRadius: '6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+              }} 
+            />
+            <Legend wrapperStyle={{ fontSize: '12px', color: '#6b7280' }} />
+            <Line 
+              type="monotone" 
+              dataKey="solved" 
+              stroke={GlobalConstants.BLUE} 
+              strokeWidth={2}
+              activeDot={{ r: 6, fill: GlobalConstants.BLUE }} 
+            />
+          </LineChart>
+        </div>
 
-    </LineChart>
-    </div>
-   
-    </div>
+        {/* Bottom Left - Solved topics */}
+        <div className="flex flex-col items-center justify-start bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Solved topics</h2>
+          <div className="w-full h-full flex items-center justify-center">
+            <TagCloud
+              className="w-full h-full"
+              minSize={12}
+              maxSize={35}
+              tags={tagCloudData}
+            />
+          </div>
+        </div>
 
-    <div className="flex flex-row items-start justify-between">
-    <div className="flex flex-col items-center justify-start w-full max-w-[700px] h-[85vh]">
-    <h2 className="text-2xl font-bold mb-4">Solved topics</h2>
-    <TagCloud
-    className="w-full h-full"
-    minSize={12}
-    maxSize={35}
-    tags={tagCloudData}
-  />
+        {/* Bottom Right - Least solved topics */}
+        <div className="flex flex-col items-center justify-start bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Least solved topics</h2>
+          <BarChart
+            style={{ width: '100%', height: '100%', aspectRatio: 1.618 }}
+            responsive
+            data={barChartData}
+            margin={{
+              top: 5,
+              right: 20,
+              left: 0,
+              bottom: 50,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <XAxis 
+              dataKey="name" 
+              angle={-45} 
+              textAnchor="end" 
+              height={60} 
+              tick={{ fill: '#6b7280', fontSize: 11 }} 
+            />
+            <YAxis width="auto" tick={{ fill: '#6b7280', fontSize: 11 }} />
+            <Tooltip 
+              contentStyle={{ 
+                backgroundColor: 'white', 
+                border: '1px solid #e5e7eb', 
+                borderRadius: '6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+              }} 
+            />
+            <Legend wrapperStyle={{ fontSize: '12px', color: '#6b7280' }} />
+            <Bar 
+              dataKey="value" 
+              fill={GlobalConstants.GREEN} 
+              radius={[4, 4, 0, 0]}
+              activeBar={<Rectangle fill={GlobalConstants.BLUE} stroke={GlobalConstants.BLUE} strokeWidth={1} />} 
+            />
+          </BarChart>
+        </div>
+      </div>
     </div>
-
-    <div className="flex flex-col items-center justify-start w-full max-w-[700px] h-[85vh]">
-    <h2 className="text-2xl font-bold mb-4">Least solved topics</h2>
-    <BarChart
-      style={{ width: '100%', maxWidth: '700px', maxHeight: '85vh', aspectRatio: 1.618 }}
-      responsive
-      data={barChartData}
-      margin={{
-        top: 5,
-        right: 0,
-        left: 0,
-        bottom: 50,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" angle={-45} textAnchor="end" height={60} />
-      <YAxis width="auto" />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey="value" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-    </BarChart>
-    </div>
-    </div>
-   
-    </>
   );
 };
 

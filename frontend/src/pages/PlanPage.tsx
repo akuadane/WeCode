@@ -127,29 +127,30 @@ function PlanPage() {
     const totalProblems = plan.problems.reduce((acc, group) => acc + group.problems.length, 0);
 
     return (
-        <div className="container mx-auto p-4">
-            <Card>
+        <div className="container mx-auto p-6 bg-gray-50 min-h-screen">
+            <Card className="border border-gray-200 bg-white dark:bg-gray-800 shadow-md">
+                <div className="h-1 bg-gradient-to-r from-green-200 to-green-300 rounded-t-lg"></div>
                 <div className="flex justify-between items-top">
-                    <div className="flex-col gap-4 p-4 w-3/4">
-                        <h2 className="text-2xl font-bold">{plan.name}</h2>
-                        <p className="text-sm text-gray-500">{plan.source}</p>
+                    <div className="flex-col gap-4 p-6 w-3/4">
+                        <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-100 mb-2">{plan.name}</h2>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{plan.source}</p>
                         {plan.source_link && (
-                            <a href={plan.source_link} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-500 hover:underline">
+                            <a href={plan.source_link} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-500 hover:underline mb-4">
                                 View on {plan.source}
                             </a>
                         )}
-                        <div className="flex items-center gap-4 mt-2">
-                            <p className="text-sm font-medium text-gray-500">
+                        <div className="flex items-center gap-4 mt-2 mb-4">
+                            <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
                                 {totalProblems} problems in {plan.problems.length} sections
                             </p>
                         </div>
-                        <div className="flex justify-start mt-2">
+                        <div className="flex justify-start gap-4">
                             <Checkbox 
                                 isSelected={hideTags} 
                                 onValueChange={() => setHideTags(!hideTags)} 
                                 size="sm" 
                                 color="primary" 
-                                className="mr-2"
+                                className="text-gray-700 dark:text-gray-300"
                             >
                                 Hide tags
                             </Checkbox>
@@ -158,7 +159,7 @@ function PlanPage() {
                                 onValueChange={() => setHideSection(!hideSection)} 
                                 size="sm" 
                                 color="primary" 
-                                className="mr-2"
+                                className="text-gray-700 dark:text-gray-300"
                             >
                                 Hide Section
                             </Checkbox>
@@ -170,12 +171,13 @@ function PlanPage() {
                             variant="solid" 
                             size="md" 
                             onPress={() => setIsOpen(true)}
+                            className="bg-green-400 hover:bg-green-500 text-white shadow-sm hover:shadow-md transition-all"
                         >
                             Create Jam from Plan
                         </Button>
                     </div>
                 </div>
-                <CardBody>
+                <CardBody className="pt-4">
                     {plan.problems.map((section, index) => (
                         <PlanSection 
                             key={section._id} 
