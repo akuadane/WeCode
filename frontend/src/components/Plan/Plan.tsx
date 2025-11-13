@@ -123,31 +123,33 @@ export default function Plan(plan: PlanSnippet) {
             <Card 
                 isHoverable 
                 isPressable 
-                className="max-w-[400px] p-2 w-50 border-none bg-background/60 dark:bg-default-100/50 relative"
+                className="max-w-[400px] p-0 w-50 border border-gray-200 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-green-200 relative"
                 onPress={() => navigate(`/plan/${plan.slug}`)}
             >
-                <CardHeader className="flex gap-3">
+                <div className="h-1 bg-gradient-to-r from-green-200 to-green-300 rounded-t-lg"></div>
+                <CardHeader className="flex gap-3 pt-4 pb-2">
                     <div className="flex flex-col flex-1">
-                        <p className="text-md">{plan.name}</p>
+                        <p className="text-lg font-semibold text-gray-800 dark:text-gray-100">{plan.name}</p>
                     </div>
                     <div 
-                        className="absolute top-2 right-2 z-10"
+                        className="absolute top-3 right-3 z-10"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <Button
                             isIconOnly
                             size="sm"
-                            color="primary"
-                            variant="flat"
+                            className="bg-green-400 hover:bg-green-500 text-white shadow-sm hover:shadow-md transition-all"
                             onPress={handleOpen}
                         >
                             +
                         </Button>
                     </div>
                 </CardHeader>
-                <Divider />
-                <CardBody>
-                    <p className="text-sm text-gray-500">{plan.source}</p>
+                <Divider className="bg-gray-200" />
+                <CardBody className="pt-4 pb-4">
+                    <div className="flex items-center gap-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{plan.source}</p>
+                    </div>
                 </CardBody>
             </Card>
 
