@@ -82,7 +82,7 @@ const DashboardPage = () => {
     </div>
 
     <div className="flex flex-row items-start justify-between">
-    <div className="flex flex-col items-center justify-start w-full max-w-[700px] h-[70vh]">
+    <div className="flex flex-col items-center justify-start w-full max-w-[700px] h-[85vh]">
     <h2 className="text-2xl font-bold mb-4">Solved topics</h2>
     <TagCloud
     className="w-full h-full"
@@ -92,21 +92,21 @@ const DashboardPage = () => {
   />
     </div>
 
-    <div className="flex flex-col items-center justify-start w-full max-w-[700px] h-[70vh]">
+    <div className="flex flex-col items-center justify-start w-full max-w-[700px] h-[85vh]">
     <h2 className="text-2xl font-bold mb-4">Least solved topics</h2>
     <BarChart
-      style={{ width: '100%', maxWidth: '700px', maxHeight: '70vh', aspectRatio: 1.618 }}
+      style={{ width: '100%', maxWidth: '700px', maxHeight: '85vh', aspectRatio: 1.618 }}
       responsive
       data={barChartData}
       margin={{
         top: 5,
         right: 0,
         left: 0,
-        bottom: 5,
+        bottom: 50,
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="name" angle={-45} textAnchor="end" height={60} />
       <YAxis width="auto" />
       <Tooltip />
       <Legend />

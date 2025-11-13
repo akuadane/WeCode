@@ -87,17 +87,6 @@ function getSkillsFromTags(tags: string[]): string[] {
   return skills;
 }
 
-// Dummy data for tag cloud
-const tagCloudData = [
-  { value: 'JavaScript', count: 25 },
-  { value: 'React', count: 18 },
-  { value: 'Node.js', count: 15 },
-  { value: 'CSS', count: 10 },
-  { value: 'HTML', count: 10 },
-  { value: 'TypeScript', count: 8 },
-  { value: 'WebAssembly', count: 2 },
-];
-
 router.get('/radarChartData', async (req: Request, res: Response) => {
   try {
     const userId = req.query.user_id as string;
@@ -139,7 +128,6 @@ router.get('/radarChartData', async (req: Request, res: Response) => {
       }
     ]).toArray();
 
-    console.log(solvedProblems);
 
     // Count problems by skill category
     const skillCounts: Record<string, number> = {
@@ -201,6 +189,13 @@ router.get('/lineChartData', async (req: Request, res: Response)=>{
     // Aggregate problems solved by day for the user
     const lineChartData = await jamCollection.aggregate([
       {
+        $match: {
+          'sections.problems.solved_by.user_id': {
+            $eq: new ObjectId(userId)
+          }
+        }
+      },
+      {
         $unwind: {
           path: '$sections',
           preserveNullAndEmptyArrays: false
@@ -216,13 +211,6 @@ router.get('/lineChartData', async (req: Request, res: Response)=>{
         $unwind: {
           path: '$sections.problems.solved_by',
           preserveNullAndEmptyArrays: false
-        }
-      },
-      {
-        $match: {
-          'sections.problems.solved_by.user_id': {
-            $eq: new ObjectId(userId)
-          }
         }
       },
       {
@@ -270,7 +258,13 @@ router.get('/tagCloudData', async (req: Request, res: Response)=>{
   const db = await getMongoDB();
   const jamCollection = db.collection('jams');
   const tagCloudData = await jamCollection.aggregate([
-     
+    {
+      $match: {
+        'sections.problems.solved_by.user_id': {
+          $eq: new ObjectId(userId)
+        }
+      }
+    },
     {
       $unwind: {
         path: '$sections',
@@ -281,13 +275,6 @@ router.get('/tagCloudData', async (req: Request, res: Response)=>{
       $unwind: {
         path: '$sections.problems',
         preserveNullAndEmptyArrays: false
-      }
-    },
-    {
-      $match: {
-        'sections.problems.solved_by.user_id': {
-          $eq: new ObjectId(userId)
-        }
       }
     },
     {
@@ -337,6 +324,13 @@ router.get('/barChartData', async (req: Request, res: Response)=>{
     // Get all solved problems with tags from jams for this user
     const solvedProblemsWithTags = await jamCollection.aggregate([
       {
+        $match: {
+          'sections.problems.solved_by.user_id': {
+            $eq: new ObjectId(userId)
+          }
+        }
+      },
+      {
         $unwind: {
           path: '$sections',
           preserveNullAndEmptyArrays: false
@@ -346,13 +340,6 @@ router.get('/barChartData', async (req: Request, res: Response)=>{
         $unwind: {
           path: '$sections.problems',
           preserveNullAndEmptyArrays: false
-        }
-      },
-      {
-        $match: {
-          'sections.problems.solved_by.user_id': {
-            $eq: new ObjectId(userId)
-          }
         }
       },
       {
