@@ -1,8 +1,9 @@
-import { Checkbox, Chip } from "@heroui/react";
-import type { Problem as ProblemType } from "../../types/jam.types";
+import { Avatar, AvatarGroup, Badge, Checkbox, Chip } from "@heroui/react";
+import type { JamUser, Problem as ProblemType } from "../../types/jam.types";
 import { GlobalConstants } from "../../assets/GlobalConstants";
 import jamService from "../../services/jam.service";
 import { useState } from "react";
+import { CheckCircleIcon } from "@heroicons/react/16/solid";
 
 
 const difficultyMap: { [key: string]: {text: string, color: any} } = {
@@ -12,7 +13,7 @@ const difficultyMap: { [key: string]: {text: string, color: any} } = {
 };
 
 
-export default function Problem({ problem, jam_id, reload, hideTags}: { problem: ProblemType, jam_id: string, reload: () => void, hideTags: boolean }) {
+export default function Problem({ problem, jam_id, reload, hideTags, users}: { problem: ProblemType, jam_id: string, reload: () => void, hideTags: boolean, users: JamUser[] }) {
     const [solved, setSolved] = useState(problem.solved_by?.length > 0 && problem.solved_by?.some(solved => solved.user_id === GlobalConstants.USER_ID));
    
     console.log('problem', problem);
@@ -36,16 +37,16 @@ export default function Problem({ problem, jam_id, reload, hideTags}: { problem:
                     <div className="flex items-center gap-2">
                     <p className="font-semibold">{problem.name}</p>
                     <p className="text-sm text-gray-500">{problem.solved_by?.length>0? '| ': ''}</p>
-                    {/* <AvatarGroup className="flex gap-3 items-center">
-                        {members.map((user: UserSnippet) => (
-                        problem.solved_by?.includes(user.user_id) ? (
-                          <Badge  key={user.user_id}  variant="faded" size="sm" shape="circle" isInvisible={!problem.solved_by?.includes(user.user_id)} showOutline={false} content={<CheckCircleIcon className="w-4 h-4 text-green-500" />}>
-                             <Avatar  size="sm"  key={user.user_id} name={user.name}  />
+                    <AvatarGroup className="flex gap-3 items-center">
+                        {users.map((user: JamUser) => (
+                        problem.solved_by?.some(solved => solved.user_id === user._id) ? (
+                          <Badge  key={user._id}  variant="faded" size="sm" shape="circle" isInvisible={!problem.solved_by?.some(solved => solved.user_id === user._id)} showOutline={false} content={<CheckCircleIcon className="w-4 h-4 text-green-500" />}>
+                             <Avatar  size="sm"  key={user._id} name={user.name}  />
                           </Badge>
                         ) : <></>
                     
                         ))}
-                    </AvatarGroup> */}
+                    </AvatarGroup>
                     </div>
                     {!hideTags && <div className=" gap-2 mt-1">
                         {problem.tags.map(tag => (
