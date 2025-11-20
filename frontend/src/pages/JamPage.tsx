@@ -2,8 +2,9 @@ import { useParams } from "react-router-dom";
 import type { Jam } from "../types/jam.types";
 import jamService from "../services/jam.service";
 import { useEffect, useState } from "react";
-import { Avatar, AvatarGroup, Button, Card, CardBody, Checkbox, Input, Link, Progress } from "@heroui/react";
+import { Avatar, Button, Card, CardBody, Checkbox, Input, Link, Progress } from "@heroui/react";
 import Section from "../components/Section/Section";
+import { GlobalConstants } from "../assets/GlobalConstants";
 
 
 function JamPage() {
@@ -62,6 +63,28 @@ function JamPage() {
             setIsAddingMember(false);
         }
     }
+
+    const handleRemoveMember = async (userId: string) => {
+        console.log('userId', userId);
+        console.log('GlobalConstants.USER_ID', GlobalConstants.USER_ID);
+        if (userId === GlobalConstants.USER_ID as string) {
+            alert("You cannot remove yourself from the jam.");
+            return;
+        }
+        if (!jam?._id) {
+            return;
+        }
+
+        try {
+            await jamService.removeUser({
+                jam_id: jam._id,
+                user_id: userId,
+            });
+            setLoading(true);
+        } catch (error: any) {
+            console.error("Failed to remove user:", error);
+        }
+    }
     
     if (!jam) {
         return <div>Loading...</div>;
@@ -84,13 +107,21 @@ function JamPage() {
                             <Progress className="flex-1" value={(solvedProblems / totalProblems) * 100} />
                             <p className="flex-shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400 whitespace-nowrap">{solvedProblems} / {totalProblems} solved</p>
                         </div>
-                        <div className="flex justify-start mb-4">
-                            <AvatarGroup>
-                                {jam.users.map((member) => (
-                                    <Avatar key={member._id} name={member.name} />
-                                ))}
-                            </AvatarGroup>
-                          
+                        <div className="flex justify-start mb-4 gap-2">
+                            {jam.users.map((member) => (
+                                <div key={member._id} className="relative group">
+                                    <Avatar name={member.name} />
+                                    {member._id !== GlobalConstants.USER_ID as string && (
+                                    <button 
+                                            onClick={() => handleRemoveMember(member._id)}
+                                            className="absolute -top-1 -right-1 bg-red-500 hover:bg-red-600 rounded-full w-5 h-5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-md"
+                                            aria-label="Remove member"
+                                        >
+                                            <span className="text-white text-xs font-bold leading-none">×</span>
+                                        </button>
+                                    )}
+                                </div>
+                            ))}
                         </div>
                         <div className="flex justify-start gap-4">
                                 <Checkbox isSelected={hideTags} onValueChange={() => setHideTags(!hideTags)} size="sm" color="primary" className="text-gray-700 dark:text-gray-300"> Hide tags</Checkbox>

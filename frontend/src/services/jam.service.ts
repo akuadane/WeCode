@@ -24,8 +24,12 @@ const jamService = {
         return response.data as {message: string};
     },
 
-    removeUser: async (data: RemoveJamUserPayload) => {
-        const response = await axios.post(`${apiUrl}/jam/removeuser`, data);
+    removeUser: async (payload: RemoveJamUserPayload) => {
+        const response = await axios({
+            method: 'delete',
+            url: `${apiUrl}/jam/removeuser`,
+            data: payload
+        });
         return response.data;
     },
 

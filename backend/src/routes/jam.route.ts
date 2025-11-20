@@ -169,7 +169,7 @@ router.post('/:jam_id/add-user', async (req: Request, res: Response) => {
 router.delete('/removeuser', async (req: Request, res: Response)=>{
     const {jam_id, user_id} = req.body;
     try{
-        await Jam.findByIdAndUpdate(jam_id, { new: true });
+        await User.findByIdAndUpdate(user_id, { $pull: { jams: { jam_id: new mongoose.Types.ObjectId(jam_id) } } });
         res.status(200).json({message: 'User removed from jam successfully'});
     }catch(err: any){
         res.status(500).json({error: err.message});
