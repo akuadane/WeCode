@@ -177,31 +177,31 @@ router.delete('/removeuser', async (req: Request, res: Response)=>{
 });
 
 router.patch('/solved', async (req: Request, res: Response)=>{
-    console.log('Solving problem');
+    console.log('Solving problem...');
     const {jam_id, problem_slug, user_id} = req.body;
-    console.log('jam_id', jam_id);
-    console.log('problem_slug', problem_slug);
-    console.log('user_id', user_id);
+    
     try{
-        const jam = await Jam.findById(jam_id);
-        if (!jam) {
+        const solvedEntry = {
+            user_id: new mongoose.Types.ObjectId(user_id),
+            solved_at: new Date()
+        };
+
+        const result = await Jam.findByIdAndUpdate(
+            jam_id,
+            { $push: { "sections.$[s].problems.$[p].solved_by": solvedEntry } },
+            {
+                arrayFilters: [
+                    { "s.problems": { $exists: true } },
+                    { "p.slug": problem_slug }
+                ],
+                new: true
+            }
+        );
+
+        if (!result) {
             return res.status(404).json({error: 'Jam not found'});
         }
 
-        // Find the problem in sections and add user to solved_by
-        for (let section of jam.sections) {
-            for (let problem of section.problems) {
-                if (problem.slug === problem_slug) {
-                    const solvedEntry = {
-                        user_id: new mongoose.Types.ObjectId(user_id),
-                        solved_at: new Date()
-                    };
-                    problem.solved_by.push(solvedEntry);
-                }
-            }
-        }
-
-        await jam.save();
         console.log('Problem solved successfully');
         res.status(200).json({message: 'Problem solved successfully'});
     }catch(err: any){   
@@ -212,23 +212,22 @@ router.patch('/solved', async (req: Request, res: Response)=>{
 router.patch('/unsolved', async (req: Request, res: Response)=>{
     const {jam_id, problem_slug, user_id} = req.body;
     try{
-        const jam = await Jam.findById(jam_id);
-        if (!jam) {
+        const result = await Jam.findByIdAndUpdate(
+            jam_id,
+            { $pull: { "sections.$[s].problems.$[p].solved_by": { user_id: new mongoose.Types.ObjectId(user_id) } } },
+            {
+                arrayFilters: [
+                    { "s.problems": { $exists: true } },
+                    { "p.slug": problem_slug }
+                ],
+                new: true
+            }
+        );
+
+        if (!result) {
             return res.status(404).json({error: 'Jam not found'});
         }
 
-        // Find the problem in sections and remove user from solved_by
-        for (let section of jam.sections) {
-            for (let problem of section.problems) {
-                if (problem.slug === problem_slug) {
-                    problem.solved_by = problem.solved_by.filter(
-                        (entry: any) => entry.user_id.toString() !== user_id
-                    );
-                }
-            }
-        }
-
-        await jam.save();
         res.status(200).json({message: 'Problem unsolved successfully'});
     }catch(err: any){
         res.status(500).json({error: err.message});
@@ -245,7 +244,7 @@ router.get('/:jam_id', async (req: Request, res: Response)=>{
         const users = await User.find(
             { jams: { $elemMatch: { jam_id: new mongoose.Types.ObjectId(jam_id) } } },
             { _id: 1, name: 1, email: 1 }
-          );        console.log('Users', users);
+          );
         if (!jam) {
             return res.status(404).json({error: 'Jam not found'});
         }
