@@ -1,5 +1,5 @@
 import {Request, Response } from 'express';
-import { getMongoDB } from '../config/mongodb';
+import mongoose from 'mongoose';
 import { ObjectId } from 'mongodb';
 
 const express = require('express')
@@ -94,9 +94,8 @@ router.get('/radarChartData', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'user_id query parameter is required and must be a number' });
     }
 
-    const db = await getMongoDB();
+    const db = mongoose.connection.db!;
     const jamCollection = db.collection('jams');
-
 
     // Aggregate to find all solved problems for the user
     // sections is an object with topic names as keys, so we need to convert it to array first
@@ -190,7 +189,7 @@ router.get('/lineChartData', async (req: Request, res: Response)=>{
       return res.status(400).json({ error: 'user_id query parameter is required' });
     }
 
-    const db = await getMongoDB();
+    const db = mongoose.connection.db!;
     const jamCollection = db.collection('jams');
 
     // Aggregate problems solved by day for the user
@@ -269,7 +268,7 @@ router.get('/tagCloudData', async (req: Request, res: Response)=>{
     return res.status(400).json({ error: 'user_id query parameter is required and must be a number' });
   }
 
-  const db = await getMongoDB();
+  const db = mongoose.connection.db!;
   const jamCollection = db.collection('jams');
   const tagCloudData = await jamCollection.aggregate([
     {
@@ -331,7 +330,7 @@ router.get('/barChartData', async (req: Request, res: Response)=>{
       return res.status(400).json({ error: 'user_id query parameter is required' });
     }
 
-    const db = await getMongoDB();
+    const db = mongoose.connection.db!;
     const jamCollection = db.collection('jams');
 
     // Get all tags from const arrays above

@@ -177,11 +177,9 @@ router.delete('/removeuser', async (req: Request, res: Response)=>{
 });
 
 router.patch('/solved', async (req: Request, res: Response)=>{
-    console.log('Solving problem');
+    console.log('Solving problem...');
     const {jam_id, problem_slug, user_id} = req.body;
-    console.log('jam_id', jam_id);
-    console.log('problem_slug', problem_slug);
-    console.log('user_id', user_id);
+    
     try{
         const solvedEntry = {
             user_id: new mongoose.Types.ObjectId(user_id),
@@ -246,7 +244,7 @@ router.get('/:jam_id', async (req: Request, res: Response)=>{
         const users = await User.find(
             { jams: { $elemMatch: { jam_id: new mongoose.Types.ObjectId(jam_id) } } },
             { _id: 1, name: 1, email: 1 }
-          );        console.log('Users', users);
+          );
         if (!jam) {
             return res.status(404).json({error: 'Jam not found'});
         }
